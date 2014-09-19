@@ -24,4 +24,14 @@ class Organizer < ActiveRecord::Base
     ).first
   end
 
+  private
+  
+  def validate_name?
+    accepted?
+  end
+
+  def accepted?
+    invitation_token.nil? && invitation_accepted_at.present?
+  end
+
 end

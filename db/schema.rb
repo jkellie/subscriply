@@ -11,25 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140919165342) do
+ActiveRecord::Schema.define(version: 20140919185246) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "organizations", force: true do |t|
-    t.text "subdomain"
-    t.text "name"
-    t.text "logo"
-    t.text "cover_photo"
+    t.text    "subdomain"
+    t.text    "name"
+    t.text    "logo"
+    t.text    "cover_photo"
+    t.integer "account_owner_id"
   end
 
   create_table "organizers", force: true do |t|
-    t.string   "email",                  default: "", null: false
+    t.string   "email",                  default: "",    null: false
     t.string   "encrypted_password",     default: ""
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
@@ -47,6 +48,8 @@ ActiveRecord::Schema.define(version: 20140919165342) do
     t.integer  "organization_id"
     t.string   "last_name"
     t.string   "first_name"
+    t.boolean  "super_admin",            default: false
+    t.text     "avatar"
   end
 
   add_index "organizers", ["email"], name: "index_organizers_on_email", unique: true, using: :btree
