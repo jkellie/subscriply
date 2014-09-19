@@ -1,0 +1,29 @@
+- if @errors.try(:any?)
+  %ul.errors
+    - @errors.each do |e|
+      %li.error= e
+
+= simple_form_for(organization, class: 'form') do |f|
+  .fields
+    %strong Organization information
+    = f.input :name, as: :string, required: false, autofocus: true, placeholder: 'Organization Name', label: false, input_html: {size: '20', class: 'form-control'}
+    = f.input :subdomain, as: :string, required: false, label: false, placeholder: 'Subdomain', input_html: {class: 'form-control'}
+  
+  = f.fields_for :organizers do |organizer|
+    .fields
+      %strong Your Information
+      = organizer.input :first_name, as: :string, required: true, label: false, placeholder: 'First name', input_html: {class: 'form-control'}
+      = organizer.input :last_name, as: :string, required: true, label: false, placeholder: 'Last name', input_html: {class: 'form-control'}
+    
+    .fields
+      %strong Your Login Info
+      = organizer.input :email, as: :string, required: true, label: false, placeholder: 'Your email', input_html: {class: 'form-control'}
+      = organizer.input :password, autocomplete: "off", label: false, placeholder: 'Password', required: true, input_html: {class: 'form-control'}
+      = organizer.input :password_confirmation, label: false, :required => false, placeholder: 'Confirm Password', input_html: {class: 'form-control'}
+
+  .signup
+    = f.submit "Create My Account", class: 'btn btn-success btn-lg'
+
+  %center
+    Already have an account?
+    = link_to 'Sign in here', new_organizer_session_path

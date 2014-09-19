@@ -1,0 +1,20 @@
+defaults: &defaults
+  adapter: postgresql
+  host: localhost
+  encoding: unicode
+  pool: 20
+  user: caseyjenks
+  password:
+  min_messages: WARNING
+
+development:
+  <<: *defaults
+  database: subscriply_development
+
+test:
+  <<: *defaults
+  database: subscriply_test
+
+production:
+  <<: *defaults
+  database: subscriply_production

@@ -1,0 +1,202 @@
+@import "bootstrap"
+@import "font-awesome"
+@import "jquery.ui.datepicker"
+@import "modules/datepicker"
+@import "modules/errors"
+@import "modules/bootstrap-switch.min"
+@import "organization/config"
+@import "organization/mixins"
+@import "organization/elements"
+@import "organization/bootstrap-overrides"
+@import "organization/layout"
+@import "organization/pages/signup"
+@import "organization/pages/signin"
+@import "organization/pages/dashboard"
+@import "organization/pages/user"
+@import "organization/pages/users"
+@import "organization/pages/event"
+@import "organization/pages/wizard"
+@import "organization/pages/account"
+@import "organization/pages/invoice"
+
+
+.strike
+  text-decoration: line-through
+
+.error_notification
+  color: red
+  margin-bottom: 20px
+  font-size: 16px
+
+p
+  color: #666
+h1
+  color: #000
+  text-transform: capitalize
+
+.searching
+  .loader
+    opacity: 1
+    height: 100%
+    width: 100%
+    +transition(.25s)
+
+.loader
+  background: rgba(255,255,255,.8) url('/assets/loading.svg') no-repeat center 50px
+  opacity: 0
+  height: 0
+  position: absolute
+  top: 0
+  left: 0
+  width: 0
+  height: 0
+  z-index: 2
+
+#todos
+  ul
+    list-style-type: none
+    padding-left: 0
+  li.completed
+    text-decoration: line-through
+    opacity: 0.7
+
+#pending_todos
+  li:hover
+    cursor: pointer
+
+.no-margin
+  margin: 0
+
+.clear
+  clear: both
+
+input[type="checkbox"]:focus
+  box-shadow: none
+
+.form-horizontal .has-feedback .form-control-feedback
+  top: 0
+  right: 0
+
+#map_wrap
+  background: #fff
+  padding: 15px
+  box-shadow: 0 0 20px #999
+  border-radius: 2px
+  border: 1px solid #999
+  height: 330px
+  width: 100%
+  margin-top: 25px
+
+#map
+  height: 300px
+  width: 100%
+  img 
+    max-width: none
+
+.navbar-brand
+  padding-top: 0
+
+.time
+  margin-top: 5px
+
+#upcoming_events 
+  table
+    margin-top: -1px
+    border-top: 0
+    thead
+      th
+        border-left: 0
+        border-right: 0
+    td, th
+      padding: 8px
+  .well
+    margin-top: -2px
+    background-color: white
+
+#pending_todos
+  li:hover
+    .nubbin
+      display: inline-block
+  li.ui-sortable-helper
+    .nubbin
+      display: none
+  .nubbin
+    display: none
+    padding: 3px 5px
+    border-top-left-radius: 20px
+    border-bottom-left-radius: 20px
+    background-color: white
+    position: absolute
+    left: -25px
+    font-size: 11px
+    width: 65px
+    box-shadow: -1px 0 1px rgba(0,0,0,0.2)
+    i
+      padding: 3px
+      color: #999
+  a.edit-todo
+    color: #999
+    padding: 0 5px
+
+
+#new_todo, #edit_todo_content, #new_invitation
+  #todo_description
+    font-size: 12px
+    padding: 3px
+    height: 100px
+  #todo_description.error
+    border: 2px solid red
+  label
+    font-size: 11px
+  .assignee
+    height: 25px
+  #new_todo_cancel
+    color: red
+    border: 1px solid red
+
+.new_event, .edit_event
+  .cover-photo
+    width: 100%
+  #cover_photo_progress_bar
+    width: 0%
+    height: 10px
+    background-color: blue
+    margin-top: -5px
+
+#new_settings_manager
+  #settings_manager_avatar, .settings-avatar
+    width: 100px
+
+  .logo
+    width: 200px
+
+  .cover-photo
+    width: 100%
+
+  .panel
+    background-color: #EFEFEF
+    border: 1px solid #DDD
+    border-radius: 0
+    padding: 15px
+  .headline
+    margin-bottom: 0
+
+.expense-items
+  .row
+    margin-bottom: 5px
+  .remove_fields
+    display: block
+    margin-top: 5px
+
+.add-expense-item
+  display: block
+  margin-left: -15px
+  margin-top: 5px
+
+.expense-category-total
+  display: block
+  margin-top: 5px
+
+#invitation_error_description
+  color: red
+  font-weight: bold

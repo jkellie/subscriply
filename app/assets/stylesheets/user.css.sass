@@ -1,0 +1,284 @@
+@import "bootstrap"
+@import "font-awesome"
+@import "jquery.ui.datepicker"
+@import "modules/datepicker"
+@import "modules/errors"
+@import "user/config"
+
+
+html
+  position: relative
+  min-height: 100%
+
+body
+  margin-bottom: 90px
+
+#footer
+
+p
+  color: #666
+h1
+  color: #000
+  text-transform: capitalize
+
+.form-control, .btn
+  border-radius: 0
+
+.no-margin
+  margin: 0
+
+.clear
+  clear: both
+
+input[type="checkbox"]:focus
+  box-shadow: none
+
+#footer
+  position: absolute
+  bottom: 0
+  width: 100%
+  height: 70px
+  background-color: #414653
+  padding: 20px
+  font-size: 13px
+  container
+    padding: 20px
+  p
+    color: #DDD
+  a
+    color: #608ccf
+    padding: 0 5px
+  #link-to-top
+    position: relative
+    top: -15px
+    .fa-caret-up
+      font-size: 50px
+      color: #608ccf
+
+#new_user
+  .tos label
+    padding-left: 10px
+    display: inline
+
+  .input.field_with_errors span.error
+    top: 0
+
+#order_history
+  i.fa-plus, i.fa-minus
+    padding-right: 10px
+  .panel
+    border-radius: 0px
+  .panel-heading
+    background-color: #fff
+    h4
+      font-size: 13px
+      font-weight: bold
+  .purchased-ticket
+    padding: 5px 0
+
+#cart_warning
+  margin-top: -5px
+  margin-bottom: 15px
+  padding: 5px
+
+.session-form
+  margin-top: 20px
+  margin-bottom: 20px
+  padding: 0px 20px 20px 20px
+  border: 1px solid #eee
+  color: #666
+  h3
+    text-align: center
+  .input-group-addon
+    border-radius: 0
+
+input.remember-me, input.print-tickets
+  margin: 0px 10px 0 0
+  box-shadow: none
+
+
+#cart_totals
+  margin: 0px 0 20px 0
+  background-color: $blue
+  color: white
+  padding: 10px 25px 25px 25px
+  
+  td
+    padding: 5px
+  tr.total
+    padding: 20px
+    td
+      font-size: 24px
+  .btn.btn-primary
+    margin-top: 10px
+    background-color: #eee
+    color: #333
+  .credit-card-logos 
+    float: left !important
+    margin-right: 15px
+    padding-top: 15px
+    img
+      width: 40px
+
+.headline
+  margin: 10px 0 25px 0
+  border-bottom: 1px dotted #e4e9f0
+  h2, h3, h4, h5, h6
+    border-bottom: 3px solid $blue
+    display: inline-block
+    margin-bottom: 0
+
+.nav-tabs
+  li a
+    border-radius: 0
+  li.active a, li.active a:hover
+    border-top: 3px solid $blue
+
+
+.whats-nearby .form-inline
+  margin-top: 10px
+  .btn
+    margin-left: 5px
+
+.control-bar
+  border-bottom: 1px solid #DDD
+  color: #666
+  font-size: 13px
+  a
+    color: #777
+
+  .contact-info, .settings-full
+    padding-left: 0
+    padding-right: 0
+
+  .contact-info
+    padding-top: 3px
+    ul
+      padding-left: 0
+      li
+        display: inline-block
+        list-style-type: none
+        padding: 0 10px
+        margin-top: 6px
+
+  .settings-full, .settings-small
+    ul
+      li
+        padding: 10px
+        display: inline
+        list-style-type: none
+        border-left: 1px solid #DDD
+        a
+          padding-top: 0px
+          margin-top: 6px
+          display: inline-block
+      li:last-child
+        border-right: 1px solid #DDD
+
+  .settings-small
+    margin-bottom: 0px
+    margin-top: 10px
+    height: 32px
+    ul
+      padding-left: 0
+      li
+        border-top: 1px solid #DDD
+
+  .settings-full
+    margin-top: 5px
+    margin-bottom: 0
+    ul
+      height: 22px
+
+
+.organization-info
+  .buttons
+    margin: 10px 0px 20px 0px
+    .btn-circle
+      width: 40px
+      height: 40px
+      text-align: center
+      padding: 6px 0
+      font-size: 22px
+      line-height: 26px
+      border-radius: 20px
+      margin: 0px 5px
+
+    .organization.btn
+      border: 1px solid $blue
+      i
+        color: $blue
+
+  .phone
+    color: #666
+    font-size: 24px
+    font-weight: bold
+  .website
+    a
+      color: #666
+      font-size: 18px
+
+.organization-logo
+  margin-top: 20px
+
+.organization-cover-photo
+  width: 100%
+  margin: 20px 0
+
+.filters
+  margin-bottom: 30px
+
+#events
+  border: 1px solid #ccc
+  padding: 30px 30px 30px 30px
+  margin-bottom: 50px
+  border-top: 0
+  .event
+    margin-bottom: 30px
+    h2
+      margin-top: 0
+
+.loader
+  background: rgba(255,255,255,.8) url('/assets/loading.svg') no-repeat center 50px
+  opacity: 0
+  height: 0
+  position: absolute
+  top: 0
+  left: 0
+  width: 0
+  height: 0
+  z-index: 2
+
+.searching
+  .loader
+    opacity: 1
+    height: 100%
+    width: 100%
+    +transition(opacity, .25s)
+.event-show p.bg-info
+  padding: 20px
+.event-show .sub-info
+  small
+    margin-right: 10px
+
+#event-tickets
+  margin-top: 25px
+  i.fa-ticket
+    color: $blue
+  tr
+    td
+      padding: 10px
+      h3
+        margin-top: 0
+    td.quantity
+      input
+        width: 70px
+    td.action
+      text-align: right
+      padding: 20px
+      .credit-card-logos
+        margin-right: 35px
+        img
+          width: 60px
+          margin-top: 4px
+          margin-right: 5px

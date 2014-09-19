@@ -1,0 +1,36 @@
+!!!
+%html
+  %head
+    %title Subscriply
+    = stylesheet_link_tag "#{request.protocol}#{request.host_with_port}/assets/user.css", media: 'all'
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = javascript_include_tag 'https://maps.google.com/maps/api/js?sensor=true'
+    = csrf_meta_tags
+  %body
+    = render 'layouts/user/control_bar' unless params[:preview]
+
+    .container
+      = link_to image_tag(current_organization.logo.url(:thumb), class: 'organization-logo'), root_path unless params[:preview]
+
+    - if content_for?(:organization_cover_photo)
+      = yield(:organization_cover_photo)
+
+    .container
+      = render 'layouts/shared/flash'
+
+      = yield
+
+    - unless params[:preview]
+      #footer
+        .container
+          .row
+            .col-md-12
+              .pull-left
+                %p
+                  2014 &copy; Subscriply. All Rights Reserved
+                  = link_to 'Privacy Policy', '#'
+                  |
+                  = link_to 'Terms of Service', '#'
+              .hidden-xs.pull-right{style: 'height: 20px'}
+                = link_to '#', id: 'link-to-top' do
+                  = icon 'caret-up'

@@ -1,0 +1,9 @@
+- flash.each do |k, v|
+  / set the class ourselves to what bootstrap needs if a 3rd party gem sets specific keys
+  - k = 'success' if k == 'notice'
+  - k = 'danger' if k == 'alert'
+
+  .alert.alert-dismissable{class: "alert-#{k.to_s}"}
+    %button.close{type: 'button', 'data-dismiss' => 'alert', 'aria-hidden' => 'true'}
+      &times;
+    %strong= v

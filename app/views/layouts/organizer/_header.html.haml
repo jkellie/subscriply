@@ -1,0 +1,21 @@
+%nav.navbar.navbar-default{role: 'navigation'}
+  .container-fluid
+    .navbar-header
+      %button.navbar-toggle{'data-target' => '.navbar-collapse', 'data-toggle' => 'collapse', :type => 'button'}
+        %span.sr-only Organization Logo
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      - if current_organization.logo?
+        = link_to image_tag(current_organization.logo.url(:thumb)), organization_dashboard_path, class: 'navbar-brand logo'
+      - else
+        = link_to image_tag('http://placehold.it/200x50'), organization_dashboard_path, class: 'navbar-brand logo'
+    .navbar-collapse.collapse
+      %ul.nav.navbar-nav
+        / %li= link_to 'Link', '#'
+        / %li= link_to 'Link', '#'
+        / %li= link_to 'Link', '#'
+      %ul.nav.navbar-nav.navbar-right
+        %li= link_to 'Language', '#'
+        %li{class: "#{current_nav?('Settings') && 'active'}"}= link_to 'Settings', edit_organization_settings_path
+        %li= link_to 'Logout', destroy_organizer_session_path, method: :delete

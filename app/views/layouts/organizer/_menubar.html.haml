@@ -1,0 +1,11 @@
+.menubar
+  .sidebar-toggler.visible-xs
+    %i.ion-navicon
+  .page-title
+    = image_tag 'sq-icon-xsmall.png'
+    = yield(:menubar)
+  .pull-right
+    %small{:style => "font-weight:400;"}
+      = icon 'globe'
+      language &nbsp;
+      %i.fa.fa-chevron-down

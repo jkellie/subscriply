@@ -1,0 +1,96 @@
+// *************************************
+//
+//   All Datepicker styles
+//
+// *************************************
+
+$base-color: #222
+$color-light: #fff
+$highlight-blue: #3184de
+
+%dp-corner
+  color: darken($highlight-blue, 40%)
+  cursor: pointer
+  +transition(opacity, .5s)
+  &:hover
+    opacity: .5
+
+// -------------------------------------
+//   Basics
+// -------------------------------------
+
+.ui-datepicker
+  display: none
+  background-color: $color-light
+  border: 3px solid $highlight-blue
+  margin-top: rem(-3px)
+  width: 275px
+
+.ui-datepicker-title
+  font-size: 20px
+  font-weight: bold
+
+.ui-datepicker-header
+  @extend %c-center
+  @extend %c-bold
+  background: darken($highlight-blue, 5%)
+  color: $color-light
+  padding: 10px 0
+
+.ui-datepicker-prev, .ui-datepicker-next
+  margin-top: 6px
+  color: #FFF
+  font-weight: bold
+
+.ui-datepicker-prev
+  @extend %l-pullLeft
+  @extend %dp-corner
+  padding-left: 12px
+  margin-left: 8px
+
+.ui-datepicker-next
+  @extend %l-pullRight
+  @extend %dp-corner
+  padding-right: 19px
+  margin-right: 17px
+
+.ui-datepicker-calendar
+  width: 100%
+
+  thead
+    background: darken($highlight-blue, 20%)
+    color: lighten($highlight-blue, 10%)
+    th.ui-datepicker-week-end
+      background: darken($highlight-blue, 20%)
+
+  th,
+  td
+    @extend %c-center
+
+  td a
+    background: darken($color-light, 5%)
+    display: block
+    width: 100%
+    height: 100%
+    padding: rem(5px) 0
+    +transition (background, .5s)
+    &:hover
+      background: darken($color-light, 15%)
+
+  .ui-datepicker-week-end a
+    background: darken($color-light, 15%)
+    &:hover
+      background: darken($color-light, 25%)
+
+  .ui-datepicker-today a
+    background: lighten($highlight-blue, 20%)
+    color: lighten($highlight-blue, 45%)
+    &:hover
+      background: lighten($highlight-blue, 10%)
+
+  .ui-datepicker-current-day a
+    background: $highlight-blue
+    color: $color-light
+    &:hover
+      background: $highlight-blue
+      color: $color-light

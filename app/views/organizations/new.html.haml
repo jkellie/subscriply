@@ -1,0 +1,8 @@
+#signup
+  .bg.clear
+    = image_tag 'logo.png', alt: 'Subscriply', class: 'img-responsive', id: 'logo'
+
+    %h3 Create Your Account Now
+
+    .content
+      = render 'form', organization: @organization

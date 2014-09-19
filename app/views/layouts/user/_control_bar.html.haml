@@ -1,0 +1,58 @@
+.control-bar
+  .container
+    .row
+      .col-md-6.contact-info.text-center
+        %ul
+          %li.hidden-xs
+            StageQue.com
+          %li
+            = link_to 'mailto:info@stageque.com' do
+              = icon 'envelope'
+              email: info@stageque.com
+          %li
+            = icon 'phone'
+            Toll Free: 866-686-6681
+      .col-md-6.settings-full.text-right.visible-lg.visible-md
+        %ul
+          %li
+            = link_to root_path do
+              = icon('home')
+          %li
+            = link_to '#' do
+              = icon 'globe'
+              language
+          - if current_user
+            %li
+              = link_to user_cart_path do
+                = icon 'shopping-cart'
+                cart
+            %li
+              = link_to user_orders_path do
+                = icon 'ticket'
+                my tickets
+          - if current_user
+            %li= link_to 'logout', destroy_user_session_path, method: :delete
+          - else
+            %li= link_to 'login', new_user_session_path
+  .settings-small.visible-xs.visible-sm.hidden-lg.hidden-md.text-center
+    %ul
+      %li
+        = link_to root_path do
+          = icon('home')
+      %li
+        = link_to '#' do
+          = icon 'globe'
+          language
+      - if current_user
+        %li
+          = link_to user_cart_path do
+            = icon 'shopping-cart'
+            cart
+        %li
+          = link_to user_orders_path do
+            = icon 'ticket'
+            my tickets
+      - if current_user
+        %li= link_to 'logout', destroy_user_session_path, method: :delete
+      - else
+        %li= link_to 'login', new_user_session_path

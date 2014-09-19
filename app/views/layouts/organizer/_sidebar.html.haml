@@ -1,0 +1,90 @@
+#sidebar-default.main-sidebar
+  .current-user
+    = link_to organization_dashboard_path, class: 'name' do
+      = image_tag current_organizer.avatar.url(:thumb), class: 'avatar'
+      %span= current_organizer.name
+  .bottom-menu.hidden-sm
+    %ul
+      %li
+        %a{:href => "#"}
+          = icon 'question'
+      %li
+        %a{:href => "#"}
+          = icon 'inbox'
+          %span.flag
+        / %ul.menu
+        /   %li
+        /     %a{:href => "#"} 5 unread messages
+        /   %li
+        /     %a{:href => "#"} 12 tasks completed
+      %li
+        = link_to destroy_organizer_session_path, method: :delete do
+          = icon 'sign-out'
+  .menu-section{:style => "margin-top: 70px;"}
+    %h3 Site Nav
+    %ul
+      %li
+        = link_to organization_dashboard_path do
+          = icon 'globe'
+          %span Dashboard
+      %li
+        %a{"data-toggle" => "sidebar"}
+          = icon 'users'
+          %span Users
+          = icon 'chevron-down'
+        %ul.submenu
+          %li= link_to 'Customers', organization_users_path
+          %li= link_to 'Admins', organization_organizers_path
+      %li
+        %a{"data-toggle" => "sidebar"}
+          = icon 'tags'
+          %span Events
+          = icon 'chevron-down'
+        %ul.submenu
+          %li= link_to 'List all', organization_events_path
+          %li= link_to 'Orders', organization_orders_path
+          %li= link_to 'Tickets', organization_purchased_tickets_path
+
+  .menu-section
+    %h3 Admin
+    %ul
+      - if current_organizer.account_owner?
+        %li
+          %a{"data-toggle" => "sidebar", :href => "users.html"}
+            = icon 'gear'
+            %span Settings
+            = icon 'chevron-down'
+          %ul.submenu
+            %li
+              = link_to 'Application', edit_application_settings_organization_settings_path
+            %li
+              = link_to 'Organization', edit_organization_settings_organization_settings_path
+            %li
+              = link_to 'Merchant', edit_merchant_settings_organization_settings_path
+      %li
+        %a{"data-toggle" => "sidebar", :href => "users.html"}
+          = icon 'bar-chart-o'
+          %span Reports
+          = icon 'chevron-down'
+        %ul.submenu
+          %li= link_to 'Activity', activity_organization_reports_path
+
+  .menu-section
+    %h3 General
+    %ul
+      %li
+        %a{"data-toggle" => "sidebar", :href => "account.html"}
+          = icon 'user'
+          %span My account
+          = icon 'chevron-down'
+        %ul.submenu
+          %li
+            = link_to 'Profile', edit_organizer_registration_path
+          / %li
+          /   %a{:href => "account-notifications.html"} Notifications
+          %li
+            %a{:href => "account-support.html"} Support
+      / %li
+      /   %a{:href => "account.html"}
+      /     = icon 'flask'
+      /     %span API Documentation

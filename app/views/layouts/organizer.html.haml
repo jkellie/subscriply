@@ -1,0 +1,129 @@
+!!!
+%html
+  %head
+    %title Subscriply
+    = stylesheet_link_tag    'organizer', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'https://maps.google.com/maps/api/js?sensor=true'
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  %body{id: yield(:body_id)}
+    #wrapper
+      = render 'layouts/organizer/sidebar'
+      
+      #content
+        = render 'layouts/organizer/menubar' if content_for?(:menubar)
+        = render 'layouts/shared/flash'
+        .content-wrapper
+          = yield
+
+    :javascript
+      // TODO: Move into organizer.js
+      
+      var Sidebar = {
+        initialize: function () {
+          var $sidebar_menu = $(".main-sidebar");
+          
+          // my account dropdown menu
+          var $account_menu = $sidebar_menu.find(".current-user .menu");
+          $(".current-user .name").click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            $account_menu.toggleClass("active");
+          });
+
+          $account_menu.click(function (e) { e.stopPropagation() });
+          $("body").click(function () { $account_menu.removeClass("active") });
+
+          // sidebar menu dropdown levels
+          var $dropdown_triggers = $sidebar_menu.find("[data-toggle~='sidebar']");
+
+          $dropdown_triggers.click(function (e) {
+            e.preventDefault();
+
+            if (!utils.isTablet()) {
+              // reset other dropdown menus
+              if (!$(this).closest(".submenu").length) {
+                $dropdown_triggers.not(this).removeClass("toggled").siblings(".submenu").slideUp(300, check_height);
+              }
+
+              var $trigger = $(this);
+              var $dropdown = $(this).siblings(".submenu");
+
+              $trigger.toggleClass("toggled");
+              
+              if ($trigger.hasClass("toggled")) {
+                $dropdown.slideDown(300, check_height);
+              } else {
+                $dropdown.slideUp(300, check_height);
+              }
+            }
+          });
+
+
+          // setup active dropdown menu option
+          var path_name = window.location.pathname;
+          // reset all links states
+          $sidebar_menu.find(".menu-section a").removeClass("active");
+
+          var $active_link = $sidebar_menu.find("a[href='" + path_name + "']");
+          if ($active_link.length) {
+            $active_link.addClass("active");
+
+            // it's a link from a submenu
+            if ($active_link.parents(".submenu").length) {
+              var $parent = $active_link.closest(".option").find("[data-toggle~='sidebar']");
+              $parent.addClass("active toggled");
+              $active_link.parents(".submenu").addClass("active");
+            }
+          } else {
+            $sidebar_menu.find(".menu-section .option > a:eq(0)").addClass("active");
+          }
+
+
+          // fix sidebar height depending on browser dimensions
+          var check_height = function () {
+            var height = $("body").height();
+            $(".main-sidebar").css("bottom", "auto");
+            var sidebar_height = $(".main-sidebar").height();
+
+            if (height > sidebar_height) {
+              $(".main-sidebar").css("bottom", 0);
+            } else {
+              $(".main-sidebar").css("bottom", "auto");
+            }
+          };
+
+
+          // mobile sidebar toggler
+          var $mobile_toggler = $("#content .sidebar-toggler");
+          $mobile_toggler.click(function (e) {
+            e.stopPropagation();
+            $("body").toggleClass("open-sidebar");
+          });
+
+          $("#content").click(function () {
+            $("body").removeClass("open-sidebar");
+          })
+        }
+      };
+
+      var ready = function() {
+        Sidebar.initialize();
+      }
+
+      window.utils = {
+        isFirefox: function () {
+          return navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+        },
+        animation_ends: function () {
+          return "animationend webkitAnimationEnd oAnimationEnd";
+        },
+        isTablet: function () {
+          return ($(".main-sidebar").width() < 100);
+        },
+        get_timestamp: function (less_days) {
+            return moment().subtract('days', less_days).toDate().getTime();
+          }
+      };
+
+      $(document).on("ready page:load", ready);
