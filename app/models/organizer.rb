@@ -24,6 +24,10 @@ class Organizer < ActiveRecord::Base
     ).first
   end
 
+  def account_owner?
+    organization.account_owner == self
+  end
+
   private
   
   def validate_name?

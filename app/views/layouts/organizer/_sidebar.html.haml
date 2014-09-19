@@ -33,17 +33,17 @@
           %span Users
           = icon 'chevron-down'
         %ul.submenu
-          %li= link_to 'Customers', organization_users_path
-          %li= link_to 'Admins', organization_organizers_path
+          %li= link_to 'Customers', '#'
+          %li= link_to 'Admins', '#'
       %li
         %a{"data-toggle" => "sidebar"}
           = icon 'tags'
           %span Events
           = icon 'chevron-down'
         %ul.submenu
-          %li= link_to 'List all', organization_events_path
-          %li= link_to 'Orders', organization_orders_path
-          %li= link_to 'Tickets', organization_purchased_tickets_path
+          %li= link_to 'List all', '#'
+          %li= link_to 'Orders', '#'
+          %li= link_to 'Tickets', '#'
 
   .menu-section
     %h3 Admin
@@ -56,18 +56,18 @@
             = icon 'chevron-down'
           %ul.submenu
             %li
-              = link_to 'Application', edit_application_settings_organization_settings_path
+              = link_to 'Application', '#'
             %li
-              = link_to 'Organization', edit_organization_settings_organization_settings_path
+              = link_to 'Organization', '#'
             %li
-              = link_to 'Merchant', edit_merchant_settings_organization_settings_path
+              = link_to 'Merchant', '#'
       %li
         %a{"data-toggle" => "sidebar", :href => "users.html"}
           = icon 'bar-chart-o'
           %span Reports
           = icon 'chevron-down'
         %ul.submenu
-          %li= link_to 'Activity', activity_organization_reports_path
+          %li= link_to 'Activity', '#'
 
   .menu-section
     %h3 General
@@ -79,7 +79,7 @@
           = icon 'chevron-down'
         %ul.submenu
           %li
-            = link_to 'Profile', edit_organizer_registration_path
+            = link_to 'Profile', '#'
           / %li
           /   %a{:href => "account-notifications.html"} Notifications
           %li

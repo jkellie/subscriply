@@ -1,0 +1,27 @@
+#signin
+  .bg.clear
+    = image_tag 'logo.png', alt: 'Subscriply', class: 'img-responsive', id: 'logo'
+
+    %h3 Welcome Back!
+
+    .content
+      = simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), class: 'form') do |f|
+        .fields
+          %strong Email address
+          = f.input :email, as: :string, required: true, autofocus: true, label: false, placeholder: 'Your email', input_html: {size: '20', class: 'form-control'}
+        .fields
+          %strong Password
+          = f.input :password, required: true, label: false, placeholder: 'Password', input_html: {class: 'form-control'}
+        .info
+          = f.input :remember_me, as: :boolean, label: 'Remember me', inline_label: true if devise_mapping.rememberable?
+        .actions
+          = f.submit "Sign in to your account", class: 'btn btn-primary btn-lg'
+
+        %center
+          Don't have an account?
+          = link_to 'Sign up here', new_organization_path
+
+        %br
+        
+        %center
+          = link_to "Forgot your password?", new_password_path(resource_name)

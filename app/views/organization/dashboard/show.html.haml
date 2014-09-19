@@ -1,0 +1,15 @@
+= content_for(:menubar) do
+  Dashboard
+  
+#dashboard
+  .row
+    
+
+:javascript
+  dashboard_ready = function(){
+    Dashboard.init();
+  }
+
+  $(document).ready(dashboard_ready);
+  $(document).on('page:load', dashboard_ready);
+

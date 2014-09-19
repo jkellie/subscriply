@@ -1,0 +1,20 @@
+#signin
+  .bg.clear
+    = image_tag 'logo.png', alt: 'Subscriply', class: 'img-responsive', id: 'logo'
+
+    %h3 Forgot your Password?
+    %p.text-center
+      Oh wait, 
+      = link_to 'I just remembered it', new_organizer_session_path
+    
+    .content
+      = simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put, class: 'form' }) do |f|
+        = f.error_notification
+        = f.input :reset_password_token, :as => :hidden
+        = f.full_error :reset_password_token
+        .form-group
+          = f.input :password, :label => "New password", :required => true, :autofocus => true, input_html: {class: 'form-control'}
+        .form-group
+          = f.input :password_confirmation, :label => "Confirm your new password", :required => true, input_html: {class: 'form-control'}
+        .form-group
+          = f.submit "Change my password", class: 'btn btn-primary btn-lg'
