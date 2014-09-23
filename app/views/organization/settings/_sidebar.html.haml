@@ -1,0 +1,24 @@
+#sidebar
+  .sidebar-toggler.visible-xs
+    %i.ion-navicon
+  %h3{style: 'text-align: left; padding: 20px 28px'}
+    = image_tag 'subscriply_icon.png', style: 'margin-right: 8px'
+    Settings
+  %ul.menu
+    %li
+      = link_to edit_organization_settings_organization_settings_path, class: "#{step == 'organization' && 'active'}" do
+        = icon 'users fa-lg'
+        Organization
+    %li
+      = link_to '#', class: "#{step == 'application' && 'active'}" do
+        = icon 'list fa-lg'
+        Application
+    
+    %li
+      = link_to '#', class: "#{step == 'merchant' && 'active'}" do
+        = icon 'credit-card fa-lg'
+        Products
+    %li
+      = link_to '#' do
+        = icon 'th fa-lg'
+        Plans

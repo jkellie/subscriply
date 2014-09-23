@@ -7,7 +7,12 @@ Rails.application.routes.draw do
   namespace :organization do
     root 'dashboard#show'
     resource :dashboard, controller: 'dashboard', only: [:show]
+    resources :locations
 
+    resource :settings do
+      get :edit_organization_settings
+      put :update_organization_settings
+    end
   end
   
 end

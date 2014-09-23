@@ -1,0 +1,28 @@
+#add_location.modal.fade{:role => "dialog", :tabindex => "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        .modal-header
+          %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} &times;
+          %h4#myModalLabel.modal-title
+            Add location
+        .modal-body
+          .error_notification.hidden
+          .form-group
+            %label.control-label Location Name
+            %input#location_name.form-control{:placeholder => "Location Name", :style => "margin-bottom: 30px", :type => "text"}
+            %p
+              %strong Address
+            %input#location_street_address.form-control{:placeholder => "Number &amp; Street Name", :style => "margin-bottom: 10px", :type => "text"}
+            %input#location_street_address_2.form-control{:placeholder => "Apt / Suite", :style => "margin-bottom: 10px", :type => "text"}
+            %input#location_city.form-control{:placeholder => "City", :style => "margin-bottom: 10px", :type => "text"}
+            .row
+              .col-sm-4
+                %input#location_state.form-control{:placeholder => "State", :type => "text"}
+              .col-sm-8
+                %input#location_zip.form-control{:placeholder => "Zip Code", :type => "text"}
+            %br/
+            %br/
+            %center
+              %input.btn.btn-default{"data-dismiss" => "modal", :style => "margin-right: 10px", :type => "submit", :value => "Cancel"}/
+              %input#add_location_button.btn.btn-primary{:style => "margin-left: 10px", :type => "submit", :value => "Submit"}

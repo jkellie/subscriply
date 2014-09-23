@@ -11,10 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140919185246) do
+ActiveRecord::Schema.define(version: 20140923172404) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
+
+  create_table "locations", force: true do |t|
+    t.integer "organization_id"
+    t.string  "name"
+    t.string  "street_address"
+    t.string  "street_address_2"
+    t.string  "city"
+    t.string  "state"
+    t.string  "zip"
+  end
 
   create_table "organizations", force: true do |t|
     t.text    "subdomain"
@@ -22,6 +33,7 @@ ActiveRecord::Schema.define(version: 20140919185246) do
     t.text    "logo"
     t.text    "cover_photo"
     t.integer "account_owner_id"
+    t.hstore  "settings"
   end
 
   create_table "organizers", force: true do |t|

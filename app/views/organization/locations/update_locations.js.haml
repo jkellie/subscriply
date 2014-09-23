@@ -1,0 +1,3 @@
+$('#locations').html("#{escape_javascript(render partial: 'organization/settings/locations', locals: {locations: current_organization.locations})}");
+$('#add_location').modal('hide')
+$('#edit_location').modal('hide')

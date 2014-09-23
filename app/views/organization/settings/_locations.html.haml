@@ -1,0 +1,27 @@
+.row
+  .col-sm-12
+    %strong Organization Location(s)*
+    %table.table.table-striped
+      %thead
+        %tr
+          %th Name
+          %th City
+          %th State
+          %th
+      %tbody
+        - locations.each do |location|
+          %tr
+            %td
+              %a{"data-target" => "#edit-location", "data-toggle" => "modal", :href => "#"}
+              #{location.name}
+            %td #{location.city}
+            %td #{location.state}
+            %td
+              = link_to '#', class: 'delete-location', 'data-location-id' => location.id do
+                = icon 'trash-o'
+    %a{"data-target" => "#add_location", "data-toggle" => "modal", :href => "#"}
+      %i.fa.fa-plus-circle>
+      &nbsp; add location
+
+%br
+%br
