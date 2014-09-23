@@ -6,15 +6,15 @@ OrganizationSettings =
     @_initDeleteLocation()
 
   _initLogo: ->
-    $(document).on "change", "#organization_logo", ->
+    $(document).on 'change', '#organization_logo', ->
       if @files and @files[0]
         reader = new FileReader()
         reader.onprogress = (e) ->
           width = Math.round((e.loaded / e.total) * 100)
-          $("#organization_logo_progress_bar").css "width", width + "%"
+          $('#organization_logo_progress_bar').css 'width', width + '%'
 
         reader.onload = (e) ->
-          $("#organization-logo").attr "src", e.target.result
+          $('#organization-logo').attr 'src', e.target.result
 
         reader.readAsDataURL @files[0]
 
