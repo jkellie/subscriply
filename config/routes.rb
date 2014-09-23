@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   namespace :organization do
     root 'dashboard#show'
     resource :dashboard, controller: 'dashboard', only: [:show]
+
   end
   
 end

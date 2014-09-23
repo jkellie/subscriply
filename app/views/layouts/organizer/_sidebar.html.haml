@@ -6,85 +6,15 @@
   .bottom-menu.hidden-sm
     %ul
       %li
-        %a{:href => "#"}
+        %a{:href => '#'}
           = icon 'question'
       %li
-        %a{:href => "#"}
+        %a{:href => '#'}
           = icon 'inbox'
           %span.flag
-        / %ul.menu
-        /   %li
-        /     %a{:href => "#"} 5 unread messages
-        /   %li
-        /     %a{:href => "#"} 12 tasks completed
       %li
         = link_to destroy_organizer_session_path, method: :delete do
           = icon 'sign-out'
-  .menu-section{:style => "margin-top: 70px;"}
-    %h3 Site Nav
-    %ul
-      %li
-        = link_to organization_dashboard_path do
-          = icon 'globe'
-          %span Dashboard
-      %li
-        %a{"data-toggle" => "sidebar"}
-          = icon 'users'
-          %span Users
-          = icon 'chevron-down'
-        %ul.submenu
-          %li= link_to 'Customers', '#'
-          %li= link_to 'Admins', '#'
-      %li
-        %a{"data-toggle" => "sidebar"}
-          = icon 'tags'
-          %span Events
-          = icon 'chevron-down'
-        %ul.submenu
-          %li= link_to 'List all', '#'
-          %li= link_to 'Orders', '#'
-          %li= link_to 'Tickets', '#'
 
-  .menu-section
-    %h3 Admin
-    %ul
-      - if current_organizer.account_owner?
-        %li
-          %a{"data-toggle" => "sidebar", :href => "users.html"}
-            = icon 'gear'
-            %span Settings
-            = icon 'chevron-down'
-          %ul.submenu
-            %li
-              = link_to 'Application', '#'
-            %li
-              = link_to 'Organization', '#'
-            %li
-              = link_to 'Merchant', '#'
-      %li
-        %a{"data-toggle" => "sidebar", :href => "users.html"}
-          = icon 'bar-chart-o'
-          %span Reports
-          = icon 'chevron-down'
-        %ul.submenu
-          %li= link_to 'Activity', '#'
-
-  .menu-section
-    %h3 General
-    %ul
-      %li
-        %a{"data-toggle" => "sidebar", :href => "account.html"}
-          = icon 'user'
-          %span My account
-          = icon 'chevron-down'
-        %ul.submenu
-          %li
-            = link_to 'Profile', '#'
-          / %li
-          /   %a{:href => "account-notifications.html"} Notifications
-          %li
-            %a{:href => "account-support.html"} Support
-      / %li
-      /   %a{:href => "account.html"}
-      /     = icon 'flask'
-      /     %span API Documentation
+  = render 'layouts/organizer/sidebar_super_admin'
+  = render 'layouts/organizer/sidebar_admin'

@@ -1,0 +1,33 @@
+- if current_organizer.super_admin? || current_organizer.account_owner?
+  .menu-section{:style => 'margin-top: 70px;'}
+    %h3 Super Admin
+    %ul
+      %li
+        = link_to organization_dashboard_path do
+          = icon 'globe fa-fw'
+          %span Dashboard
+      %li
+        %a{'data-toggle' => 'sidebar', :href => '#'}
+          = icon 'gear fa-fw'
+          %span Settings
+          = icon 'chevron-down'
+        %ul.submenu
+          %li
+            = link_to 'Organization', '#'
+          %li
+            = link_to 'Application', '#'
+          %li
+            = link_to 'Products', '#'
+          %li
+            = link_to 'Plans', '#'
+      %li
+        %a{'data-toggle' => 'sidebar', href: '#'}
+          = icon 'bar-chart-o fa-fw'
+          %span Reports
+          = icon 'chevron-down fa-fw'
+        %ul.submenu
+          %li= link_to 'Placeholder', '#'
+      %li
+        = link_to '#' do
+          = icon 'users fa-fw'
+          %span Admins
