@@ -1,3 +1,6 @@
 $('#locations').html("#{escape_javascript(render partial: 'organization/settings/locations', locals: {locations: current_organization.locations})}");
 $('#add_location').modal('hide')
 $('#edit_location').modal('hide')
+$('#add_location .error_notification').addClass('hidden')
+$('#edit_location .error_notification').addClass('hidden')
+$("#add_location input[type='text'], #edit_location input[type='text']").val('')

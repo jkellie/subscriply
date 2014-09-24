@@ -12,8 +12,7 @@
         - locations.each do |location|
           %tr
             %td
-              %a{"data-target" => "#edit-location", "data-toggle" => "modal", :href => "#"}
-              #{location.name}
+              = link_to location.name, '#', class: 'edit-location', 'data-location-id' => location.id
             %td #{location.city}
             %td #{location.state}
             %td

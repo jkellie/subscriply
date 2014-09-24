@@ -1,5 +1,17 @@
 class Organization::LocationsController < Organization::BaseController
 
+  respond_to :html, :json
+
+  def show
+    location = Location.find params[:id]
+    
+    respond_to do |format|
+      format.json do
+        respond_with location
+      end
+    end
+  end
+
   def create
     location = Location.new(location_params)
 
@@ -22,7 +34,7 @@ class Organization::LocationsController < Organization::BaseController
         format.js { render 'update_locations' }
       else
         format.json do
-          render json: { error: 'Error message' }, status: 422
+          render json: { error: location.errors.full_messages.join(', ') }, status: 422
         end
       end
     end
