@@ -1,0 +1,29 @@
+.row
+  .col-sm-4
+    = f.input :name, required: true, input_html: { class: 'form-control' }
+  .col-sm-8
+    %p{:style => "margin-top: 15px"} Enter the name of the product category.
+.row{:style => "margin-top: 15px"}
+  .col-sm-4
+    = f.input :prepend_code, required: true, input_html: { class: 'form-control' }
+  .col-sm-8
+    %p{:style => "margin-top: 15px"} This code will be prepended to any plan that you create within this product category. We recommend a prepend code of 5 characters or less so abbreviations work well here.
+.row{:style => "margin-top: 15px"}
+  .col-sm-4
+    = f.input :description, required: true, input_html: {rows: '5', class: 'form-control'}
+  .col-sm-8
+    %p{:style => "margin-top: 15px"} Write a short overview of the product category for the subscripiton sign up page. Details about each individual plan can be added when you create them.
+.row{:style => "margin-top: 15px"}
+  .col-sm-4
+    %span
+      %strong Upload image
+    %br
+      %div{:style => "margin-top: 5px"}
+        %button.btn.btn-default Upload
+        %span{:style => "margin-left: 20px"} No file selected
+  .col-sm-8
+    %p{:style => "margin-top: 15px"} Upload an image of your product here.
+%br
+  %div{:style => "margin-top: 30px"}
+    = link_to 'Cancel', organization_products_path, class: 'btn btn-default'
+    = f.submit 'Save Changes', class: 'btn btn-primary', data: {'disable-with' => 'Saving...'}

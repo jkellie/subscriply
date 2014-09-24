@@ -15,10 +15,10 @@
         Application
     
     %li
-      = link_to '#', class: "#{step == 'merchant' && 'active'}" do
+      = link_to organization_products_path, class: "#{step == 'products' && 'active'}" do
         = icon 'credit-card fa-lg'
         Products
     %li
-      = link_to '#' do
+      = link_to '#', class: "#{step == 'plans' && 'active'}" do
         = icon 'th fa-lg'
         Plans

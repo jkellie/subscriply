@@ -14,8 +14,9 @@ Rails.application.routes.draw do
       put :update_organization_settings
       get :edit_application_settings
       put :update_application_settings
-
     end
+
+    resources :products
   end
   
 end
