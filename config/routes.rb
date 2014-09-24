@@ -12,6 +12,9 @@ Rails.application.routes.draw do
     resource :settings do
       get :edit_organization_settings
       put :update_organization_settings
+      get :edit_application_settings
+      put :update_application_settings
+
     end
   end
   

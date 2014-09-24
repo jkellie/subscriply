@@ -1,0 +1,60 @@
+= content_for(:body_id) do
+  account
+
+= render 'sidebar', step: 'application'
+
+#panel.notifications
+  %h3
+    Application settings
+  .settings
+    = simple_form_for(current_organization, url: update_application_settings_organization_settings_path, method: :put) do |f|
+      .row
+        .col-sm-6
+          .form-group
+            %label.control-label Recurly Private API Key *
+            = f.input :recurly_private_key, as: :string, required: true, placeholder: 'Private API Key', label: false, input_html: { class: 'form-control' }
+        .col-sm-6
+          %p{:style => "margin-top: 20px"}
+            This is listed in the Developer section under API Credentials on the
+            %a{:href => "https://recurly.com"} Recurly
+            website.
+      %br
+        .row
+          .col-sm-6
+            .form-group
+              %label.control-label Recurly Public API Key *
+              = f.input :recurly_public_key, as: :string, required: true, placeholder: 'Public API Key', label: false, input_html: { class: 'form-control' }
+          .col-sm-6
+            %p{:style => "margin-top: 20px"}
+              This is also listed in the Developer section under API Credentials on the
+              %a{:href => "https://recurly.com"} Recurly
+              website.
+        %br
+          .row
+            .col-sm-6
+              .form-group
+                %label.control-label Address Requirement *
+                .fake-select-wrap
+                  = f.input :address_requirement, collection: address_requirements, label: false, input_html: { class: 'form-control' }, include_blank: false
+            .col-sm-6
+              %p{:style => "margin-top: 20px"}
+                %strong Select
+                "shipping only" if your gateway does not require AVS and you have a physical product to ship.
+                %br
+                %strong Select
+                "billing only"" if your gateway requires AVS but you do not have a physical product to ship.
+                %br
+                %strong Select
+                "both" (default) if your gateway requires AVS and you also have a product to ship."
+          %br
+            .row
+              .col-sm-6
+                .form-group
+                  %label.control-label Shipping Notification email *
+                  = f.input :shipping_notification_email, as: :string, required: true, placeholder: 'shipping@organization.com', label: false, input_html: { class: 'form-control' }
+              .col-sm-6
+                %p{:style => "margin-top: 20px"} A daily notification email will be sent with a .csv attachment of the shipping requirements for yesterdays sales.
+            %br
+              %br
+                .form-group.action
+                  = f.submit 'Submit', class: 'btn btn-primary'
