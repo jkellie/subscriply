@@ -6,7 +6,8 @@
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body
+    = render 'layouts/notifications'
+
     .container-fluid
       .col-md-7.col-md-offset-2
-        = render 'layouts/shared/flash'
         = yield

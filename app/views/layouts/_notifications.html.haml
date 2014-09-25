@@ -1,0 +1,9 @@
+- flash.each do |key, msg|
+  :javascript
+    $(function(){
+      $.pnotify({
+        text: "#{msg}",
+        icon: false,
+        type: "#{key}"
+      });
+    })

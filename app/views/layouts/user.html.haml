@@ -7,6 +7,7 @@
     = javascript_include_tag 'https://maps.google.com/maps/api/js?sensor=true'
     = csrf_meta_tags
   %body
+    = render 'layouts/notifications'
     = render 'layouts/user/control_bar' unless params[:preview]
 
     .container
@@ -16,8 +17,6 @@
       = yield(:organization_cover_photo)
 
     .container
-      = render 'layouts/shared/flash'
-
       = yield
 
     - unless params[:preview]

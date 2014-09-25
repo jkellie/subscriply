@@ -7,12 +7,13 @@
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body{id: yield(:body_id)}
+    = render 'layouts/notifications'
+
     #wrapper
       = render 'layouts/organizer/sidebar'
       
       #content
         = render 'layouts/organizer/menubar' if content_for?(:menubar)
-        = render 'layouts/shared/flash'
         .content-wrapper
           = yield
 
