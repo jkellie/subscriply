@@ -1,0 +1,36 @@
+= content_for(:body_id) do
+  account
+
+= render '/organization/settings/sidebar', step: 'plans'
+
+#panel.notifications
+  %h3 Plans
+  
+  .settings
+    .row
+      .col-sm-12
+        %table.table.table-striped
+          %thead
+            %tr
+              %th Name
+              %th Code
+              %th Amount
+              %th Type
+              %th Trial?
+              %th
+          %tbody
+            - @plans.each do |plan|
+              %tr
+                %td= link_to plan.name, edit_organization_plan_path(plan)
+                %td #{plan.permalink}
+                %td #{number_to_currency(plan.amount)}
+                %td #{plan.plan_type}
+                %td #{plan.trial?}
+                %td
+                  = link_to organization_plan_path(plan), method: :delete, confirm: 'Are you sure?' do
+                    = icon 'trash-o'
+            
+        %br
+        = link_to new_organization_plan_path, class: 'btn btn-primary' do
+          = icon 'plus'
+          Add New

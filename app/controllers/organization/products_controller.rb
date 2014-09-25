@@ -1,4 +1,5 @@
 class Organization::ProductsController < Organization::BaseController
+  respond_to :html, :json
 
   def index
     @products = current_organization.products.order('created_at ASC')
@@ -10,6 +11,16 @@ class Organization::ProductsController < Organization::BaseController
 
   def new
     @product = Product.new
+  end
+
+  def show
+    product = current_organization.products.find(params[:id])
+    
+    respond_to do |format|
+      format.json do
+        respond_with product
+      end
+    end
   end
 
   def create

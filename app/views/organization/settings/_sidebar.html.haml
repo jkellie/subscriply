@@ -19,6 +19,6 @@
         = icon 'credit-card fa-lg'
         Products
     %li
-      = link_to '#', class: "#{step == 'plans' && 'active'}" do
+      = link_to organization_plans_path, class: "#{step == 'plans' && 'active'}" do
         = icon 'th fa-lg'
         Plans

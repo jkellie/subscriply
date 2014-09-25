@@ -1,0 +1,81 @@
+.row
+  .col-sm-4
+    = f.input :product_id, as: :select, label: 'Product', collection: @products, input_html: { class: 'form-control' }, include_blank: true, required: true, disabled: f.object.persisted?
+  .col-sm-8
+    %p{:style => "margin-top: 15px"} Select the product you wish to add this plan to.
+
+.row{:style => "margin-top: 15px"}
+  .col-sm-4
+    = f.input :name, placeholder: 'Gold', input_html: { class: 'form-control' }, required: true
+  .col-sm-8
+    %p{:style => "margin-top: 15px"} This name describes your plan and will appear on subscribers invoices.
+
+.row{:style => "margin-top: 15px"}
+  .col-sm-4
+    %label Plan code
+    .input-group
+      - if f.object.persisted?
+        %span#plan_prepend_code.input-group-addon #{f.object.product.prepend_code}
+        = f.input :code, input_html: { class: 'form-control' }, label: false, required: true, disabled: true
+      - else
+        %span#plan_prepend_code.input-group-addon
+        = f.input :code, input_html: { class: 'form-control' }, label: false, required: true
+  .col-sm-8
+    %p{:style => "margin-top: 15px"} This is the code Subscriply™ and Recurly™ use to identify this plan. The prefix of the code is set by the product category.
+
+.row{:style => "margin-top: 15px"}
+  .col-sm-4
+    %strong Plan Type
+    = f.collection_radio_buttons(:plan_type, [['digital', 'Digital'], ['shipped', 'Shipped'], ['local_pick_up', 'Local Pick-Up']], :first, :last, item_wrapper_tag: :div, item_wrapper_class: :radio) { |b| content_tag(:label) { b.radio_button + b.label } } 
+  .col-sm-8
+    %p{:style => "margin-top: 15px"} Is this plan is delivered digitally, shipped, or picked up by the customer at one of your locations?
+    %p *Local pick-up subscription charges from the 1st to the 15th are marked as availabe for pick-up on the 16th, and charges from the 16th to the end of the month are marked as available for pick-up on the 1st of the following month.
+
+.row{:style => "margin-top: 15px"}
+  .col-sm-4
+    = f.input :description, input_html: { class: 'form-control' }
+  .col-sm-8
+    %p{:style => "margin-top: 15px"} Write a short overview of the plan details for the subscripiton sign up page.
+
+.row{:style => "margin-top: 15px"}
+  .col-sm-4
+    .checkbox
+      %label
+        = f.input :send_renewal_reminders
+  .col-sm-8
+    %p An email will be sent to subscribers 7 days prior to their subscription renewal date. Since this is a requirement in many regions the default is set to on.
+
+.row
+  .col-sm-4
+    .row
+      .col-sm-6
+        %label Charge
+        .input-group
+          %span.input-group-addon $
+          = f.input :amount, label: false, input_html: { class: 'form-control' }
+      .col-sm-6
+        %label Every
+        = f.input :charge_every, collection: [['Month', '1'], ['3 Months', '3'], ['6 Months', '6'], [ 'Year', '12']], label: false, input_html: { class: 'form-control' }, include_blank: false
+
+  .col-sm-8
+    %p{:style => "margin-top: 15px"} Select the charge and frequency for this plan.
+
+.row{:style => "margin-top: 15px"}
+  .col-sm-4
+    .row
+      .col-sm-12
+        = f.input :free_trial_length, label: 'Free Trial Length(In Days)', input_html: { class: 'form-control' }
+  .col-sm-8
+    %p{:style => "margin-top: 15px"} Set to 0 if you do not wish to offer a trial period. A reminder email will be sent when the trial period is ending.
+
+%br
+
+%div{:style => "margin-top: 30px"}
+  = link_to 'Cancel', organization_plans_path, class: 'btn btn-default'
+  = f.submit 'Save Changes', class: 'btn btn-primary', data: {'disable-with' => 'Saving...'}
+
+
+:javascript
+  $(function() {
+    OrganizationPlans.init()
+  });

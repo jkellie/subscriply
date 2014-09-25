@@ -1,13 +1,12 @@
 class Product < ActiveRecord::Base
-  belongs_to :organization
+  belongs_to :organizatio
+  has_many :plans
 
   def plans_count
-    # TODO: Implement when plans become a thing
-    5
+    plans.count
   end
 
   def deletable?
-    # TODO: Implement when plans become a thing
-    true
+    plans_count == 0
   end
 end

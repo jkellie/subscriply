@@ -3,6 +3,7 @@ class Organization < ActiveRecord::Base
   has_many :organizers
   has_many :locations
   has_many :products
+  has_many :plans
   accepts_nested_attributes_for :organizers
 
   validates :name, presence: true

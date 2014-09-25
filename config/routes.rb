@@ -9,14 +9,15 @@ Rails.application.routes.draw do
     resource :dashboard, controller: 'dashboard', only: [:show]
     resources :locations
 
+    resources :plans
+    resources :products
+
     resource :settings do
       get :edit_organization_settings
       put :update_organization_settings
       get :edit_application_settings
       put :update_application_settings
     end
-
-    resources :products
   end
   
 end

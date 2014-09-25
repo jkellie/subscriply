@@ -1,0 +1,11 @@
+= content_for(:body_id) do
+  account
+
+= render '/organization/settings/sidebar', step: 'plans'
+
+#panel.notifications
+  %h3 New Plan
+  
+  .settings
+    = simple_form_for(@plan, class: 'form', url: organization_plans_path) do |f|
+      = render 'form', f: f
