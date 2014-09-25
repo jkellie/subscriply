@@ -195,6 +195,7 @@ GEM
       thor (>= 0.18.1, < 2.0)
     raindrops (0.13.0)
     rake (10.3.2)
+    recurly (2.3.2)
     rspec-collection_matchers (1.0.0)
       rspec-expectations (>= 2.99.0.beta1)
     rspec-core (2.99.2)
@@ -288,6 +289,7 @@ DEPENDENCIES
   quiet_assets
   rails (= 4.1.6)
   rails_12factor
+  recurly
   rspec-rails (~> 2.0)
   sass-rails
   simple_form

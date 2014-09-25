@@ -33,7 +33,7 @@ class Organization::SettingsController < Organization::BaseController
   end
 
   def application_params
-    params.require(:organization).permit(:recurly_private_key, :recurly_public_key, :address_requirement, :shipping_notification_email)
+    params.require(:organization).permit(:recurly_subdomain, :recurly_private_key, :recurly_public_key, :address_requirement, :shipping_notification_email)
   end
 
 end
