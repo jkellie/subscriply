@@ -5,6 +5,7 @@
     %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}
     %title iCommerce - Coming Soon
     = stylesheet_link_tag 'user', media: 'all', 'data-turbolinks-track' => true
+    %link{:href => "//cdn-images.mailchimp.com/embedcode/classic-081711.css", :rel => "stylesheet", :type => "text/css"}
     / Stylesheets
     / HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
     / WARNING: Respond.js doesn't work if you view the page via file://
@@ -35,13 +36,23 @@
               Pronto serás capaz de manejar su PEC y
               %u otros
               suscripciones con iCommerce y subscriply.com!
-            / Subscription form
-            %form#signupForm.form-inline.signup{:action => "php/signupForm.php", :role => "form"}
-              .form-group
-                %input.form-control{:name => "email", :placeholder => "Email address", :type => "email"}
-              .form-group
-                %button.btn.btn-theme.ladda-button{"data-style" => "expand-left", :type => "submit"}
-                  %span.ladda-label Get notified!
+            
+            #mc_embed_signup
+              %form#mc-embedded-subscribe-form.form-inline.signup.validate{:action => "//icommerce.us5.list-manage.com/subscribe/post?u=5eeb60c70b1ba279e602292d3&amp;id=e13643ff83", :method => "post", :name => "mc-embedded-subscribe-form", :novalidate => "", :target => "_blank", style: "text-align: center"}
+                #mc_embed_signup_scroll
+                  .form-group
+                    %input.form-control#mce-EMAIL.required.email{placeholder: 'Email Address', :name => "EMAIL", :type => "email", :value => ""}
+                  .form-group
+                    %button.btn.btn-theme.ladda-button{"data-style" => "expand-left", :type => "submit"}
+                      %span.ladda-label Get notified!        
+                  #mce-responses.clear
+                    #mce-error-response.response{:style => "display:none"}
+                    #mce-success-response.response{:style => "display:none"}
+                  / real people should not fill this in and expect good things - do not remove this or risk form bot signups
+                  %div{:style => "position: absolute; left: -5000px;"}
+                    %input{:name => "b_5eeb60c70b1ba279e602292d3_e13643ff83", :tabindex => "-1", :type => "text", :value => ""}
+
+            
             %footer.text-center
               .social
                 %a.btn.btn-theme{:href => "#"}
