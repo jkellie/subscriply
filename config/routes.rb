@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   resources :organizations
 
+  root 'user/products#index', constraints: { subdomain: /.+/ }
+
   namespace :organization do
     root 'dashboard#show'
     resource :dashboard, controller: 'dashboard', only: [:show]
