@@ -1,0 +1,13 @@
+.metrics.clearfix
+  .metric
+    %span.field Total Subscriptions
+    %span.data #{number_with_delimiter(dashboard_presenter.total_subscriptions)}
+  .metric
+    %span.field New this period
+    %span.data #{number_with_delimiter(dashboard_presenter.new_this_period)}
+  .metric
+    %span.field Canceled this period
+    %span.data #{number_with_delimiter(dashboard_presenter.canceled_this_period)}
+  .metric
+    %span.field Sales this period
+    %span.data #{number_to_currency(dashboard_presenter.sales_this_period)}

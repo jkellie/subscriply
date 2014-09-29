@@ -1,0 +1,26 @@
+.chart.pull-right
+  %h3
+    Canceled subscriptions
+    .total.pull-right.hidden-xs
+      52 total
+      .change.up
+        %i.fa.fa-chevron-up
+        6.5%
+  #payments-chart{:style => "padding: 0px;"}
+    %canvas.flot-base{:height => "200", :style => "direction: ltr; position: absolute; left: 0px; top: 0px; width: 400px; height: 200px;", :width => "400"}
+    .flot-text{:style => "position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; font-size: smaller; color: rgb(84, 84, 84);"}
+      .flot-x-axis.flot-x1-axis.xAxis.x1Axis{:style => "position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"}
+        .flot-tick-label.tickLabel{:style => "position: absolute; max-width: 50px; top: 183px; left: 50px; text-align: center;"} Sep 17
+        .flot-tick-label.tickLabel{:style => "position: absolute; max-width: 50px; top: 183px; left: 106px; text-align: center;"} Sep 19
+        .flot-tick-label.tickLabel{:style => "position: absolute; max-width: 50px; top: 183px; left: 162px; text-align: center;"} Sep 21
+        .flot-tick-label.tickLabel{:style => "position: absolute; max-width: 50px; top: 183px; left: 218px; text-align: center;"} Sep 23
+        .flot-tick-label.tickLabel{:style => "position: absolute; max-width: 50px; top: 183px; left: 274px; text-align: center;"} Sep 25
+        .flot-tick-label.tickLabel{:style => "position: absolute; max-width: 50px; top: 183px; left: 330px; text-align: center;"} Sep 27
+      .flot-y-axis.flot-y1-axis.yAxis.y1Axis{:style => "position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"}
+        .flot-tick-label.tickLabel{:style => "position: absolute; top: 160px; left: 17px; text-align: right;"} 0
+        .flot-tick-label.tickLabel{:style => "position: absolute; top: 128px; left: 6px; text-align: right;"} 500
+        .flot-tick-label.tickLabel{:style => "position: absolute; top: 96px; left: 0px; text-align: right;"} 1000
+        .flot-tick-label.tickLabel{:style => "position: absolute; top: 64px; left: 0px; text-align: right;"} 1500
+        .flot-tick-label.tickLabel{:style => "position: absolute; top: 32px; left: 0px; text-align: right;"} 2000
+        .flot-tick-label.tickLabel{:style => "position: absolute; top: 1px; left: 0px; text-align: right;"} 2500
+    %canvas.flot-overlay{:height => "200", :style => "direction: ltr; position: absolute; left: 0px; top: 0px; width: 400px; height: 200px;", :width => "400"}

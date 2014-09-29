@@ -2,25 +2,26 @@ class Organization::DashboardPresenter
   attr_reader :organizer
 
   delegate :organization, :first_name, :last_name, to: :organizer
+  delegate :subscriptions, to: :organization
 
   def initialize(organizer)
     @organizer = organizer
   end
 
-  def organizer_name
-    [first_name, last_name].join ' '
+  def total_subscriptions
+    rand(1000)
   end
 
-  def organizer_avatar
-    if organizer.avatar?
-      organizer.avatar.url(:thumb)
-    else
-      'http://placehold.it/50x50'
-    end
+  def new_this_period
+    rand(100)    
   end
 
-  def organization_name
-    organization.name
+  def canceled_this_period
+    rand(10)
+  end
+
+  def sales_this_period
+    120000
   end
 
 end
