@@ -1,0 +1,33 @@
+%h2 Create Account
+
+= simple_form_for resource, as: resource_name, url: invitation_path(resource_name), html: { method: :put } do |f|
+  = f.hidden_field :invitation_token
+
+  .form-group
+    .row
+      .col-md-12
+        = f.input :email, required: false, readonly: true, input_html: {class: 'form-control'}
+  .form-group
+    .row
+      .col-md-12
+        %label Organization
+        = text_field_tag :organization, resource.organization.name, readonly: true, class: 'form-control'
+  .form-group
+    .row
+      .col-md-6
+        = f.input :first_name, as: :string, autocomplete: "off", required: false, input_html: {class: 'form-control'}
+      .col-md-6
+        = f.input :last_name, as: :string, required: false, input_html: {class: 'form-control'}
+  .form-group
+    .row
+      .col-md-12
+        = f.input :password, autocomplete: "off", required: false, input_html: {class: 'form-control'}
+  .form-group
+    .row
+      .col-md-12
+        = f.input :password_confirmation, label: 'Password Confirmation', :required => false, input_html: {class: 'form-control'}
+
+  .form-actions
+    .row
+      .col-md-12.text-right
+        = f.button :submit, "Sign Up", class: 'btn btn-primary'

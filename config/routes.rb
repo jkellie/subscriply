@@ -14,6 +14,11 @@ Rails.application.routes.draw do
     resources :plans
     resources :products
 
+    resources :organizers do
+      post :invite, on: :collection
+      put :super_admin_toggle, on: :member
+    end
+
     resource :settings do
       get :edit_organization_settings
       put :update_organization_settings

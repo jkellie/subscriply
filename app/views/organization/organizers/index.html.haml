@@ -1,0 +1,40 @@
+= content_for(:body_id) do
+  users
+
+= content_for(:menubar) do
+  Admins
+
+#organizers
+  .row
+    .pull-right{style: "padding-right: 20px"}
+      %a{"data-target" => "#invite_organizer_modal", "data-toggle" => "modal", :href => "#"}
+        = icon 'plus-square'
+        %span &nbsp; Invite Admin
+
+  .row
+    .col-md-12
+      %table.table.table-hover
+        %thead
+          %tr
+            %th.visible-md.visible-lg
+            %th ID
+            %th Name
+            %th email
+            %th Status
+            %th Super?
+            %th
+        %tbody
+          = render partial: 'organizer', collection: @organizers, as: :organizer
+      
+      %center
+        = paginate @organizers
+
+= render 'invite_organizer_modal'
+
+:javascript
+  organizers_ready = function(){
+    Organizers.init();
+  }
+
+  $(document).ready(organizers_ready);
+  $(document).on('page:load', organizers_ready);

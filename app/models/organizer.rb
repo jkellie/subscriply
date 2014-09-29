@@ -24,6 +24,12 @@ class Organizer < ActiveRecord::Base
     ).first
   end
 
+  def status
+    return 'Owner' if account_owner?
+    return 'Accepted' if accepted?
+    return 'Invited' if invited?
+  end
+
   def account_owner?
     organization.account_owner == self
   end
@@ -36,6 +42,10 @@ class Organizer < ActiveRecord::Base
 
   def accepted?
     invitation_token.nil? && invitation_accepted_at.present?
+  end
+
+  def invited?
+    invitation_accepted_at.nil? && invitation_token.present?
   end
 
 end

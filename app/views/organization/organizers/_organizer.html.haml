@@ -1,0 +1,17 @@
+%tr
+  %td.visible-md.visible-lg
+    = image_tag organizer.avatar.url(:thumb), class: 'avatar img-responsive'
+  %td #{organizer.id}
+  %td 
+    #{organizer.name}
+    - if organizer == current_organizer
+      %small (You)
+  %td= link_to organizer.email, "mailto:#{organizer.email}"
+  %td #{organizer.status}
+  %td{style: 'padding-left: 48px'}
+    .checkbox
+      = check_box_tag 'super_admin', '1', organizer.super_admin? || organizer.account_owner?, disabled: super_admin_check_box_disabled?(current_organization, current_organizer, organizer), class: 'super-admin-toggle', data: {'organizer-id' => organizer.id}
+  %td
+    - if can_delete_organizer?(current_organization, current_organizer, organizer) 
+      = link_to organization_organizer_path(organizer), data: {'organizer-id' => organizer.id}, class: 'remove-organizer' do
+        = icon 'trash-o'

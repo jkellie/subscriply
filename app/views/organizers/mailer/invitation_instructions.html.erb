@@ -1,0 +1,14 @@
+<p>Hello <%= @resource.email %>, </p>
+
+<p>
+  You have been invited by <%= @resource.organization.name %> to become an event administrator of their Subscriply.com account. To accept the invitation please click the link below:
+</p>
+
+<p><%= link_to 'Accept invitation', accept_invitation_url(@resource, :invitation_token => @token, subdomain: @resource.organization.subdomain) %></p>
+
+<p>
+  If you do not wish to become an event administrator for <%= @resource.organization.name %> please ignore this email. Your account will not be created unless you click the above link and set your password.
+</p>
+
+<p>Sincerely,</p>
+<p>The Subscriply Team</p>

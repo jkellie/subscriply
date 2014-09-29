@@ -18,4 +18,5 @@
 //= require jquery.pnotify.min
 //= require bootstrap
 //= require ckeditor-jquery
-//= require_tree .
+//= require_tree ./organization
+//= require_tree ./ckeditor
