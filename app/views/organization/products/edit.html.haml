@@ -4,8 +4,8 @@
 = render '/organization/settings/sidebar', step: 'products'
 
 #panel.notifications
-  %h3
-    Products
+  %h3 Edit Product
+  
   .settings
     = simple_form_for(@product, class: 'form', url: organization_product_path(@product, method: :PUT)) do |f|
       = render 'form', f: f

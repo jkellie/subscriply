@@ -12,6 +12,7 @@
         %table.table.table-striped
           %thead
             %tr
+              %th
               %th Name
               %th Code
               %th Plans
@@ -20,6 +21,7 @@
             - @products.each do |product|
 
               %tr
+                %td= image_tag product.image.url(:medium), style: 'width: 40px'
                 %td
                   = link_to product.name, edit_organization_product_path(product)
                 %td #{product.prepend_code}

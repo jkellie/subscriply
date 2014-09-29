@@ -11,7 +11,6 @@ class Organization < ActiveRecord::Base
   validates_associated :organizers
 
   mount_uploader :logo, LogoUploader
-  mount_uploader :cover_photo, CoverPhotoUploader
 
   store_accessor :settings, 
     :customer_service_email, :customer_service_phone, :refund_policy, :recurly_subdomain,

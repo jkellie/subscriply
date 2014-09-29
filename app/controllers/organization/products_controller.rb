@@ -62,7 +62,7 @@ class Organization::ProductsController < Organization::BaseController
   private
 
   def product_params
-    params.require(:product).permit(:name, :prepend_code, :description).merge(organization_id: current_organization.id)
+    params.require(:product).permit(:name, :image, :prepend_code, :description).merge(organization_id: current_organization.id)
   end
 
 end

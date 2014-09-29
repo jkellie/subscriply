@@ -2,6 +2,9 @@ class Product < ActiveRecord::Base
   belongs_to :organizatio
   has_many :plans
 
+  mount_uploader :image, ProductImageUploader
+
+
   def plans_count
     plans.count
   end

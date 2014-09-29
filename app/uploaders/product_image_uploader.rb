@@ -1,4 +1,4 @@
-class CoverPhotoUploader < CarrierWave::Uploader::Base
+class ProductImageUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   include CarrierWave::MiniMagick
@@ -17,13 +17,6 @@ class CoverPhotoUploader < CarrierWave::Uploader::Base
     "/images/fallback/" + [version_name, "default.png"].compact.join('_')
   end
 
-  before :cache, :capture_size_before_cache
-  def capture_size_before_cache(new_file)
-    if model.cover_photo_upload_width.nil? || model.cover_photo_upload_height.nil?
-      model.cover_photo_upload_width, model.cover_photo_upload_height = `identify -format "%wx %h" #{new_file.path}`.split(/x/).map { |dim| dim.to_i }
-    end
-  end
-
   # Process files as they are uploaded:
   # process :resize_to_fill => [180, 180]
 
@@ -32,11 +25,7 @@ class CoverPhotoUploader < CarrierWave::Uploader::Base
   # end
 
   version :medium do
-    process :resize_to_fill => [640, 400]
-  end
-
-  version :full do
-    process :resize_to_fill => [1280, 360]
+    process :resize_to_fill => [160, 160]
   end
 
   # Add a white list of extensions which are allowed to be uploaded.
