@@ -18,6 +18,8 @@
 
 .row{:style => "margin-top: 15px"}
   .col-sm-4
+    #product_image_progress_bar
+    = image_tag f.object.image.url(:medium), style: 'padding-top: 5px; padding-bottom: 5px; max-width: 100%', id: 'product-image'
     = f.input :image, as: :file, label: 'Upload Image', input_html: {class: 'form-control'}
   .col-sm-8
     %p{:style => "margin-top: 15px"} Upload an image of your product here.
@@ -27,3 +29,8 @@
 %div{:style => "margin-top: 30px"}
   = link_to 'Cancel', organization_products_path, class: 'btn btn-default'
   = f.submit 'Save Changes', class: 'btn btn-primary', data: {'disable-with' => 'Saving...'}
+
+:javascript
+  $(function() {
+    OrganizationProducts.init()
+  });
