@@ -1,0 +1,30 @@
+= simple_form_for organization_users_path, method: :get do |f|
+  .col-sm-3
+  %h4 Search &amp; Filters
+  %br
+  %span Search
+  .input-group{:style => "padding-top: 5px"}
+    %span.input-group-addon
+      = icon 'search'
+    = text_field_tag 'q', params[:q], placeholder: 'email / name / member number', class: 'form-control'
+  %br
+    %span Created Date Range
+    .input-group{:style => "padding-top: 5px"}
+      %span.input-group-addon
+        %i.fa.fa-calendar-o
+      = text_field_tag 'start_date', params[:start_date], placeholder: 'start date', class: 'form-control datepicker'
+    .input-group{:style => "padding-top: 15px"}
+      %span.input-group-addon
+        %i.fa.fa-calendar-o
+      = text_field_tag 'end_date', params[:end_date], placeholder: 'end date', class: 'form-control datepicker'
+  %br
+  %span Status
+  .input-group{:style => "padding-top: 5px; width: 100%"}
+    = select_tag 'status', options_for_select([["All", "All"], ["Open", "Open"], ["Closed", "Closed"]], params[:type]), class: 'form-control input-md'
+  %br
+  = f.submit 'Search', class: 'btn btn-primary btn-lg btn-block center-block'
+  %br
+  %br
+  %a.btn.btn-default.center-block
+    = icon 'download'
+    Download CSV file

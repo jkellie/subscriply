@@ -1,0 +1,33 @@
+= content_for(:menubar) do
+  Users
+
+= content_for(:menubar_right) do
+  .pull-right
+    = link_to new_organization_user_path, class: 'btn btn-primary' do
+      = icon 'plus-circle'
+      Add New
+
+
+.col-md-9
+  #users
+    .row
+      .col-md-12
+        %table.table.table-hover
+          %thead
+            %tr
+              %th Member #
+              %th Name
+              %th Email
+              %th Created
+              %th Status
+          %tbody
+            = render partial: 'user', collection: @users, as: :user
+
+    %center
+      = paginate @users
+
+.col-md-3
+  = render 'search'
+
+:javascript
+  $('.datepicker').datepicker({dateFormat: 'M d, yy'})

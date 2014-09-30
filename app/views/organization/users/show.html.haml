@@ -1,0 +1,56 @@
+= content_for(:body_id) do
+  user-profile
+
+= content_for(:menubar) do
+  Customer:
+  %small.hidden-xs #{@user_presenter.name}
+  
+= render 'info', user_presenter: @user_presenter
+= render 'profile', user_presenter: @user_presenter
+
+- @user_presenter.orders.each do |order|
+  = render 'tickets_modal', order: order
+
+:javascript
+  $(document).on('click', '#check_in_tickets', function(e){
+    e.preventDefault();
+    order_id = $(this).data('order-id');
+    purchased_ticket_ids = []
+
+    $("#order_" + order_id + " input:checked:enabled").each(function(el){
+      purchased_ticket_ids.push($(this).data('id'));
+      $(this).attr('disabled', 'disabled');
+    })
+
+    $.ajax({
+      url: '/organization/purchased_tickets/check_in_bulk',
+      method: 'PUT',
+      data: {
+        purchased_ticket_ids: purchased_ticket_ids
+      },
+      complete: function(){
+        $('#order_' + order_id).modal('hide')
+      }
+    })
+  });
+
+  var organizer_user_ready = function () {
+    if (!$("#user-profile").length) return;
+    
+    var $tabs = $(".tabs a");
+    var $tab_contents = $(".tab-content .tab");
+
+    $tabs.click(function (e) {
+      e.preventDefault();
+      var index = $tabs.index(this);
+
+      $tabs.removeClass("active");
+      $tabs.eq(index).addClass("active");
+
+      $tab_contents.removeClass("active");
+      $tab_contents.eq(index).addClass("active");
+    });
+  }
+
+  $(document).on("ready page:load", organizer_user_ready);
+  $(document).ready(organizer_user_ready);

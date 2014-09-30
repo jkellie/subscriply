@@ -1,0 +1,6 @@
+= simple_form_for note, url: organization_user_notes_path(user) do |f|
+  .editor.clearfix
+    = f.input :description, label: false, input_html: {class: 'form-control', rows: '4', placeholder: 'Enter a new note...'}
+    .options.clearfix
+      %button.button{:type => "submit"}
+        %span Submit note

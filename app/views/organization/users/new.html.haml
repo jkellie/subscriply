@@ -1,0 +1,27 @@
+= content_for(:menubar) do
+  New User
+
+= simple_form_for(User.new, url: organization_users_path, method: :post) do |f|
+  .row
+    .col-sm-6
+      .col-sm-6
+        = f.input :first_name, required: true, as: :string, label: 'First Name', input_html: {class: 'form-control'}
+      .col-sm-6
+        = f.input :last_name, required: true, as: :string, label: 'Last Name', input_html: {class: 'form-control'}
+    .col-sm-6
+      %p{:style => "margin-top: 20px"} Use this form to send an invitation email for someone to create their own account, set passwords, and choose subscriptions.
+  .row
+    .col-sm-6
+      .col-sm-7
+        .form-group{:style => "margin-top: 15px"}
+          = f.input :email, required: true, as: :string, label: 'Email', input_html: {class: 'form-control'}
+      .col-sm-5
+        .form-group
+          .checkbox{style: 'margin-top: 40px'}
+            %label
+              = f.input :sales_rep, as: :boolean, label: false
+              %strong Make Sales Rep
+  .row
+    .col-4-sm{:style => "margin: 30px"}
+      %button.btn.btn-default{"data-dismiss" => "modal", :style => "margin-right: 5px", :type => "button"} Cancel
+      %button.btn.btn-primary{:style => "margin-left: 5px", :type => "submit"} Send invitation

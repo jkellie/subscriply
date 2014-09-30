@@ -1,10 +1,12 @@
 class User < ActiveRecord::Base
-  devise :invitable, :database_authenticatable, :registerable,
+  devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :invitable
 
   belongs_to :organization
   
   scope :scoped_to, -> (organization_id) { where("organization_id = ?", organization_id)}
+  scope :search, ->(q) { where("first_name ILIKE ? OR last_name ILIKE ? OR email ILIKE ? OR ID = ?", "%#{q}%", "%#{q}%", "%#{q}%", "#{q.to_i}")}
+  scope :between, ->(start_date, end_date) { where(created_at: start_date...end_date)}
   
   validates :first_name, :last_name, presence: true
   validates :email, presence: true, uniqueness: { scope: :organization }
@@ -18,6 +20,21 @@ class User < ActiveRecord::Base
 
   def name
     [first_name, last_name].join ' '
+  end
+
+  def status
+    return 'Invited' if invited?
+    'Current'
+  end
+
+  private
+
+  def accepted?
+    invitation_token.nil? && invitation_accepted_at.present?
+  end
+
+  def invited?
+    invitation_accepted_at.nil? && invitation_token.present?
   end
 
 end

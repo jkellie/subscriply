@@ -1,0 +1,27 @@
+.profile-info
+  .avatar
+    .name #{user_presenter.name}
+
+  .main-details.clearfix
+    .col
+      .value #{user_presenter.orders_count}
+      Orders
+    .col
+      .value #{number_to_currency(user_presenter.lifetime_spend)}
+      Lifetime spent
+  
+  .details
+    - if user_presenter.require_customer_id?
+      .field
+        %label Customer ID
+        .value #{user_presenter.customer_id}
+    
+    .field
+      %label Email
+      .value
+        = link_to user_presenter.email, "mailto:#{user_presenter.email}"
+    
+    .field
+      %label Signed up
+      .value
+        #{user_presenter.created_at.try(:strftime, '%B %e, %Y')}

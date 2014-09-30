@@ -1,0 +1,13 @@
+.profile-content
+  .tabs
+    %ul
+      %li
+        %a.active{:href => "#"} Account Notes
+      %li
+        %a{:href => "#"} Orders
+      %li
+        %a{:href => "#"} Edit
+  .tab-content
+    = render 'notes', user_presenter: user_presenter
+    = render 'orders', user_presenter: user_presenter
+    = render 'form', user: user_presenter.user

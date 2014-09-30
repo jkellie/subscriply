@@ -4,8 +4,4 @@
   .page-title
     = image_tag 'subscriply_icon.png'
     = yield(:menubar)
-  .pull-right
-    %small{:style => "font-weight:400;"}
-      = icon 'globe'
-      language &nbsp;
-      %i.fa.fa-chevron-down
+  = yield(:menubar_right)

@@ -1,0 +1,23 @@
+.modal.fade{id: "order_#{order.id}", "aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} &times;
+          %span.sr-only Close
+        %h4#myModalLabel.modal-title Tickets
+      .modal-body
+        %ul
+          - order.purchased_tickets.each do |purchased_ticket|
+            %li{data: {id: purchased_ticket.id}}
+              - if purchased_ticket.canceled?
+                %label.strike{for: "purchased_ticket_#{purchased_ticket.id}"}
+                  = "#{purchased_ticket.upc_code} - #{purchased_ticket.name} - #{number_to_currency(purchased_ticket.price)}"
+              - else
+                = check_box_tag("purchased_ticket_#{purchased_ticket.id}", 1, purchased_ticket.checked_in?, disabled: !purchased_ticket.pending?, 'data-id' => purchased_ticket.id)
+                %label{for: "purchased_ticket_#{purchased_ticket.id}"}
+                  = "#{purchased_ticket.upc_code} - #{purchased_ticket.name} - #{number_to_currency(purchased_ticket.price)}"
+
+      .modal-footer
+        %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close
+        %button#check_in_tickets.btn.btn-primary{:type => "button", 'data-order-id' => order.id} Check In Selected Tickets

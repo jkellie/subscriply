@@ -1,0 +1,5 @@
+.tab.notes.active
+  = render 'notes_form', user: @user_presenter.user, note: @note
+  
+  #recent_notes
+    = render 'recent_notes', notes: @user_presenter.notes
