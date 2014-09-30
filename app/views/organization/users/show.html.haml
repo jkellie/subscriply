@@ -4,53 +4,138 @@
 = content_for(:menubar) do
   Customer:
   %small.hidden-xs #{@user_presenter.name}
-  
-= render 'info', user_presenter: @user_presenter
-= render 'profile', user_presenter: @user_presenter
 
-- @user_presenter.orders.each do |order|
-  = render 'tickets_modal', order: order
+.col-md-12
+  .row
+    %p.pull-right
+      %strong Sales Rep:
+      Pedro Lizardi (6575)
+
+.col-sm-7
+  .row
+    = render 'notes_form', note: @note, user: @user_presenter.user
+    = render 'recent_notes', notes: @user_presenter.notes
+    
+    
+
+.col-sm-5
+  .panel.panel-default
+    .panel-heading
+      %span Details:
+      = link_to edit_organization_user_path(@user_presenter.user), class: 'pull-right' do
+        = icon 'edit'
+    .panel-body
+      %dl.dl-horizontal
+        %dt Member #:
+        %dd 12345
+        %dt Full name:
+        %dd Sergio Lizardo
+        %dt email:
+        %dd
+          %a{:href => "mailto:sergio.lizardo@example.com"} sergio.lizardo@example.com
+        %dt Phone:
+        %dd 407-383-9704
+        %br
+        %dt Shipping:
+        %dd
+        221 Baker Street
+        %br
+        Apt B
+        %br
+        Debary, FL 32713
+  .panel.panel-default
+    .panel-heading
+      %span Billing info:
+      = link_to edit_organization_user_path(@user_presenter.user), class: 'pull-right' do
+        = icon 'edit'
+    .panel-body
+      %dl.dl-horizontal
+        %dt Card type:
+        %dd Visa
+        %dt Card ending:
+        %dd **** 1966
+        %dt Expires:
+        %dd 08 / 16
+  .panel.panel-default
+    .panel-heading
+      %span Subscriptions:
+      %a.ion-plus-circled.pull-right{"data-target" => "#add-subscription", "data-toggle" => "modal", :href => "#", :type => "button"}
+    .panel-body
+      %table.table.table-condensed
+        %thead
+          %tr
+            %th Plan
+            %th Status
+        %tbody
+          %tr
+            %td
+              %a{:href => "subscription.html"} CEP Plus! - Español
+            %td Active
+          %tr
+            %td
+              %a{:href => "subscription.html"} CEP Plus! - English
+            %td Changing
+  .panel.panel-default
+    .panel-heading
+      %span Invoices:
+    .panel-body
+      %table.table.table-condensed
+        %thead
+          %tr
+            %th Invoice
+            %th Date
+            %th Amount
+        %tbody
+          %tr
+            %td
+              %a{:href => "invoice.pdf"} 1067
+            %td 08/12/14
+            %td $100.00
+          %tr
+            %td
+              %a{:href => "invoice.pdf"} 845
+            %td 07/12/14
+            %td $100.00
+          %tr
+            %td
+              %a{:href => "invoice.pdf"} 627
+            %td 06/12/14
+            %td $100.00
+    .panel-footer
+      %a.btn.btn-default.btn-xs{:href => "invoices.html"} view all
+  .panel.panel-default
+    .panel-heading
+      %span Transactions:
+    .panel-body
+      %table.table.table-condensed
+        %thead
+          %tr
+            %th Transaction
+            %th Date
+            %th Amount
+        %tbody
+          %tr
+            %td
+              %a{:href => "transaction.html"} 2346
+            %td 08/12/14
+            %td $50.00
+          %tr
+            %td
+              %a{:href => "transaction.html"} 2345
+            %td 08/12/14
+            %td $50.00
+          %tr
+            %td
+              %a{:href => "transaction.html"} 1985
+            %td 07/12/14
+            %td $50.00
+    .panel-footer
+      %a.btn.btn-default.btn-xs{:href => "transactions.html"} view all
 
 :javascript
-  $(document).on('click', '#check_in_tickets', function(e){
-    e.preventDefault();
-    order_id = $(this).data('order-id');
-    purchased_ticket_ids = []
+var organizer_user_ready = function () {
 
-    $("#order_" + order_id + " input:checked:enabled").each(function(el){
-      purchased_ticket_ids.push($(this).data('id'));
-      $(this).attr('disabled', 'disabled');
-    })
+}
 
-    $.ajax({
-      url: '/organization/purchased_tickets/check_in_bulk',
-      method: 'PUT',
-      data: {
-        purchased_ticket_ids: purchased_ticket_ids
-      },
-      complete: function(){
-        $('#order_' + order_id).modal('hide')
-      }
-    })
-  });
-
-  var organizer_user_ready = function () {
-    if (!$("#user-profile").length) return;
-    
-    var $tabs = $(".tabs a");
-    var $tab_contents = $(".tab-content .tab");
-
-    $tabs.click(function (e) {
-      e.preventDefault();
-      var index = $tabs.index(this);
-
-      $tabs.removeClass("active");
-      $tabs.eq(index).addClass("active");
-
-      $tab_contents.removeClass("active");
-      $tab_contents.eq(index).addClass("active");
-    });
-  }
-
-  $(document).on("ready page:load", organizer_user_ready);
-  $(document).ready(organizer_user_ready);
+$(document).on("ready page:load", organizer_user_ready);
+$(document).ready(organizer_user_ready);

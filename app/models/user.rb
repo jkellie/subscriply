@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :invitable
 
   belongs_to :organization
+
+  has_many :notes
   
   scope :scoped_to, -> (organization_id) { where("organization_id = ?", organization_id)}
   scope :search, ->(q) { where("first_name ILIKE ? OR last_name ILIKE ? OR email ILIKE ? OR ID = ?", "%#{q}%", "%#{q}%", "%#{q}%", "#{q.to_i}")}

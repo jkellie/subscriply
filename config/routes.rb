@@ -12,7 +12,10 @@ Rails.application.routes.draw do
     resources :locations
     resources :plans
     resources :products
-    resources :users
+    
+    resources :users do
+      resources :notes
+    end
 
     resources :organizers do
       post :invite, on: :collection

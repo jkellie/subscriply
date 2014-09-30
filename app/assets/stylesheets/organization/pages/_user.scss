@@ -10,6 +10,135 @@
     margin-top: 0;
     position: relative;
     overflow: hidden;
+    padding: 30px;
+
+    .comments {
+      margin-top: 60px;
+      width: 94%;
+
+      @media (max-width: $maxSmall) {
+        margin-top: 30px;
+      }
+
+      .comment {
+        padding-bottom: 60px;
+        position: relative;
+
+        @media (max-width: $maxSmall) {
+          padding-bottom: 20px;
+        }
+
+        &:before {
+          content: '';
+          display: block;
+          position: absolute;
+          width: 2px;
+          background: #f7f7f7;
+          height: 100%;
+          left: 45px;
+          top: 0;
+
+          @media (max-width: $maxSmall) {
+            display: none;
+          }
+        }
+
+        &:last-child {
+          &:before {
+            background: #fff;
+          }   
+        }
+
+        .avatar {
+          max-width: 62px;
+          border-radius: 5px;
+
+          @media (max-width: $maxSmall) {
+            display: none;
+          }
+        }
+
+        .message {
+          border: 1px solid #e4e4e4;
+          border-radius: 4px;
+          padding: 7px 20px;
+
+          @media (max-width: $maxSmall) {
+            border: 0;
+            padding: 7px 0;
+          }
+
+          header {
+            font-size: 13px;
+            position: relative;
+            color: #777;
+            margin-top: 8px;
+
+            &:before {
+              content: '';
+              position: absolute;
+              display: block;
+              width: 37px;
+              height: 12px;
+              top: 10px;
+              left: -25px;
+              margin-left: -18.5px;
+              background-image: url("popover-arrow.png");
+              background-size: 100% 100%;
+              @include transform(rotate(270deg));
+
+              @media (max-width: $maxSmall) {
+                display: none;
+              }
+            }
+
+            .name {
+              font-weight: 600;
+              display: inline-block;
+              margin-right: 6px;
+              color: #5481C4;
+            }
+
+            .date {
+              color: #8F8F8F;
+            }
+          }
+
+          .note {
+            p {
+              margin-top: 15px;
+              margin-bottom: 15px;
+              line-height: 23px;
+            }
+
+            .files {
+              margin-top: 35px;
+              width: 100%;
+              margin-bottom: 20px;
+
+              .file {
+                float: left;
+                padding-right: 25px;
+                max-width: 25%;
+                vertical-align: top;
+                text-align: center;
+
+                img {
+                  border-radius: 3px;
+                }
+
+                .name {
+                  display: inline-block;
+                  margin-top: 11px;
+                  line-height: 16px;
+                  font-size: 13px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
 
     .profile-content {
       float: left;
@@ -170,133 +299,7 @@
               }
             }
 
-            .comments {
-              margin-top: 60px;
-              width: 94%;
-
-              @media (max-width: $maxSmall) {
-                margin-top: 30px;
-              }
-
-              .comment {
-                padding-bottom: 60px;
-                position: relative;
-
-                @media (max-width: $maxSmall) {
-                  padding-bottom: 20px;
-                }
-
-                &:before {
-                  content: '';
-                  display: block;
-                  position: absolute;
-                  width: 2px;
-                  background: #f7f7f7;
-                  height: 100%;
-                  left: 45px;
-                  top: 0;
-
-                  @media (max-width: $maxSmall) {
-                    display: none;
-                  }
-                }
-
-                &:last-child {
-                  &:before {
-                    background: #fff;
-                  }   
-                }
-
-                .avatar {
-                  max-width: 62px;
-                  border-radius: 5px;
-
-                  @media (max-width: $maxSmall) {
-                    display: none;
-                  }
-                }
-
-                .message {
-                  border: 1px solid #e4e4e4;
-                  border-radius: 4px;
-                  padding: 7px 20px;
-
-                  @media (max-width: $maxSmall) {
-                    border: 0;
-                    padding: 7px 0;
-                  }
-
-                  header {
-                    font-size: 13px;
-                    position: relative;
-                    color: #777;
-                    margin-top: 8px;
-
-                    &:before {
-                      content: '';
-                      position: absolute;
-                      display: block;
-                      width: 37px;
-                      height: 12px;
-                      top: 10px;
-                      left: -25px;
-                      margin-left: -18.5px;
-                      background-image: url("popover-arrow.png");
-                      background-size: 100% 100%;
-                      @include transform(rotate(270deg));
-
-                      @media (max-width: $maxSmall) {
-                        display: none;
-                      }
-                    }
-
-                    .name {
-                      font-weight: 600;
-                      display: inline-block;
-                      margin-right: 6px;
-                      color: #5481C4;
-                    }
-
-                    .date {
-                      color: #8F8F8F;
-                    }
-                  }
-
-                  .note {
-                    p {
-                      margin-top: 15px;
-                      margin-bottom: 15px;
-                      line-height: 23px;
-                    }
-
-                    .files {
-                      margin-top: 35px;
-                      width: 100%;
-                      margin-bottom: 20px;
-
-                      .file {
-                        float: left;
-                        padding-right: 25px;
-                        max-width: 25%;
-                        vertical-align: top;
-                        text-align: center;
-
-                        img {
-                          border-radius: 3px;
-                        }
-
-                        .name {
-                          display: inline-block;
-                          margin-top: 11px;
-                          line-height: 16px;
-                          font-size: 13px;
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
+            
 
             .load-more {
               margin-top: 30px;
