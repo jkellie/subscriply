@@ -1,14 +1,5 @@
 .filter.clearfix
   %h4.pull-left Recent Notes
-  
-  / %form.pull-right
-  /   .fake-select-wrap
-  /     %select{"data-smart-select" => ""}
-  /       %option Sort by...
-  /       %option Date
-  /       %option Admin
-  /       %option Attachments
-  /     .fake-select Attachments
 
 - if notes.any?
   .comments{style: 'margin-top: 10px'}
@@ -24,5 +15,3 @@
             .note
               %p
                 #{note.description}
-  / .load-more
-  /   %a.btn.btn-default{:href => "#"} Load more...

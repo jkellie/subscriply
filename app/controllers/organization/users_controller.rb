@@ -11,7 +11,7 @@ class Organization::UsersController < Organization::BaseController
   end
 
   def create
-    @user = User.invite!(user_params)
+    @user = User.invite!(user_invite_params)
 
     if @user && @user.persisted?
       flash[:notice] = "#{params[:user][:first_name]} #{params[:user][:last_name]} invited!"
@@ -27,8 +27,12 @@ class Organization::UsersController < Organization::BaseController
     @note = Note.new(user: @user_presenter.user)
   end
 
+  def edit
+    @user = current_organization.users.find(params[:id])
+  end
+
   def update
-    @user = User.find(params[:id])
+    @user = current_organization.users.find(params[:id])
 
     if @user.update_attributes(user_params)
       flash[:notice] = 'User Info Saved!'
@@ -91,9 +95,13 @@ class Organization::UsersController < Organization::BaseController
     params[:end_date].present?
   end
 
-  def user_params
+  def user_invite_params
     params.require(:user).permit(:first_name, :last_name, :email, :sales_rep).merge(invited_by_id: current_organizer.id, 
         organization_id: current_organization.id)
+  end
+
+  def user_params
+    params.require(:user).permit([])
   end
 
   def q

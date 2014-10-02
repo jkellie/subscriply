@@ -1,0 +1,79 @@
+
+= content_for(:menubar) do
+  Edit Customer:
+  %small.hidden-xs #{@user.name}
+
+= simple_form_for @user, url: organization_user_path(@user), method: :put do |f|
+  .row
+    .col-md-6
+      %div{style: 'width: 46%'}
+        %label Sales Rep?
+        .fake-select-wrap
+          %select.form-control{'data-smart-select' => ''}
+            %option Select...
+          .fake-select Select...
+    .col-md-6
+      %p{style: 'padding-top: 15px'} *If a sales rep is associated with the account enter them here. Sales reps can not be automatically assigned at sign-up.
+  
+  .row
+    .col-md-6
+      = f.input :member_number, label: 'Member #', placeholder: '123456', input_html: { class: 'form-control' }
+  
+  .row
+    .col-md-6
+      .row{style: 'margin-top: 15px'}
+        .col-md-6
+          = f.input :first_name, input_html: { class: 'form-control' }
+        .col-md-6
+          = f.input :last_name, input_html: { class: 'form-control' }
+  
+  .row
+    .col-md-6
+      .row{style: 'margin-top: 15px'}
+        .col-md-7
+          = f.input :email, input_html: { class: 'form-control' }
+        .col-md-5
+          .checkbox{style: 'margin-top: 33px'}
+            = f.input :sales_rep, label: 'Make Sales Rep?', as: :boolean        
+    .col-md-6
+      %p{style: 'padding-top: 30px'} *Sales Reps can have users assigned to them for tracking.
+
+  .row{style: 'margin-top: 30px'}
+    .col-md-6
+      %label Sales-Rep Documents
+      .row
+        .col-md-4
+          .checkbox
+            = f.input :contract, label: 'Contract?', as: :boolean
+        .col-md-4
+          .checkbox
+            = f.input :w9, label: 'W9?', as: :boolean
+        .col-md-4
+          .checkbox
+            = f.input :w8, label: 'W8?', as: :boolean
+    .col-md-6
+      .row
+        %p{style: 'padding-top: 30px'} This user has been marked as a sales rep, use these check-marks to indicate what paperwork you have on file.
+  
+  .row{style: 'margin-top: 30px'}
+    .col-md-6
+      = f.input :street_address, label: 'Shipping Address', placeholder: 'Street Address', input_html: { class: 'form-control' }
+  
+  .row{style: 'margin-top: 15px'}
+    .col-md-6
+      = f.input :street_address_2, label: false, placeholder: 'Apt / Suite No', input_html: { class: 'form-control' }
+  
+  .row{style: 'margin-top: 15px'}
+    .col-md-6
+      .row
+        .col-md-6
+          = f.input :city, placeholder: 'City', label: false, input_html: { class: 'form-control' }
+        .col-md-3
+          = f.input :state, placeholder: 'State', label: false, input_html: { class: 'form-control' }
+        .col-md-3
+          = f.input :zip, placeholder: 'Zip Code', label: false, input_html: { class: 'form-control' }
+  
+  .row
+    .col-md-6{style: 'margin-top: 30px'}
+      = link_to 'Cancel', organization_users_path, class: 'btn btn-default'
+      %button.btn.btn-primary{style: 'margin-left: 5px', :type => 'submit'} Save Changes

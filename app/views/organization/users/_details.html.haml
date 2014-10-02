@@ -6,19 +6,19 @@
   .panel-body
     %dl.dl-horizontal
       %dt Member #:
-      %dd 12345
+      %dd #{user_presenter.member_number}
       %dt Full name:
-      %dd Sergio Lizardo
+      %dd #{user_presenter.name}
       %dt email:
       %dd
-        %a{:href => "mailto:sergio.lizardo@example.com"} sergio.lizardo@example.com
+        %a{:href => "mailto:#{user_presenter.email}"} #{user_presenter.email}
       %dt Phone:
-      %dd 407-383-9704
+      %dd #{user_presenter.phone_number}
       %br
       %dt Shipping:
       %dd
-      221 Baker Street
-      %br
-      Apt B
-      %br
-      Debary, FL 32713
+        221 Baker Street
+        %br
+        Apt B
+        %br
+        Debary, FL 32713
