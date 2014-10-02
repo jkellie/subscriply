@@ -1,0 +1,19 @@
+.panel.panel-default
+  .panel-heading
+    %span Subscriptions:
+    %a.ion-plus-circled.pull-right{"data-target" => "#add-subscription", "data-toggle" => "modal", :href => "#", :type => "button"}
+  .panel-body
+    %table.table.table-condensed
+      %thead
+        %tr
+          %th Plan
+          %th Status
+      %tbody
+        %tr
+          %td
+            %a{:href => "subscription.html"} CEP Plus! - Español
+          %td Active
+        %tr
+          %td
+            %a{:href => "subscription.html"} CEP Plus! - English
+          %td Changing

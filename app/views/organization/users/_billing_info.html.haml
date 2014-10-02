@@ -1,0 +1,13 @@
+.panel.panel-default
+  .panel-heading
+    %span Billing info:
+    = link_to edit_organization_user_path(@user_presenter.user), class: 'pull-right' do
+      = icon 'edit'
+  .panel-body
+    %dl.dl-horizontal
+      %dt Card type:
+      %dd Visa
+      %dt Card ending:
+      %dd **** 1966
+      %dt Expires:
+      %dd 08 / 16

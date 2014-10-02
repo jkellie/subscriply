@@ -1,0 +1,24 @@
+.panel.panel-default
+  .panel-heading
+    %span Details:
+    = link_to edit_organization_user_path(@user_presenter.user), class: 'pull-right' do
+      = icon 'edit'
+  .panel-body
+    %dl.dl-horizontal
+      %dt Member #:
+      %dd 12345
+      %dt Full name:
+      %dd Sergio Lizardo
+      %dt email:
+      %dd
+        %a{:href => "mailto:sergio.lizardo@example.com"} sergio.lizardo@example.com
+      %dt Phone:
+      %dd 407-383-9704
+      %br
+      %dt Shipping:
+      %dd
+      221 Baker Street
+      %br
+      Apt B
+      %br
+      Debary, FL 32713

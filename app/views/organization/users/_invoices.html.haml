@@ -1,0 +1,28 @@
+.panel.panel-default
+  .panel-heading
+    %span Invoices:
+  .panel-body
+    %table.table.table-condensed
+      %thead
+        %tr
+          %th Invoice
+          %th Date
+          %th Amount
+      %tbody
+        %tr
+          %td
+            %a{:href => "invoice.pdf"} 1067
+          %td 08/12/14
+          %td $100.00
+        %tr
+          %td
+            %a{:href => "invoice.pdf"} 845
+          %td 07/12/14
+          %td $100.00
+        %tr
+          %td
+            %a{:href => "invoice.pdf"} 627
+          %td 06/12/14
+          %td $100.00
+  .panel-footer
+    %a.btn.btn-default.btn-xs{:href => "invoices.html"} view all

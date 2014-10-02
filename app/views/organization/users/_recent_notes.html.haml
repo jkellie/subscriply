@@ -11,9 +11,9 @@
   /     .fake-select Attachments
 
 - if notes.any?
-  .comments
+  .comments{style: 'margin-top: 10px'}
     - notes.each do |note|
-      .row.comment
+      .row.comment{style: 'padding-bottom: 30px'}
         .col-sm-2
           = image_tag note.organizer.avatar.url(:thumb), class: 'avatar img-responsive'
         .col-sm-10
