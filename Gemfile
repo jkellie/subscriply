@@ -54,6 +54,10 @@ group :production do
   gem 'clockwork'
 end
 
+group :staging do
+  gem 'bugsnag'
+end
+
 group :staging, :production do
   gem 'font_assets'
 end
