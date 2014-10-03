@@ -1,0 +1,111 @@
+
+%div{:style => "margin-left: 15px"}
+  %a.btn.btn-primary.btn-xs{:href => "user.html"} &lt; back to user
+  
+.col-sm-12
+  .panel.panel-default{:style => "margin-top: 20px"}
+    .panel-heading
+      %span Details:
+      %a.ion-trash-a.pull-right{:href => "subscription-cancel.html", :type => "button"}
+      %a.ion-edit.pull-right{:href => "subscription-edit.html", :type => "button"}
+    .panel-body
+      .col-sm-6
+        %dl.dl-horizontal
+          %dt Status:
+          %dd Active
+          %dt Start Date:
+          %dd 05 / 12 / 14
+          %dt Current Period:
+          %dd August, 2014
+          %dt Next Invoice:
+          %dd 09 / 05 / 14
+        #change-button
+          %a.btn.btn-default.btn-xs{"data-target" => "#edit-renewal", "data-toggle" => "modal", :href => "#"} Change renewal date
+      .col-sm-6
+        %dl.dl-horizontal
+          %dt Subscription:
+          %dd CEP Plus! (LP) - Español
+          %dt Type:
+          %dd Local Pick-up
+          %dt Next Ship / Available:
+          %dd 08 / 16 / 14
+          %dt Amount:
+          %dd $50.00
+  .panel.panel-default
+    .panel-heading
+      %span Shipping info:
+      %a.ion-edit.pull-right{"data-target" => "#edit-shipping", "data-toggle" => "modal", :href => "#", :type => "button"}
+    .panel-body
+      .col-sm-6
+        %dl.dl-horizontal
+          %dt Address:
+          %dd
+            %address
+              %strong Fulfillment Mgnr.
+              %br
+                404 Newtech Ct.
+                %br
+                  Suite B
+                  %br
+                    Debary, FL 32713
+      .col-sm-6
+        %dl.dl-horizontal
+          %dt Location:
+          %dd Orlando
+  .panel.panel-default
+    .panel-heading
+      %span Charges &amp; Credits:
+      %span.credit-button
+        %a.btn.btn-default.btn-xs.pull-right{:href => "subscription-credit.html"} Add Credit
+    .panel-body
+      %table.table.table-condensed
+        %thead
+          %tr
+            %th
+            %th Desription
+            %th Created on
+            %th Amount
+            %th Invoice #
+        %tbody
+          %tr
+            %td
+              %span.ion-card
+            %td CEP Plus! (LP) - Español
+            %td 08/12/14
+            %td $25.00 USD
+            %td
+              %a{:href => "invoice.pdf"} 1067
+          %tr
+            %td
+              %span.ion-plus-circled
+            %td Credit
+            %td 07/15/14
+            %td $25.00 USD
+            %td
+              %a{:href => "invoice.pdf"} 1067
+          %tr
+            %td
+              %span.ion-card
+            %td CEP Plus! (LP) - Español
+            %td 07/12/14
+            %td $50.00 USD
+            %td
+              %a{:href => "invoice.pdf"} 845
+          %tr
+            %td
+              %span.ion-card
+            %td CEP Plus! (LP) - Español
+            %td 06/12/14
+            %td $50.00 USD
+            %td
+              %a{:href => "invoice.pdf"} 627
+          %tr
+            %td
+              %span.ion-card
+            %td CEP Plus! (LP) - Español
+            %td 05/12/14
+            %td $50.00 USD
+            %td
+              %a{:href => "invoice.pdf"} 438
+    .panel-footer
+      %a.btn.btn-default.btn-xs{:href => "invoices.html"} load more

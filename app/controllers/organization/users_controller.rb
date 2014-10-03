@@ -97,7 +97,7 @@ class Organization::UsersController < Organization::BaseController
   end
 
   def user_invite_params
-    params.require(:user).permit(:first_name, :last_name, :email, :sales_rep).merge(invited_by_id: current_organizer.id, 
+    params.require(:user).permit(:first_name, :last_name, :email, :is_sales_rep).merge(invited_by_id: current_organizer.id, 
         organization_id: current_organization.id)
   end
 

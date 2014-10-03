@@ -1,0 +1,198 @@
+= content_for(:menubar) do
+  Subscription Details
+
+.col-sm-9
+  .row
+    %table.table.table-striped
+      %thead
+        %tr
+          %th Member#
+          %th Name
+          %th Plan
+          %th Next Invoice
+          %th Next Ship
+          %th Status
+      %tbody
+        %tr
+          %td
+            %a{:href => "subscription.html"} 6212625
+          %td Sergio Lizardo
+          %td CEP Plus! - Spanish
+          %td 10/13/14
+          %td 10/16/14
+          %td Active
+        %tr
+          %td
+            %a{:href => "subscription.html"} 6212625
+          %td Sergio Lizardo
+          %td CEP Plus! - Spanish
+          %td 10/13/14
+          %td 10/16/14
+          %td Active
+        %tr
+          %td
+            %a{:href => "subscription.html"} 6212625
+          %td Sergio Lizardo
+          %td CEP Plus! - Spanish
+          %td 10/13/14
+          %td 10/16/14
+          %td Active
+        %tr
+          %td
+            %a{:href => "subscription.html"} 6212625
+          %td Sergio Lizardo
+          %td CEP Plus! - Spanish
+          %td 10/13/14
+          %td 10/16/14
+          %td Active
+        %tr
+          %td
+            %a{:href => "subscription.html"} 6212625
+          %td Sergio Lizardo
+          %td CEP Plus! - Spanish
+          %td 10/13/14
+          %td 10/16/14
+          %td Active
+        %tr
+          %td
+            %a{:href => "subscription.html"} 6212625
+          %td Sergio Lizardo
+          %td CEP Plus! - Spanish
+          %td 10/13/14
+          %td 10/16/14
+          %td Active
+        %tr
+          %td
+            %a{:href => "subscription.html"} 6212625
+          %td Sergio Lizardo
+          %td CEP Plus! - Spanish
+          %td 10/13/14
+          %td 10/16/14
+          %td Active
+        %tr
+          %td
+            %a{:href => "subscription.html"} 6212625
+          %td Sergio Lizardo
+          %td CEP Plus! - Spanish
+          %td 10/13/14
+          %td 10/16/14
+          %td Active
+        %tr
+          %td
+            %a{:href => "subscription.html"} 6212625
+          %td Sergio Lizardo
+          %td CEP Plus! - Spanish
+          %td 10/13/14
+          %td 10/16/14
+          %td Active
+        %tr
+          %td
+            %a{:href => "subscription.html"} 6212625
+          %td Sergio Lizardo
+          %td CEP Plus! - Spanish
+          %td 10/13/14
+          %td 10/16/14
+          %td Active
+        %tr
+          %td
+            %a{:href => "subscription.html"} 6212625
+          %td Sergio Lizardo
+          %td CEP Plus! - Spanish
+          %td 10/13/14
+          %td 10/16/14
+          %td Active
+        %tr
+          %td
+            %a{:href => "subscription.html"} 6212625
+          %td Sergio Lizardo
+          %td CEP Plus! - Spanish
+          %td 10/13/14
+          %td 10/16/14
+          %td Active
+        %tr
+          %td
+            %a{:href => "subscription.html"} 6212625
+          %td Sergio Lizardo
+          %td CEP Plus! - Spanish
+          %td 10/13/14
+          %td 10/16/14
+          %td Active
+        %tr
+          %td
+            %a{:href => "subscription.html"} 6212625
+          %td Sergio Lizardo
+          %td CEP Plus! - Spanish
+          %td 10/13/14
+          %td 10/16/14
+          %td Active
+        %tr
+          %td
+            %a{:href => "subscription.html"} 6212625
+          %td Sergio Lizardo
+          %td CEP Plus! - Spanish
+          %td 10/13/14
+          %td 10/16/14
+          %td Active
+    %center
+      %ul.pagination
+        %li
+          %a{:href => "#"} «
+        %li.active
+          %a{:href => "#"} 1
+        %li
+          %a{:href => "#"} 2
+        %li
+          %a{:href => "#"} 3
+        %li
+          %a{:href => "#"} 4
+        %li
+          %a{:href => "#"} 5
+        %li
+          %a{:href => "#"} »
+.col-sm-3
+  %h4 Search &amp; Filters
+  %br
+    %span Search
+    .input-group{:style => "padding-top: 5px"}
+      %span.input-group-addon
+        %i.ion-search
+      %input.form-control{:type => "text"}
+    %br
+      %span Invoice Date Range
+      .input-group{:style => "padding-top: 5px"}
+        %span.input-group-addon
+          %i.fa.fa-calendar-o
+        %input.form-control{:placeholder => "start date", :type => "text"}
+      .input-group{:style => "padding-top: 15px"}
+        %span.input-group-addon
+          %i.fa.fa-calendar-o
+        %input.form-control{:placeholder => "end date", :type => "text"}
+      %br
+        %span Ship Date Range
+        .input-group{:style => "padding-top: 5px"}
+          %span.input-group-addon
+            %i.fa.fa-calendar-o
+          %input.form-control{:placeholder => "start date", :type => "text"}
+        .input-group{:style => "padding-top: 15px"}
+          %span.input-group-addon
+            %i.fa.fa-calendar-o
+          %input.form-control{:placeholder => "end date", :type => "text"}
+        %br
+          %span Status
+          .input-group{:style => "padding-top: 5px; width: 100%"}
+            .fake-select-wrap
+              %select.form-control{"data-smart-select" => ""}
+                %option All
+                %option Active
+                %option Renewing
+                %option Non-Renewing
+                %option Future
+                %option In-Trial
+                %option Past Due
+                %option Expired
+              .fake-select All
+          %br
+            %br
+              %a.btn.btn-primary.center-block
+                %i.fa.fa-download>
+                \&nbsp; Download CSV file
