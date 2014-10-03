@@ -29,6 +29,7 @@ class Organization::UsersController < Organization::BaseController
 
   def edit
     @user = current_organization.users.find(params[:id])
+    @sales_reps = current_organization.users.is_sales_rep.order('first_name ASC')
   end
 
   def update
@@ -101,7 +102,9 @@ class Organization::UsersController < Organization::BaseController
   end
 
   def user_params
-    params.require(:user).permit([])
+    params.require(:user).permit([:member_number, :sales_rep_id, :first_name, :last_name, 
+      :email, :sales_rep, :phone_number, :contract, :w8, :w9, :street_address, :street_address_2,
+      :city, :state, :zip])
   end
 
   def q

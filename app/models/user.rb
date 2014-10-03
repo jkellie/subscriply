@@ -3,12 +3,14 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :invitable
 
   belongs_to :organization
+  belongs_to :sales_rep, class_name: 'User'
 
   has_many :notes
   
   scope :scoped_to, -> (organization_id) { where("organization_id = ?", organization_id)}
   scope :search, ->(q) { where("first_name ILIKE ? OR last_name ILIKE ? OR email ILIKE ? OR ID = ?", "%#{q}%", "%#{q}%", "%#{q}%", "#{q.to_i}")}
   scope :between, ->(start_date, end_date) { where(created_at: start_date...end_date)}
+  scope :is_sales_rep, -> { where(is_sales_rep: true) }
   
   validates :first_name, :last_name, presence: true
   validates :email, presence: true, uniqueness: { scope: :organization }

@@ -12,24 +12,27 @@
       %span.label.label-success{:style => "font-size: 13px"} CEP
       %span.label.label-default{:style => "font-size: 13px"} MOBILE
 
-.col-md-12
-  .row
+.row
+  .col-md-12
     %p.pull-right
       %strong Sales Rep:
-      Pedro Lizardi (6575)
+      - if @user_presenter.has_sales_rep?
+        #{@user_presenter.sales_rep_name} (#{@user_presenter.sales_rep_number})
+      - else
+        n/a
 
-.col-sm-7
-  .row
+.row
+  .col-md-7  
     = render 'notes_form', note: @note, user: @user_presenter.user
     = render 'recent_notes', notes: @user_presenter.notes
 
-.col-sm-5
-  = render 'details', user_presenter: @user_presenter
-  = render 'billing_info', user_presenter: @user_presenter
-  = render 'subscriptions', user_presenter: @user_presenter
-  = render 'invoices', user_presenter: @user_presenter
-  = render 'transactions', user_presenter: @user_presenter
-  
+  .col-md-5
+    = render 'details', user_presenter: @user_presenter
+    = render 'billing_info', user_presenter: @user_presenter
+    = render 'subscriptions', user_presenter: @user_presenter
+    = render 'invoices', user_presenter: @user_presenter
+    = render 'transactions', user_presenter: @user_presenter
+    
 
 :javascript
   var organizer_user_ready = function () {

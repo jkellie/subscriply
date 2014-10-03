@@ -17,4 +17,23 @@ class Organization::UserPresenter
     'n/a'
   end
 
+  def address
+    _address = "#{user.street_address}"
+    _address += "<br/>#{user.street_address_2}" if user.street_address_2.present?
+    _address += "<br/>#{user.city}, #{user.state} #{user.zip}"
+    _address
+  end
+
+  def has_sales_rep?
+    user.sales_rep
+  end
+
+  def sales_rep_name
+    user.sales_rep.name
+  end
+
+  def sales_rep_number
+    user.sales_rep.member_number
+  end
+
 end

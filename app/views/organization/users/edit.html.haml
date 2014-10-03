@@ -1,4 +1,3 @@
-
 = content_for(:menubar) do
   Edit Customer:
   %small.hidden-xs #{@user.name}
@@ -7,38 +6,40 @@
   .row
     .col-md-6
       %div{style: 'width: 46%'}
-        %label Sales Rep?
-        .fake-select-wrap
-          %select.form-control{'data-smart-select' => ''}
-            %option Select...
-          .fake-select Select...
+        = f.input :sales_rep_id, as: :select, collection: @sales_reps, input_html: { class: 'form-control' }, label: 'Sales Rep'
     .col-md-6
       %p{style: 'padding-top: 15px'} *If a sales rep is associated with the account enter them here. Sales reps can not be automatically assigned at sign-up.
   
   .row
     .col-md-6
-      = f.input :member_number, label: 'Member #', placeholder: '123456', input_html: { class: 'form-control' }
+      = f.input :member_number, label: 'Member #', required: true, input_html: { class: 'form-control' }
   
   .row
     .col-md-6
       .row{style: 'margin-top: 15px'}
         .col-md-6
-          = f.input :first_name, input_html: { class: 'form-control' }
+          = f.input :first_name, required: true, input_html: { class: 'form-control' }
         .col-md-6
-          = f.input :last_name, input_html: { class: 'form-control' }
+          = f.input :last_name, required: true, input_html: { class: 'form-control' }
   
   .row
     .col-md-6
       .row{style: 'margin-top: 15px'}
         .col-md-7
-          = f.input :email, input_html: { class: 'form-control' }
+          = f.input :email, input_html: { class: 'form-control' }, required: true
         .col-md-5
           .checkbox{style: 'margin-top: 33px'}
-            = f.input :sales_rep, label: 'Make Sales Rep?', as: :boolean        
+            = f.input :is_sales_rep, label: 'Make Sales Rep?', as: :boolean        
     .col-md-6
       %p{style: 'padding-top: 30px'} *Sales Reps can have users assigned to them for tracking.
 
-  .row{style: 'margin-top: 30px'}
+  .row
+    .col-md-6
+      .row{style: 'margin-top: 15px'}
+        .col-md-7
+          = f.input :phone_number, input_html: { class: 'form-control' }
+
+  .sales-rep-fields.row{style: 'margin-top: 30px', class: "#{!f.object.is_sales_rep? && 'hidden'}"}
     .col-md-6
       %label Sales-Rep Documents
       .row
@@ -77,3 +78,13 @@
     .col-md-6{style: 'margin-top: 30px'}
       = link_to 'Cancel', organization_users_path, class: 'btn btn-default'
       %button.btn.btn-primary{style: 'margin-left: 5px', :type => 'submit'} Save Changes
+
+:javascript
+  $(document).on('change', '#user_is_sales_rep', function(){
+    if ($('#user_is_sales_rep').is(':checked')){
+      $('.sales-rep-fields').removeClass('hidden');
+    }
+    else {
+      $('.sales-rep-fields').addClass('hidden');  
+    }   
+  });
