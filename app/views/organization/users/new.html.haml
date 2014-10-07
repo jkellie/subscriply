@@ -23,5 +23,5 @@
               %strong Make Sales Rep
   .row
     .col-4-sm{:style => "margin: 30px"}
-      %button.btn.btn-default{"data-dismiss" => "modal", :style => "margin-right: 5px", :type => "button"} Cancel
+      = link_to 'Cancel', organization_users_path, class: 'btn btn-default'
       %button.btn.btn-primary{:style => "margin-left: 5px", :type => "submit"} Send invitation

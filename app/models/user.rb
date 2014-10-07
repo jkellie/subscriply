@@ -15,6 +15,15 @@ class User < ActiveRecord::Base
   validates :first_name, :last_name, presence: true
   validates :email, presence: true, uniqueness: { scope: :organization }
 
+  state_machine initial: :pending do
+    event :enable do
+      transition all => :open
+    end
+    event :disable do
+      transition all => :closed
+    end
+  end
+
   def self.find_for_authentication(warden_conditions)
     where(
       email: warden_conditions[:email],
@@ -24,11 +33,6 @@ class User < ActiveRecord::Base
 
   def name
     [first_name, last_name].join ' '
-  end
-
-  def status
-    return 'Invited' if invited?
-    'Current'
   end
 
   private

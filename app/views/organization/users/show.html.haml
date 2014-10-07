@@ -7,8 +7,9 @@
 
 = content_for(:menubar_right) do
   .pull-right
-    .row
-      %span.label.label-success{:style => "font-size: 13px"} OPEN
+    .row.status-labels
+      = @user_presenter.status_label
+      
       %span.label.label-success{:style => "font-size: 13px"} CEP
       %span.label.label-default{:style => "font-size: 13px"} MOBILE
 

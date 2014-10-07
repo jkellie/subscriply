@@ -7,4 +7,4 @@
   %td= link_to user.name, organization_user_path(user)
   %td= link_to user.email, "mailto:#{user.email}"
   %td #{user.created_at.strftime('%m/%-e/%y')}
-  %td #{user.status}
+  %td #{user.state}

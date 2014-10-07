@@ -104,7 +104,7 @@ class Organization::UsersController < Organization::BaseController
   def user_params
     params.require(:user).permit([:member_number, :sales_rep_id, :first_name, :last_name, 
       :email, :sales_rep, :phone_number, :contract, :w8, :w9, :street_address, :street_address_2,
-      :city, :state, :zip])
+      :city, :state_code, :zip])
   end
 
   def q
