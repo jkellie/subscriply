@@ -219,3 +219,154 @@
     }
   }
 }
+
+#wizard-custom #content {
+  padding: 0 0 40px; }
+  #wizard-custom #content .content-wrapper {
+    margin-top: 0; }
+#wizard-custom .header {
+  padding: 11px 0 9px 0;
+  background: #5A6474;
+  font-family: "Helvetica Neue", Arial;
+  text-align: center;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15); }
+  #wizard-custom .header .sidebar-toggler {
+    position: absolute;
+    color: #fff;
+    padding: 15px;
+    top: 3px;
+    z-index: 99;
+    left: 8px;
+    cursor: pointer; }
+    #wizard-custom .header .sidebar-toggler i {
+      font-size: 37px; }
+  #wizard-custom .header .steps {
+    width: 79%;
+    margin: 0 auto;
+    border-radius: 2px 2px 0 0; }
+    #wizard-custom .header .steps .step {
+      width: 25%;
+      float: left;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      text-align: center;
+      color: #f5f5f5;
+      text-shadow: 1px 1px rgba(0, 0, 0, 0.05);
+      position: relative;
+      font-size: 13px;
+      font-weight: 500; }
+      @media (max-width: 767px) {
+        #wizard-custom .header .steps .step {
+          width: 100%;
+          padding: 10px 0; } }
+      #wizard-custom .header .steps .step.active span {
+        background: #94A1B8; }
+      #wizard-custom .header .steps .step:after {
+        content: '';
+        position: absolute;
+        bottom: 31px;
+        left: 55%;
+        display: block;
+        height: 2px;
+        background: #94A1B8;
+        width: 100%; }
+        @media (max-width: 991px) {
+          #wizard-custom .header .steps .step:after {
+            left: 57%; } }
+        @media (max-width: 767px) {
+          #wizard-custom .header .steps .step:after {
+            display: none; } }
+      #wizard-custom .header .steps .step:last-child:after {
+        display: none; }
+      #wizard-custom .header .steps .step span {
+        width: 23px;
+        height: 23px;
+        display: block;
+        position: relative;
+        margin: 0 auto;
+        margin-top: 13px;
+        border-radius: 25px;
+        background: #5A6474;
+        border: 2px solid #94A1B8;
+        -webkit-transition: all 0.2s linear;
+        -moz-transition: all 0.2s linear;
+        -ms-transition: all 0.2s linear;
+        -o-transition: all 0.2s linear;
+        transition: all 0.2s linear; }
+        @media (max-width: 767px) {
+          #wizard-custom .header .steps .step span {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 15px;
+            height: 15px; } }
+#wizard-custom .form-wizard {
+  background: #fff;
+  margin: 0 30px;
+  margin-top: 42px;
+  position: relative; }
+  @media (max-width: 767px) {
+    #wizard-custom .form-wizard {
+      width: 84%; } }
+  #wizard-custom .form-wizard .step {
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    /* step 2 avatar display */
+    /* step 3 expiration date inputs */
+    /* final step success */ }
+    #wizard-custom .form-wizard .step.active {
+      opacity: 1;
+      z-index: 3; }
+    #wizard-custom .form-wizard .step .form-group {
+      margin-bottom: 21px; }
+      #wizard-custom .form-wizard .step .form-group .column {
+        width: 30%;
+        float: left; }
+        @media (max-width: 767px) {
+          #wizard-custom .form-wizard .step .form-group .column {
+            width: 100%;
+            margin-bottom: 20px; } }
+    #wizard-custom .form-wizard .step .display-field {
+      margin-top: 6px; }
+      #wizard-custom .form-wizard .step .display-field .display {
+        float: left;
+        background: #eeeeee;
+        width: 100px;
+        height: 100px;
+        display: table;
+        text-align: center; }
+        #wizard-custom .form-wizard .step .display-field .display span {
+          color: #9B9B9B;
+          font-weight: bold;
+          font-family: "Helvetica Neue", Arial;
+          font-size: 13px;
+          display: table-cell;
+          vertical-align: middle; }
+      #wizard-custom .form-wizard .step .display-field input {
+        float: left;
+        margin-top: 30px;
+        margin-left: 20px; }
+    #wizard-custom .form-wizard .step .expiration-field {
+      width: 63% !important; }
+      #wizard-custom .form-wizard .step .expiration-field input {
+        width: 48%;
+        float: left; }
+        #wizard-custom .form-wizard .step .expiration-field input:last-child {
+          float: right; }
+    #wizard-custom .form-wizard .step .success {
+      text-align: center; }
+      #wizard-custom .form-wizard .step .success .ion-checkmark-circled {
+        font-size: 47px;
+        color: #3DA838; }
+      #wizard-custom .form-wizard .step .success h3 {
+        margin-top: 25px;
+        font-size: 21px;
+        color: #556579; }
+      #wizard-custom .form-wizard .step .success .button {
+        margin-top: 40px; }
+    #wizard-custom .form-wizard .step .form-actions {
+      margin-top: 40px;
+      text-align: center; }
+      #wizard-custom .form-wizard .step .form-actions .button {
+        margin: 0 10px; }

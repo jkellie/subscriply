@@ -33,4 +33,18 @@ module ApplicationHelper
      '9:00 PM', '9:15 PM', '9:30 PM', '9:45 PM',
     ]
   end
+
+  def months_for_select
+    [['January', 1], ['February', 2], ['March', 3], ['April', 4], ['May', 5],
+     ['June', 6], ['July', 7], ['August', 8], ['September', 9], ['October', 10],
+     ['November', 11], ['December', 12]]
+  end
+
+  def years_for_select
+    ([]).tap do |years|
+      (0..15).each do |i|
+        years << Date.today.year + i
+      end
+    end
+  end
 end

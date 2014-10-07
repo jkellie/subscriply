@@ -1,0 +1,20 @@
+= content_for(:body_id) do
+  wizard-custom
+
+= render 'header'
+
+.col-sm-12
+  %section.form-wizard
+    = simple_form_for(@subscription_creator, url: organization_subscriptions_path, method: :post) do |f|
+      = render 'setup_account', f: f
+      = render 'select_subscription', f: f
+      = render 'credit_card_info', f: f
+      = render 'finish', f: f
+      
+:javascript
+  var organization_subscription_creator_ready = function () {
+    OrganizationSubscriptionCreator.init();
+  }
+
+  $(document).on("page:load", organization_subscription_creator_ready);
+  $(document).ready(organization_subscription_creator_ready);

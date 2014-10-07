@@ -1,6 +1,12 @@
 = content_for(:menubar) do
   Subscription Details
 
+= content_for(:menubar_right) do
+  .pull-right
+    = link_to new_organization_subscription_path, class: 'btn btn-primary' do
+      = icon 'plus-circle'
+      Add New
+
 .col-sm-9
   .row
     %table.table.table-striped
@@ -155,7 +161,7 @@
     %span Search
     .input-group{:style => "padding-top: 5px"}
       %span.input-group-addon
-        %i.ion-search
+        = icon 'search'
       %input.form-control{:type => "text"}
     %br
       %span Invoice Date Range

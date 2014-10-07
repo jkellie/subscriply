@@ -1,0 +1,32 @@
+.step.animated
+  .row
+    .col-sm-6{:style => "padding-left: 7%"}
+      %div{:style => "width: 45%"}
+        = f.input :start_date, input_html: { class: 'form-control', type: 'date'}
+      
+      %div{:style => "width: 75%; margin-top: 15px"}
+        = f.input :product_id, as: :select, collection: f.object.products, input_html: { class: 'form-control'}
+
+      %div{:style => "width: 75%; margin-top: 15px"}
+        = f.input :plan_id, as: :select, collection: f.object.plans, input_html: { class: 'form-control'}
+        
+      %div{:style => "width: 75%; margin-top: 15px"}
+        = f.input :location_id, as: :select, collection: f.object.locations, input_html: { class: 'form-control'}
+
+    .col-sm-6
+      %p{:style => "margin-top: 30px"} Choose a start date for the subscription.
+      %p{:style => "margin-right: 30px"}
+        Once a product has been selected you may choose a plan associated with that product.
+      %p{:style => "margin-right: 40px"}
+        If the plan you select has the "Local Pick-up" option enabled you will also need to select a location for the customer to do their pick-up.
+
+  .form-group.form-actions
+    %a.button{"data-step" => "1", :href => "#"}
+      %span
+        %i.fa.fa-angle-double-left
+        Back
+
+    %button.button{"data-step" => "3", :type => "submit"}
+      %span
+        Next Step
+        %i.fa.fa-angle-double-right
