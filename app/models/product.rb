@@ -4,7 +4,6 @@ class Product < ActiveRecord::Base
 
   mount_uploader :image, ProductImageUploader
 
-
   def plans_count
     plans.count
   end
@@ -12,4 +11,5 @@ class Product < ActiveRecord::Base
   def deletable?
     plans_count == 0
   end
+
 end

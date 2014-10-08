@@ -1,40 +1,44 @@
 .step.animated.active
   .row
-    .col-sm-6
+    
+    .col-md-6
       .row
-        .col-md-10
+        .col-md-6
           = f.input :sales_rep_id, as: :select, collection: f.object.sales_reps, input_html: { class: 'form-control'}
-      .row{:style => "margin-top: 15px"}
+      .row{:style => "margin-top: 45px"}
         .col-md-12
           = f.input :member_number, input_html: { class: 'form-control', style: 'width: 46%'}
 
       .row{:style => "margin-top: 15px"}
-        .col-sm-6
+        .col-md-6
           = f.input :first_name, input_html: { class: 'form-control' }
-        .col-sm-6
+        .col-md-6
           = f.input :last_name, input_html: { class: 'form-control' }
-    .col-sm-6
+    
+    .col-md-6
       .row
-        .col-sm-6
+        .col-md-6
           = f.input :phone_number, input_html: { class: 'form-control' }
-        .col-sm-6
+        .col-md-6
           = f.input :email, input_html: { class: 'form-control' }
 
-      %div{:style => "margin-top: 15px"}
-        = f.input :street_address, label: 'Shipping Address', input_html: { class: 'form-control' }
-
-      %div{:style => "margin-top: 15px"}
-        = f.input :street_address_2, label: false, placeholder: 'Apt / Suite', input_html: { class: 'form-control' }
+      .row{:style => "margin-top: 15px"}
+        .col-md-12
+          = f.input :street_address, label: 'Shipping Address', input_html: { class: 'form-control' }
 
       .row{:style => "margin-top: 15px"}
-        .col-sm-6
+        .col-md-12
+          = f.input :street_address_2, label: false, placeholder: 'Apt / Suite', input_html: { class: 'form-control' }
+
+      .row{:style => "margin-top: 15px"}
+        .col-md-6
           = f.input :city, placeholder: 'City', required: true, label: false, input_html: { class: 'form-control' }
-        .col-sm-3
+        .col-md-3
           = f.input :state_code, placeholder: 'State', required: true, label: false, input_html: { class: 'form-control' }
-        .col-sm-3
+        .col-md-3
           = f.input :zip, placeholder: 'Zip Code', required: true, label: false, input_html: { class: 'form-control' }
-  .form-group.form-actions
-    %button.button{"data-step" => "2", :type => "submit"}
-      %span
-        Next Step
-        %i.fa.fa-angle-double-right
+
+  .form-group.form-actions.text-right
+    %button.btn.btn-primary{"data-step" => "2", :type => "submit"}
+      %b Next Step
+      = icon 'angle-double-right'

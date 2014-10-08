@@ -51,10 +51,8 @@
             %br
               Debary, FL 32713
   
-  .form-group.form-actions
-    %a.button{"data-step" => "3", :href => "#"}
-      %span
-        %i.fa.fa-angle-double-left
-        Back
-    %button.button{"data-step" => "4", :type => "submit"}
-      %span Submit
+  .form-group.form-actions.text-right
+    %button.btn.btn-default{'data-step' => '3'}
+      = icon 'angle-double-left'
+      %b Back
+    %button.btn.btn-primary{:type => "submit"} Submit

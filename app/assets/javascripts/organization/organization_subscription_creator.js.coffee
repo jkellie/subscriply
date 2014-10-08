@@ -1,13 +1,32 @@
 OrganizationSubscriptionCreator = 
 
-  init: ->
+  init: (public_key) ->
     @_initSteps()
+    @_initRecurly(public_key)
+
+  _initRecurly: (public_key) ->
+    recurly.configure public_key
+
+    $(document).on 'submit', '.new_subscription_creator', (e) ->
+      debugger
+      e.preventDefault()
+      form = this
+      
+      recurly.token form, (err, token) ->
+        if err
+          console.log "test"
+          alert('failed')
+        else
+          debugger
+          form.submit()
 
   _initSteps: ->
     $steps = $(".form-wizard .step")
     $buttons = $steps.find("[data-step]")
     $tabs = $(".header .steps .step")
     active_step = 0
+
+    $('#subscription_creator_sales_rep_id').select2()
     
     $buttons.click (e) ->
       e.preventDefault()

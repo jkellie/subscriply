@@ -7,7 +7,7 @@ class SubscriptionCreator
   attr_accessor :sales_rep_id, :member_number, :phone_number, :email, :first_name, 
     :last_name, :street_address, :street_address_2, :state_code, :city, :zip
   attr_accessor :start_date, :product_id, :plan_id, :location_id
-  attr_accessor :name_on_card, :card_number, :expiration_month, :expiration_year, :cvv, 
+  attr_accessor :first_name, :last_name, :card_number, :expiration_month, :expiration_year, :cvv, 
     :billing_street_address, :billing_street_address_2, :billing_city, :billing_state_code, :billing_zip
 
   def initialize(options)
@@ -38,6 +38,10 @@ class SubscriptionCreator
 
   def products
     organization.products.order('name ASC')
+  end
+
+  def persisted?
+    false
   end
 
   private

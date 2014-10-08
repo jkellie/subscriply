@@ -11,6 +11,7 @@ class Organization::SubscriptionsController < Organization::BaseController
   end
 
   def create
+    binding.pry_remote
     @subscription_creator = Organization::SubscriptionCreator.new(organization: current_organization)
     @subscription_creator.attributes = params[:subscription_creator]
 

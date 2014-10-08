@@ -19,5 +19,6 @@
 //= require bootstrap
 //= require ckeditor-jquery
 //= require select2
+//= require recurly
 //= require_tree ./organization
 //= require_tree ./ckeditor
