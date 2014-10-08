@@ -8,9 +8,9 @@
       %div{style: 'width: 46%'}
         = f.input :sales_rep_id, as: :select, collection: @sales_reps, input_html: { class: 'form-control' }, label: 'Sales Rep'
     .col-md-6
-      %p{style: 'padding-top: 15px'} *If a sales rep is associated with the account enter them here. Sales reps can not be automatically assigned at sign-up.
+      %p{style: 'padding-top: 15px'} * If a sales rep is associated with the account enter them here. 
   
-  .row
+  .row{style: 'margin-top: 15px'}
     .col-md-6
       = f.input :member_number, label: 'Member #', required: true, input_html: { class: 'form-control' }
   
@@ -80,6 +80,8 @@
       %button.btn.btn-primary{style: 'margin-left: 5px', :type => 'submit'} Save Changes
 
 :javascript
+  $('#user_sales_rep_id').select2();
+
   $(document).on('change', '#user_is_sales_rep', function(){
     if ($('#user_is_sales_rep').is(':checked')){
       $('.sales-rep-fields').removeClass('hidden');

@@ -8,6 +8,7 @@ class Organization::UsersController < Organization::BaseController
   end
 
   def new
+    @sales_reps = current_organization.users.is_sales_rep.order('first_name ASC')
   end
 
   def create
