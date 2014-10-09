@@ -20,7 +20,7 @@
   %br
   %span Status
   .input-group{:style => "padding-top: 5px; width: 100%"}
-    = select_tag 'status', options_for_select([["All", "All"], ["Open", "Open"], ["Closed", "Closed"]], params[:type]), class: 'form-control input-md'
+    = select_tag 'state', options_for_select([["All", "All"], ["Open", "Open"], ["Closed", "Closed"]], params[:state]), class: 'form-control input-md'
   %br
   = f.submit 'Search', class: 'btn btn-primary btn-lg btn-block center-block'
   %br

@@ -70,7 +70,18 @@ class Organization::UsersController < Organization::BaseController
       @users = @users.where(["created_at <= ?", end_date]) if end_date?
     end
 
+    @users = @users.open if open?
+    @users = @users.closed if closed?
+
     @users = @users.page(page).per(per_page)
+  end
+
+  def open?
+    params[:state] == 'Open'
+  end
+
+  def closed?
+    params[:state] == 'Closed'
   end
 
   def search_between_dates?
