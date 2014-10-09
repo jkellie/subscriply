@@ -1,7 +1,9 @@
 .panel.panel-default
   .panel-heading
     %span Subscriptions:
-    %a.ion-plus-circled.pull-right{"data-target" => "#add-subscription", "data-toggle" => "modal", :href => "#", :type => "button"}
+    .pull-right
+      = link_to '#', data: {target: '#add-subscription', toggle: 'modal'} do
+        = icon 'plus-circle'
   .panel-body
     %table.table.table-condensed
       %thead

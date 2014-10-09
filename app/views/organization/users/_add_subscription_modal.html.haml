@@ -1,0 +1,44 @@
+#add-subscription.modal.fade{"aria-hidden" => "true", :role => "dialog", :style => "display: none;", :tabindex => "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+        %h4#myModalLabel.modal-title
+          Add Subscription
+      .modal-body
+        .row
+          .col-sm-6
+            %label Start Date
+            %input.form-control{:type => "date"}
+          .col-sm-6{:style => "margin-top: 15px"}
+            %p Choose a start date for the subscription
+        .row{:style => "margin-top: 15px"}
+          .col-sm-6
+            %label Product
+            .fake-select-wrap
+              %select.form-control{"data-smart-select" => ""}
+                %option Continuing Education
+              .fake-select Continuing Education
+        .row{:style => "margin-top: 15px"}
+          .col-sm-6
+            %label Plan
+            .fake-select-wrap
+              %select.form-control{"data-smart-select" => ""}
+                %option CEP Plus! (LP) - English
+              .fake-select CEP Plus! (LP) - English
+          .col-sm-6{:style => "margin-top: 15px"}
+            %p Once a product has been selected you may choose a plan associated with that product.
+        .row{:style => "margin-top: 15px"}
+          .col-sm-6
+            %label Location
+            .fake-select-wrap
+              %select.form-control{"data-smart-select" => ""}
+                %option Orlando
+              .fake-select Orlando
+          .col-sm-6{:style => "margin-top: 15px"}
+            %p If the plan you select has the "Local Pick-up" option enabled you will also need to select a location for the customer to do their pick-up.
+        %br
+          %br
+            %center
+              %input.btn.btn-default{"data-dismiss" => "modal", :style => "margin-right: 10px", :type => "submit", :value => "Cancel"}
+                %input.btn.btn-primary{:style => "margin-left: 10px", :type => "submit", :value => "Submit"}

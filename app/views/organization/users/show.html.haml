@@ -33,7 +33,8 @@
     = render 'subscriptions', user_presenter: @user_presenter
     = render 'invoices', user_presenter: @user_presenter
     = render 'transactions', user_presenter: @user_presenter
-    
+
+= render 'add_subscription_modal', user_presenter: @user_presenter    
 
 :javascript
   var organizer_user_ready = function () {

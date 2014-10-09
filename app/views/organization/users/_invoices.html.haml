@@ -25,4 +25,4 @@
           %td 06/12/14
           %td $100.00
   .panel-footer
-    %a.btn.btn-default.btn-xs{:href => "invoices.html"} view all
+    = link_to 'view all', organization_invoices_path(user_id: user_presenter.user.id), class: 'btn btn-default btn-xs'

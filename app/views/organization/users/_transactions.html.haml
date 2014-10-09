@@ -25,4 +25,4 @@
           %td 07/12/14
           %td $50.00
   .panel-footer
-    %a.btn.btn-default.btn-xs{:href => "transactions.html"} view all
+    = link_to 'view all', organization_transactions_path(user_id: user_presenter.user.id), class: 'btn btn-default btn-xs'
