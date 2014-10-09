@@ -73,7 +73,7 @@ class Organization::UsersController < Organization::BaseController
     @users = @users.open if open?
     @users = @users.closed if closed?
 
-    @users = @users.page(page).per(per_page)
+    @users = @users.order('created_at DESC').page(page).per(per_page)
   end
 
   def open?
