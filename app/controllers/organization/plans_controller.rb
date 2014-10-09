@@ -1,9 +1,17 @@
 class Organization::PlansController < Organization::BaseController
+  before_action :find_plans, only: [:index]
   before_action :find_plan, only: [:edit, :update, :destroy]
   before_action :find_products, only: [:edit, :new]
 
+  respond_to :html, :json
+
   def index
-    @plans = current_organization.plans.order('created_at ASC')
+    respond_to do |format|
+      format.html
+      format.json do
+        respond_with @plans
+      end
+    end
   end
 
   def edit
@@ -46,6 +54,12 @@ class Organization::PlansController < Organization::BaseController
   end
 
   private
+
+  def find_plans
+    @plans = current_organization.plans
+    @plans = @plans.where(product_id: params[:product_id]) if params[:product_id].present?
+    @plans = @plans.order('created_at ASC')
+  end
 
   def find_plan
     @plan = current_organization.plans.find(params[:id])

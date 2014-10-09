@@ -1,8 +1,35 @@
 OrganizationSubscriptionCreator = 
 
   init: (public_key) ->
-    @_initSteps()
+    @_initDatePicker()
+    @_initProduct()
     @_initRecurly(public_key)
+    @_initSteps()
+
+  _initDatePicker: ->
+    $('.datepicker').datepicker()
+
+  _initProduct: ->
+    $(document).on 'change', '#subscription_creator_product_id', (e) ->
+      product_id = $(this).val()
+      $('#subscription_creator_plan_id option').remove()
+      $('#subscription_creator_plan_id').attr('disabled', 'disabled')
+
+      if product_id isnt ''
+        $.ajax
+          url: "/organization/plans?product_id=#{product_id}"
+          dataType: 'JSON'
+          success: (plans) ->
+            $.each plans, (i, plan) ->
+              $("#subscription_creator_plan_id").append $("<option/>",
+                value: plan.id
+                text: plan.name
+                'data-local-pick-up': (plan.plan_type == 'local_pick_up')
+              )
+
+            $('#subscription_creator_plan_id').attr('disabled', plans.length is 0)
+          error: (response) ->
+          complete: ->
 
   _initRecurly: (public_key) ->
     recurly.configure public_key
