@@ -1,4 +1,5 @@
 class Organization::ProductsController < Organization::BaseController
+  before_action :find_product, only: [:edit, :show, :update, :destroy]
   respond_to :html, :json
 
   def index
@@ -6,7 +7,6 @@ class Organization::ProductsController < Organization::BaseController
   end
 
   def edit
-    @product = current_organization.products.find(params[:id])
   end
 
   def new
@@ -14,11 +14,9 @@ class Organization::ProductsController < Organization::BaseController
   end
 
   def show
-    product = current_organization.products.find(params[:id])
-    
     respond_to do |format|
       format.json do
-        respond_with product
+        respond_with @product
       end
     end
   end
@@ -36,8 +34,6 @@ class Organization::ProductsController < Organization::BaseController
   end
 
   def update
-    @product = current_organization.products.find(params[:id])
-
     if @product.update(product_params)
       flash[:info] = 'Product updated'
       redirect_to organization_products_path
@@ -48,8 +44,6 @@ class Organization::ProductsController < Organization::BaseController
   end
 
   def destroy
-    @product = current_organization.products.find(params[:id])
-
     if @product.destroy
       flash[:info] = 'Product Destroyed'
     else
@@ -60,6 +54,10 @@ class Organization::ProductsController < Organization::BaseController
   end
 
   private
+
+  def find_product
+    @product = current_organization.products.find(params[:id])
+  end
 
   def product_params
     params.require(:product).permit(:name, :image, :prepend_code, :description).merge(organization_id: current_organization.id)
