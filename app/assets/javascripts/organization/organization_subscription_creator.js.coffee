@@ -2,12 +2,17 @@ OrganizationSubscriptionCreator =
 
   init: (public_key) ->
     @_initDatePicker()
+    @_initPlan()
     @_initProduct()
     @_initRecurly(public_key)
     @_initSteps()
 
   _initDatePicker: ->
     $('.datepicker').datepicker()
+
+  _initPlan: ->
+    $(document).on 'change', '#subscription_creator_plan_id', (e) ->
+      OrganizationSubscriptionCreator._toggleLocationId()
 
   _initProduct: ->
     $(document).on 'change', '#subscription_creator_product_id', (e) ->
@@ -30,6 +35,7 @@ OrganizationSubscriptionCreator =
             $('#subscription_creator_plan_id').attr('disabled', plans.length is 0)
           error: (response) ->
           complete: ->
+            OrganizationSubscriptionCreator._toggleLocationId()
 
   _initRecurly: (public_key) ->
     recurly.configure public_key
@@ -69,5 +75,11 @@ OrganizationSubscriptionCreator =
       $steps.removeClass "active"
       $steps.eq(step_index).addClass "active animated " + in_fade_class
 
+  _toggleLocationId: ->
+    if $('#subscription_creator_plan_id').find(':selected').data('local-pick-up') is true
+      $('#subscription_creator_location_id').attr('disabled', false)
+    else
+      $('#subscription_creator_location_id').attr('disabled', true)
+      $('#subscription_creator_location_id option').first().attr('selected', 'selected')
 
 window.OrganizationSubscriptionCreator = OrganizationSubscriptionCreator

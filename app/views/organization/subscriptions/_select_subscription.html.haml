@@ -23,7 +23,7 @@
         
       .row{:style => "margin-top: 15px"}
         .col-md-6
-          = f.input :location_id, as: :select, collection: f.object.locations, input_html: { class: 'form-control'}
+          = f.input :location_id, as: :select, collection: f.object.locations, input_html: { class: 'form-control', disabled: true}
         .col-md-6
           %p{:style => "margin-top: 20px"} If the plan you select has the "Local Pick-up" option enabled you will also need to select a location for the customer to do their pick-up.
 
