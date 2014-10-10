@@ -5,28 +5,28 @@
       .row
         .col-md-4
           %label{for: 'first_name'} * First Name
-          = text_field_tag nil, '', id: 'first_name', class: 'form-control', data: {recurly: 'first_name'}
+          = text_field_tag nil, '', id: 'first_name', class: 'form-control', data: {recurly: 'first_name'}, required: true
         .col-md-5
           %label{for: 'last_name'} * Last Name
-          = text_field_tag nil, '', id: 'last_name', class: 'form-control', data: {recurly: 'last_name'}
+          = text_field_tag nil, '', id: 'last_name', class: 'form-control', data: {recurly: 'last_name'}, required: true
 
       .row{:style => "margin-top: 15px"}
         .col-md-9
           %label{for: 'number'} * Card Number
-          = text_field_tag nil, '', id: 'number', class: 'form-control', data: {recurly: 'number'}
+          = text_field_tag nil, '', id: 'number', class: 'form-control', placeholder: '•••• •••• •••• ••••', data: {recurly: 'number'}, required: true
       
       .row{:style => "margin-top: 15px"}
         .col-md-3
           %label * Exp. Month
-          = text_field_tag nil, '', id: 'month', class: 'form-control', data: {recurly: 'month'}
+          = text_field_tag nil, '', id: 'month', class: 'form-control', data: {recurly: 'month'}, required: true
           
         .col-md-3
           %label * Exp. Year
-          = text_field_tag nil, '', id: 'year', class: 'form-control', data: {recurly: 'year'}
+          = text_field_tag nil, '', id: 'year', class: 'form-control', data: {recurly: 'year'}, required: true
           
         .col-md-3
           %label{for: 'cvv'} * CVV
-          = text_field_tag nil, '', id: 'cvv', class: 'form-control', data: {recurly: 'cvv'}
+          = text_field_tag nil, '', id: 'cvv', class: 'form-control', data: {recurly: 'cvv'}, required: true
           
     .col-md-6
       .row
@@ -38,26 +38,26 @@
       .row{:style => "margin-top: 15px"}
         .col-md-12
           %label{for: 'address1'} * Billing Address
-          = text_field_tag nil, '', id: 'address1', class: 'form-control', data: {recurly: 'address1'}
+          = text_field_tag nil, '', id: 'address1', placeholder: 'Street Address', class: 'form-control', data: {recurly: 'address1'}, required: true
 
       .row{:style => "margin-top: 15px"}
         .col-md-12
-          = text_field_tag nil, '', id: 'address2', class: 'form-control', data: {recurly: 'address2'}
+          = text_field_tag nil, '', id: 'address2', placeholder: 'Apt / Suite No', class: 'form-control', data: {recurly: 'address2'}
 
       .row{:style => "margin-top: 15px"}
         .col-md-6
-          = text_field_tag nil, '', placeholder: 'City', id: 'address1', class: 'form-control', data: {recurly: 'city'}
+          = text_field_tag nil, '', placeholder: 'City', id: 'address1', class: 'form-control', data: {recurly: 'city'}, required: true
 
         .col-md-3
-          = text_field_tag nil, '', placeholder: 'State Code', class: 'form-control', data: {recurly: 'state'}
+          = text_field_tag nil, '', placeholder: 'State Code', class: 'form-control', data: {recurly: 'state'}, required: true
         .col-md-3
-          = text_field_tag nil, '', placeholder: 'Zip Code', class: 'form-control', data: {recurly: 'postal_code'}
+          = text_field_tag nil, '', placeholder: 'Zip Code', class: 'form-control', data: {recurly: 'postal_code'}, required: true
 
   .form-group.form-actions.text-right
-    %a.btn-default.btn{"data-step" => "2", :href => "#"}
+    %a.btn-default.btn.back{"data-step" => "2", :href => "#"}
       = icon 'angle-double-left'
       %b Back
     
-    %button.btn.btn-primary{"data-step" => "4", :type => "submit"}
+    %button.btn.btn-primary.next{"data-step" => "4", :type => "submit"}
       %b Next Step
       = icon 'angle-double-right'

@@ -28,10 +28,10 @@
           %p{:style => "margin-top: 20px"} If the plan you select has the "Local Pick-up" option enabled you will also need to select a location for the customer to do their pick-up.
 
   .form-group.form-actions.pull-right
-    %a.btn.btn-default{"data-step" => "1", :href => "#"}
+    %a.btn.btn-default.back{"data-step" => "1", :href => "#"}
       = icon 'angle-double-left'
       %b Back
 
-    %button.btn.btn-primary{"data-step" => "3", :type => "submit"}
+    %button.btn.btn-primary.next{"data-step" => "3", :type => "submit"}
       %b Next Step
       = icon 'angle-double-right'

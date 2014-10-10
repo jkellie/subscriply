@@ -1,11 +1,18 @@
 OrganizationSubscriptionCreator = 
 
   init: (public_key) ->
+    @_initCardValidation()
     @_initDatePicker()
     @_initPlan()
     @_initProduct()
     @_initRecurly(public_key)
     @_initSteps()
+    @_updatePreview()
+
+  _initCardValidation: ->
+    $('#subscription_creator_phone_number').formance('format_phone_number')
+    $('#subscription_creator_member_number').formance('format_number')
+    $('#number').formance('format_credit_card_number')
 
   _initDatePicker: ->
     $('.datepicker').datepicker()
@@ -62,8 +69,12 @@ OrganizationSubscriptionCreator =
     $('#subscription_creator_sales_rep_id').select2()
     
     $buttons.click (e) ->
-      if OrganizationSubscriptionCreator._validateStep()
+      has_back = $(e.target).hasClass('back') or $(e.target).parent().hasClass('back')
+      has_next = $(e.target).hasClass('next') or $(e.target).parent().hasClass('next')
+
+      if has_back or (has_next and OrganizationSubscriptionCreator._validateStep())
         e.preventDefault()
+        OrganizationSubscriptionCreator._updatePreview()
         step_index = $(this).data("step") - 1
         in_fade_class = (if (step_index > active_step) then "fadeInRightStep" else "fadeInLeftStep")
         out_fade_class = (if (in_fade_class is "fadeInRightStep") then "fadeOutLeftStep" else "fadeOutRightStep")
@@ -87,8 +98,10 @@ OrganizationSubscriptionCreator =
       $('.subscription_creator_location_id label').text('Location')
       $('#subscription_creator_location_id').attr('required', false)
 
+  _updatePreview: ->
+    console.log 'TODO: update preview pane'
+
   _validateStep: ->
-    debugger
     valid = true
     $required_inputs = $('.step.active input[required], .step.active select[required]')
     

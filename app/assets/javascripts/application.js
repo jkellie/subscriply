@@ -15,6 +15,7 @@
 //= require jquery_ujs
 //= require jquery.ui.datepicker
 //= require jquery.ui.sortable
+//= require jquery.formance.min
 //= require jquery.pnotify.min
 //= require bootstrap
 //= require ckeditor-jquery
