@@ -1,4 +1,4 @@
-.step.animated.active
+.step.step1.animated.active
   .row
     
     .col-md-6
@@ -7,24 +7,24 @@
           = f.input :sales_rep_id, as: :select, collection: f.object.sales_reps, input_html: { class: 'form-control'}
       .row{:style => "margin-top: 45px"}
         .col-md-12
-          = f.input :member_number, input_html: { class: 'form-control', style: 'width: 46%'}
+          = f.input :member_number, input_html: { class: 'form-control', style: 'width: 46%'}, required: true
 
       .row{:style => "margin-top: 15px"}
         .col-md-6
-          = f.input :first_name, input_html: { class: 'form-control' }
+          = f.input :first_name, input_html: { class: 'form-control' }, required: true
         .col-md-6
-          = f.input :last_name, input_html: { class: 'form-control' }
+          = f.input :last_name, input_html: { class: 'form-control' }, required: true
     
     .col-md-6
       .row
         .col-md-6
-          = f.input :phone_number, input_html: { class: 'form-control' }
+          = f.input :phone_number, input_html: { class: 'form-control', type: 'phone' }, required: true
         .col-md-6
-          = f.input :email, input_html: { class: 'form-control' }
+          = f.input :email, input_html: { class: 'form-control', type: 'email' }, required: true
 
       .row{:style => "margin-top: 15px"}
         .col-md-12
-          = f.input :street_address, label: 'Shipping Address', placeholder: 'Street Address', input_html: { class: 'form-control' }
+          = f.input :street_address, label: 'Shipping Address', placeholder: 'Street Address', input_html: { class: 'form-control' }, required: true
 
       .row{:style => "margin-top: 15px"}
         .col-md-12

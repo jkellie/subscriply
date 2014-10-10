@@ -1,34 +1,34 @@
-.step.animated
+.step.step3.animated
   .row
     
     .col-md-6
       .row
         .col-md-4
-          %label{for: 'first_name'} First Name
+          %label{for: 'first_name'} * First Name
           = text_field_tag nil, '', id: 'first_name', class: 'form-control', data: {recurly: 'first_name'}
         .col-md-5
-          %label{for: 'last_name'} Last Name
+          %label{for: 'last_name'} * Last Name
           = text_field_tag nil, '', id: 'last_name', class: 'form-control', data: {recurly: 'last_name'}
 
       .row{:style => "margin-top: 15px"}
         .col-md-9
-          %label{for: 'number'} Card Number
+          %label{for: 'number'} * Card Number
           = text_field_tag nil, '', id: 'number', class: 'form-control', data: {recurly: 'number'}
       
       .row{:style => "margin-top: 15px"}
         .col-md-3
-          %label Expiration Month
+          %label * Exp. Month
           = text_field_tag nil, '', id: 'month', class: 'form-control', data: {recurly: 'month'}
           
         .col-md-3
-          %label Expiration Year
+          %label * Exp. Year
           = text_field_tag nil, '', id: 'year', class: 'form-control', data: {recurly: 'year'}
           
         .col-md-3
-          %label{for: 'cvv'} CVV
+          %label{for: 'cvv'} * CVV
           = text_field_tag nil, '', id: 'cvv', class: 'form-control', data: {recurly: 'cvv'}
           
-    .col-md-5
+    .col-md-6
       .row
         .col-md-12
           .checkbox{:style => "margin-top: 15px"}
@@ -37,7 +37,7 @@
             
       .row{:style => "margin-top: 15px"}
         .col-md-12
-          %label{for: 'address1'} Billing Address
+          %label{for: 'address1'} * Billing Address
           = text_field_tag nil, '', id: 'address1', class: 'form-control', data: {recurly: 'address1'}
 
       .row{:style => "margin-top: 15px"}

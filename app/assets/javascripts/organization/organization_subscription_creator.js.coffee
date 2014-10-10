@@ -62,24 +62,43 @@ OrganizationSubscriptionCreator =
     $('#subscription_creator_sales_rep_id').select2()
     
     $buttons.click (e) ->
-      e.preventDefault()
-      step_index = $(this).data("step") - 1
-      in_fade_class = (if (step_index > active_step) then "fadeInRightStep" else "fadeInLeftStep")
-      out_fade_class = (if (in_fade_class is "fadeInRightStep") then "fadeOutLeftStep" else "fadeOutRightStep")
-      $out_step = $steps.eq(active_step)
-      $out_step.on(utils.animation_ends(), ->
-        $out_step.removeClass "fadeInRightStep fadeInLeftStep fadeOutRightStep fadeOutLeftStep"
-      ).addClass out_fade_class
-      active_step = step_index
-      $tabs.removeClass("active").filter(":lt(" + (active_step + 1) + ")").addClass "active"
-      $steps.removeClass "active"
-      $steps.eq(step_index).addClass "active animated " + in_fade_class
+      if OrganizationSubscriptionCreator._validateStep()
+        e.preventDefault()
+        step_index = $(this).data("step") - 1
+        in_fade_class = (if (step_index > active_step) then "fadeInRightStep" else "fadeInLeftStep")
+        out_fade_class = (if (in_fade_class is "fadeInRightStep") then "fadeOutLeftStep" else "fadeOutRightStep")
+        $out_step = $steps.eq(active_step)
+        $out_step.on(utils.animation_ends(), ->
+          $out_step.removeClass "fadeInRightStep fadeInLeftStep fadeOutRightStep fadeOutLeftStep"
+        ).addClass out_fade_class
+        active_step = step_index
+        $tabs.removeClass("active").filter(":lt(" + (active_step + 1) + ")").addClass "active"
+        $steps.removeClass "active"
+        $steps.eq(step_index).addClass "active animated " + in_fade_class
 
   _toggleLocationId: ->
     if $('#subscription_creator_plan_id').find(':selected').data('local-pick-up') is true
       $('#subscription_creator_location_id').attr('disabled', false)
+      $('.subscription_creator_location_id label').text('* Location')
+      $('#subscription_creator_location_id').attr('required', 'required')
     else
       $('#subscription_creator_location_id').attr('disabled', true)
       $('#subscription_creator_location_id option').first().attr('selected', 'selected')
+      $('.subscription_creator_location_id label').text('Location')
+      $('#subscription_creator_location_id').attr('required', false)
+
+  _validateStep: ->
+    debugger
+    valid = true
+    $required_inputs = $('.step.active input[required], .step.active select[required]')
+    
+    $.each $required_inputs, (i, input) ->
+      if $(input).val() is ''
+        $(input).parent().addClass('field_with_errors')
+        valid = false 
+      else
+        $(input).parent().removeClass('field_with_errors')
+
+    valid
 
 window.OrganizationSubscriptionCreator = OrganizationSubscriptionCreator
