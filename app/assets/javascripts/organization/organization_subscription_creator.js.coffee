@@ -48,14 +48,12 @@ OrganizationSubscriptionCreator =
     recurly.configure public_key
 
     $(document).on 'submit', '.new_subscription_creator', (e) ->
-      debugger
       e.preventDefault()
       form = this
       
       recurly.token form, (err, token) ->
         if err
-          console.log "test"
-          alert('failed')
+          sweetAlert('Oops...', err.message, 'error');
         else
           debugger
           form.submit()
