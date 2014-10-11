@@ -99,7 +99,45 @@ OrganizationSubscriptionCreator =
       $('#subscription_creator_location_id').attr('required', false)
 
   _updatePreview: ->
-    console.log 'TODO: update preview pane'
+    $('.finish dd').text('')
+
+    if $('#subscription_creator_sales_rep_id').val()
+      $('.finish .sales-rep').text($('#subscription_creator_sales_rep_id option:selected').text())
+    else
+      $('.finish .sales-rep').text('none')
+
+    $('.finish .member-number').text($('#subscription_creator_member_number').val())
+    $('.finish .name').text("#{$('#subscription_creator_first_name').val()} #{$('#subscription_creator_last_name').val()}")
+    $('.finish .phone').text($('#subscription_creator_phone_number').val()).formance('format_phone_number')
+    $('.finish .email').text($('#subscription_creator_email').val())
+    $('.finish .shipping-address').html(OrganizationSubscriptionCreator._shippingAddress())
+    $('.finish .start-date').text($('#subscription_creator_start_date').val())
+    $('.finish .product').text($('#subscription_creator_product_id option:selected').text())
+    $('.finish .plan').text($('#subscription_creator_plan_id option:selected').text())
+
+    if $('#subscription_creator_location_id').val()
+      $('.finish .location').text($('#subscription_creator_location_id option:selected').text())
+    else
+      $('.finish .location').text('n/a')
+
+    $('.finish .card-name').text("#{$('#first_name').val()} #{$('#last_name').val()}")
+    last_four = $('#number').val().substr($('#number').val().length - 5)
+    $('.finish .card-number').text("**** #{last_four}")
+    $('.finish .expiration').text("#{$('#month option:selected').text()} #{$('#year option:selected').text()}")
+    $('.finish .cvv').text($('#cvv').val())
+    $('.finish .billing-address').html(OrganizationSubscriptionCreator._billingAddress())
+
+  _shippingAddress: ->
+    address = "#{$('#subscription_creator_street_address').val()}<br/>"
+    address += "#{$('#subscription_creator_street_address_2').val()}<br/>" if $('#subscription_creator_street_address_2').val()
+    address += "#{$('#subscription_creator_city').val()}, #{$('#subscription_creator_state_code').val()} #{$('#subscription_creator_zip').val()}"
+    address
+
+  _billingAddress: ->
+    address = "#{$('#address1').val()}<br/>"
+    address += "#{$('#address2').val()}<br/>" if $('#address2').val()
+    address += "#{$('#city').val()}, #{$('#state').val()} #{$('#postal_code').val()}"
+    address
 
   _validateStep: ->
     valid = true

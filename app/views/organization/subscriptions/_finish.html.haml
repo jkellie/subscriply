@@ -1,55 +1,45 @@
-.step.animated
+.step.animated.finish
   .row
     %p{:style => "padding: 0 50px 30px 50px"} Review all the information below for accuracy. Use the back button at the bottom of the page to make any correctiongs needed. If everything looks correct click the submit button.
     
     .col-sm-6
       %dl.dl-horizontal
         %dt Sales Rep:
-        %dd Alberto Aguielra
+        %dd.sales-rep
         %br
-          %dt Member #:
-          %dd 123456
-          %dt Name:
-          %dd Bob Smith
-          %dt Phone:
-          %dd 123 - 456 -7890
-          %dt email:
-          %dd bob.smith@gmail.com
-          %dt Shipping Address:
-          %dd
-            221 Baker St
-            %br
-              Apt B
-              %br
-                Debary, FL 32713
+        %dt Member #:
+        %dd.member-number
+        %dt Name:
+        %dd.name
+        %dt Phone:
+        %dd.phone
+        %dt email:
+        %dd.email
+        %dt Shipping Address:
+        %dd.shipping-address
     .col-sm-6
       %dl.dl-horizontal
         %dt Start Date:
-        %dd 09 / 04 / 14
+        %dd.start-date
         %dt Product:
-        %dd Continuing Education
+        %dd.product Continuing Education
         %dt Plan:
-        %dd CEP Plus! (LP) - English
+        %dd.plan
         %dt Location:
-        %dd Orlando
+        %dd.location
     
     .col-sm-6
       %dl.dl-horizontal
         %dt Name on card:
-        %dd Hal Jordan
+        %dd.card-name
         %dt Card Number:
-        %dd **** 1234
+        %dd.card-number
         %dt Expiration:
-        %dd 08 / 16
+        %dd.expiration
         %dt CVV:
-        %dd 123
+        %dd.cvv
         %dt Billing Address:
-        %dd
-          221 Baker St
-          %br
-            Apt B
-            %br
-              Debary, FL 32713
+        %dd.billing-address
   
   .form-group.form-actions.text-right
     %button.btn.btn-default.back{'data-step' => '3'}
