@@ -46,5 +46,5 @@ class User < ActiveRecord::Base
   def invited?
     invitation_accepted_at.nil? && invitation_token.present?
   end
-
+  
 end

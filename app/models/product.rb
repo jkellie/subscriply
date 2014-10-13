@@ -1,5 +1,5 @@
 class Product < ActiveRecord::Base
-  belongs_to :organizatio
+  belongs_to :organization
   has_many :plans
 
   mount_uploader :image, ProductImageUploader

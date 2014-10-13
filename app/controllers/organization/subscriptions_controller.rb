@@ -2,7 +2,6 @@ class Organization::SubscriptionsController < Organization::BaseController
   before_action :authenticate_organizer!
 
   def index
-    
   end
 
   def new
@@ -11,7 +10,6 @@ class Organization::SubscriptionsController < Organization::BaseController
   end
 
   def create
-    binding.pry_remote
     @subscription_creator = Organization::SubscriptionCreator.new(organization: current_organization)
     @subscription_creator.attributes = params[:subscription_creator]
 
@@ -19,21 +17,18 @@ class Organization::SubscriptionsController < Organization::BaseController
       flash[:notice] = 'Subscription Created'
       redirect_to organization_subscriptions_path
     else
-      flash.now[:danger] = 'Error Creating Subscription'
+      flash.now[:danger] = "Error Creating Subscription: #{@subscription_creator.errors_to_sentence}"
       render 'new'
     end
   end
 
   def show
-    
   end
 
   def edit
-    
   end
 
   def update
-    
   end
 
 end

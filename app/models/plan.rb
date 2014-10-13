@@ -14,7 +14,11 @@ class Plan < ActiveRecord::Base
   end
 
   def trial?
-    self.free_trial_length > 0
+    free_trial_length > 0
+  end
+
+  def local_pick_up?
+    plan_type == 'local_pick_up'
   end
 
   private

@@ -55,7 +55,6 @@ OrganizationSubscriptionCreator =
         if err
           sweetAlert('Oops...', err.message, 'error');
         else
-          debugger
           form.submit()
 
   _initSteps: ->
