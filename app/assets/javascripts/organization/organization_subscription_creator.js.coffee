@@ -6,6 +6,7 @@ OrganizationSubscriptionCreator =
     @_initPlan()
     @_initProduct()
     @_initRecurly(public_key)
+    @_initSameAsShipping()
     @_initSteps()
     @_updatePreview()
 
@@ -56,6 +57,16 @@ OrganizationSubscriptionCreator =
           sweetAlert('Oops...', err.message, 'error');
         else
           form.submit()
+
+  _initSameAsShipping: ->
+    $(document).on 'change', '#same_as_shipping', (e) ->
+      e.preventDefault()
+
+      $('#address1').val($('#subscription_creator_street_address').val())
+      $('#address2').val($('#subscription_creator_street_address_2').val())
+      $('#city').val($('#subscription_creator_city').val())
+      $('#state').val($('#subscription_creator_state_code').val())
+      $('#postal_code').val($('#subscription_creator_zip').val())
 
   _initSteps: ->
     $steps = $(".form-wizard .step")
