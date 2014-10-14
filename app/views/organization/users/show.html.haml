@@ -30,7 +30,7 @@
   .col-md-5
     = render 'details', user_presenter: @user_presenter
     = render 'billing_info', user_presenter: @user_presenter
-    = render 'subscriptions', user_presenter: @user_presenter
+    = render 'subscriptions', subscriptions: @user_presenter.subscriptions
     = render 'invoices', user_presenter: @user_presenter
     = render 'transactions', user_presenter: @user_presenter
 

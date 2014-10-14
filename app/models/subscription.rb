@@ -7,6 +7,18 @@ class Subscription < ActiveRecord::Base
   validates :organization, :plan, presence: true
   validates :location, presence: true, if: :validate_location?
 
+  state_machine initial: :active do
+    event :activate do
+      transition all => :open
+    end
+    event :canceling do
+      transition :active => :canceling
+    end
+    event :cancel do
+      transition :canceling => :canceled
+    end
+  end
+
   private
 
   def validate_location?

@@ -2,8 +2,7 @@ class Organization::UserPresenter
   include ActionView::Helpers::TagHelper
   attr_reader :user
 
-  delegate :name, :id, :email, :created_at, :phone_number, :state, :open?, :closed?, :pending?, to: :user
-  delegate :organization, to: :user
+  delegate :organization, :name, :id, :email, :created_at, :phone_number, :state, :open?, :closed?, :pending?, to: :user
 
   def initialize(user)
     @user = user
@@ -11,6 +10,10 @@ class Organization::UserPresenter
 
   def notes
     user.notes.order('created_at DESC')
+  end
+
+  def subscriptions
+    user.subscriptions.order('created_at DESC')
   end
 
   def member_number

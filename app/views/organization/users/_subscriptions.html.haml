@@ -5,17 +5,16 @@
       = link_to '#', data: {target: '#add-subscription', toggle: 'modal'} do
         = icon 'plus-circle'
   .panel-body
-    %table.table.table-condensed
-      %thead
-        %tr
-          %th Plan
-          %th Status
-      %tbody
-        %tr
-          %td
-            %a{:href => "subscription.html"} CEP Plus! - Español
-          %td Active
-        %tr
-          %td
-            %a{:href => "subscription.html"} CEP Plus! - English
-          %td Changing
+    - if subscriptions.any?
+      %table.table.table-condensed
+        %thead
+          %tr
+            %th Plan
+            %th Status
+        %tbody
+          - subscriptions.each do |subscription|
+            %tr
+              %td= link_to subscription.plan.name, organization_subscription_path(subscription)
+              %td #{subscription.state.try(:capitalize)}
+    - else
+      %p None

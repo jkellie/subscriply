@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   belongs_to :sales_rep, class_name: 'User'
 
   has_many :notes
+  has_many :subscriptions
   
   scope :scoped_to, -> (organization_id) { where("organization_id = ?", organization_id)}
   scope :search, ->(q) { where("first_name ILIKE ? OR last_name ILIKE ? OR email ILIKE ? OR member_number = ?", "%#{q}%", "%#{q}%", "%#{q}%", "#{q}")}
