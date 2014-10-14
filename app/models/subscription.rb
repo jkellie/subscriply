@@ -7,9 +7,13 @@ class Subscription < ActiveRecord::Base
   validates :organization, :plan, presence: true
   validates :location, presence: true, if: :validate_location?
 
+  scope :active, -> { where(state: :active) }
+  scope :canceling, -> { where(state: :canceling) }
+  scope :canceled, -> { where(state: :canceled) }
+
   state_machine initial: :active do
     event :activate do
-      transition all => :open
+      transition all => :active
     end
     event :canceling do
       transition :active => :canceling

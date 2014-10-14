@@ -9,9 +9,7 @@
   .pull-right
     .row.status-labels
       = @user_presenter.status_label
-      
-      %span.label.label-success{:style => "font-size: 13px"} CEP
-      %span.label.label-default{:style => "font-size: 13px"} MOBILE
+      = raw @user_presenter.product_status_labels
 
 .row
   .col-md-12
