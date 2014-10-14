@@ -12,6 +12,7 @@ class SubscriptionCreator
     :email, :email=, :first_name, :first_name=,  :last_name, :last_name=, :street_address, :street_address=,
     :street_address_2, :street_address_2=, :state_code, :state_code=, :city, :city=, :zip, :zip=, 
       to: :user
+  
   delegate :start_date, :start_date=, :plan_id, :plan_id=, :location_id, :location_id=, 
     to: :subscription
 
@@ -36,6 +37,7 @@ class SubscriptionCreator
           create_user_on_recurly
           create_subscription
           create_subscription_on_recurly
+
         end
       rescue Exception => e
         errors.add(:base, e)
@@ -93,16 +95,7 @@ class SubscriptionCreator
   end
 
   def create_user_on_recurly
-    @@lock.synchronize do
-      Recurly.subdomain = organization.recurly_subdomain
-      Recurly.api_key = organization.recurly_private_key
-      Recurly::Account.create(
-        account_code: user.reload.uuid,
-        email:        user.email,
-        first_name:   user.first_name,
-        last_name:    user.last_name
-      )
-    end
+    Billing::User.create(user.reload)
   end
 
   def create_subscription
@@ -111,15 +104,7 @@ class SubscriptionCreator
   end
 
   def create_subscription_on_recurly
-    @@lock.synchronize do
-      Recurly.subdomain = organization.recurly_subdomain
-      Recurly.api_key = organization.recurly_private_key
-      Recurly::Subscription.create! plan_code: subscription.plan.permalink,
-        account: {
-          account_code: user.uuid,
-          billing_info: { token_id: recurly_token }
-        }
-    end
+    Billing::Subscription.create(subscription.reload, recurly_token)
   end
 
 end
