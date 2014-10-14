@@ -2,7 +2,8 @@ class Organization::UserPresenter
   include ActionView::Helpers::TagHelper
   attr_reader :user
 
-  delegate :organization, :name, :id, :email, :created_at, :phone_number, :state, :open?, :closed?, :pending?, to: :user
+  delegate :organization, :name, :id, :email, :created_at, :phone_number,
+    :state, :open?, :closed?, :pending?, :last_four, :card_type, :expiration, to: :user
 
   def initialize(user)
     @user = user
@@ -25,6 +26,10 @@ class Organization::UserPresenter
 
   def has_sales_rep?
     user.sales_rep
+  end
+
+  def has_billing_info?
+    card_type && last_four && expiration
   end
 
   def member_number

@@ -4,10 +4,13 @@
     = link_to edit_organization_user_path(@user_presenter.user), class: 'pull-right' do
       = icon 'edit'
   .panel-body
-    %dl.dl-horizontal
-      %dt Card type:
-      %dd Visa
-      %dt Card ending:
-      %dd **** 1966
-      %dt Expires:
-      %dd 08 / 16
+    - if @user_presenter.has_billing_info?
+      %dl.dl-horizontal
+        %dt Card type:
+        %dd #{@user_presenter.card_type}
+        %dt Card ending:
+        %dd **** #{@user_presenter.last_four}
+        %dt Expires:
+        %dd #{@user_presenter.expires}
+    - else
+      %p None

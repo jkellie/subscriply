@@ -14,9 +14,7 @@ describe Organization::UserPresenter, '#product_status_labels' do
 
   subject { user_presenter.product_status_labels }
 
-
   it 'returns the correct HTML' do
     expect(subject).to eq("<span class=\"label label-success\">GOLD</span><span class=\"label label-warning\">SILVER</span><span class=\"label label-default\">PLATINUM</span>")
   end
-
 end
