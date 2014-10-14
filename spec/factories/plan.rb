@@ -3,11 +3,7 @@ FactoryGirl.define do
     product
     organization
     plan_type 'digital'
-
-    after(:build) do |p|
-      p.stub(:create_on_recurly).and_return true
-    end
+    name { Faker::Company.name }
+    code { name.first(3).downcase }
   end
-
-  
 end

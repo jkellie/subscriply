@@ -2,9 +2,6 @@ class Plan < ActiveRecord::Base
   belongs_to :organization
   belongs_to :product
 
-  after_create :create_on_recurly
-  after_update :update_on_recurly
-
   def permalink
     "#{product.prepend_code}_#{self.code}"
   end
@@ -20,8 +17,6 @@ class Plan < ActiveRecord::Base
   def local_pick_up?
     plan_type == 'local_pick_up'
   end
-
-  private
 
   def create_on_recurly
     Recurly.subdomain = organization.recurly_subdomain
@@ -48,6 +43,8 @@ class Plan < ActiveRecord::Base
     plan.trial_interval_length = self.free_trial_length
     plan.save
   end
+
+  private
 
   def amount_in_cents
     (amount * 100.0).round.to_i
