@@ -37,7 +37,7 @@ class SubscriptionCreator
           create_user_on_recurly
           create_subscription
           create_subscription_on_recurly
-
+          update_billing_info
         end
       rescue Exception => e
         errors.add(:base, e)
@@ -79,15 +79,15 @@ class SubscriptionCreator
     return false
   end
 
+  def add_errors
+    user.errors.messages.each { |e| errors.add(e.first.to_sym, e.second.first) }
+    subscription.errors.messages.each { |e| errors.add(e.first.to_sym, e.second.first) }
+  end
+
   def is_valid?
     user_valid = user.valid?
     subscription_valid = subscription.valid?
     user_valid && subscription_valid
-  end
-
-  def add_errors
-    user.errors.messages.each { |e| errors.add(e.first.to_sym, e.second.first) }
-    subscription.errors.messages.each { |e| errors.add(e.first.to_sym, e.second.first) }
   end
 
   def create_user
@@ -105,6 +105,10 @@ class SubscriptionCreator
 
   def create_subscription_on_recurly
     Billing::Subscription.create(subscription.reload, recurly_token)
+  end
+  
+  def update_billing_info
+    Billing::User.update_billing_info(user.reload)
   end
 
 end

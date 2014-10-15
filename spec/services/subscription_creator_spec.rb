@@ -61,6 +61,7 @@ describe SubscriptionCreator, "#create" do
     before do
       subscription_creator.should_receive(:create_subscription_on_recurly).and_return(true)
       subscription_creator.should_receive(:create_user_on_recurly).and_return(true)
+      subscription_creator.should_receive(:update_billing_info).and_return(true)
       subscription_creator.attributes = {
         sales_rep_id: 12345, 
         member_number: 123456,
