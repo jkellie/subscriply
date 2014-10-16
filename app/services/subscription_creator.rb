@@ -35,7 +35,7 @@ class SubscriptionCreator
           create_user_on_recurly
           create_subscription
           create_subscription_on_recurly
-          update_billing_info
+          update_cached_billing_info
         end
       rescue Exception => e
         errors.add(:base, e)
@@ -105,8 +105,8 @@ class SubscriptionCreator
     Billing::Subscription.create(subscription.reload, recurly_token)
   end
   
-  def update_billing_info
-    Billing::User.update_billing_info(user.reload)
+  def update_cached_billing_info
+    Billing::User.update_cached_billing_info(user.reload)
   end
 
 end

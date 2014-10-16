@@ -41,6 +41,8 @@ Rails.application.routes.draw do
 
     resources :users do
       resources :notes
+      get :edit_billing_info, on: :member
+      put :update_billing_info, on: :member
     end
   end
   

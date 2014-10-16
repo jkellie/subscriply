@@ -1,7 +1,7 @@
 .panel.panel-default
   .panel-heading
     %span Billing info:
-    = link_to edit_organization_user_path(@user_presenter.user), class: 'pull-right' do
+    = link_to edit_billing_info_organization_user_path(@user_presenter.user), class: 'pull-right' do
       = icon 'edit'
   .panel-body
     - if @user_presenter.has_billing_info?

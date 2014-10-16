@@ -13,6 +13,6 @@ describe OrganizationBootstrapper, "#run" do
   end
 
   it 'sets the organizer as super admin' do
-    expect(organizer.super_admin?).to be_true
+    expect(organizer.super_admin?).to be_truthy
   end
 end

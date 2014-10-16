@@ -45,10 +45,28 @@ describe Billing::User, '.account_on_billing' do
   end
 end
 
-describe Billing::User, '.update_billing_info(user)' do
+describe Billing::User, '.update_billing_info' do
+  let!(:user) { FactoryGirl.create(:user) }
+  let(:billing_info) { double('Recurly::BillingInfo')}
+
+  before do
+    Billing::User.stub(:billing_info).and_return(billing_info)
+    billing_info.should_receive('update_attributes').with(token_id: '12345')
+  end
+
+  subject do
+    Billing::User.update_billing_info(user, '12345')
+  end
+
+  it "calls recurly to update the new token" do
+    subject
+  end
+end
+
+describe Billing::User, '.update_cached_billing_info(user)' do
   let!(:user) { FactoryGirl.create(:user, first_name: 'Test', last_name: 'User', email: 'test@user.com') }
   let(:recurly_account) { double('Recurly::Account') }
-  let(:billing_info) { stub(card_type: 'Visa', last_four: '1111', month: '1', year: '2015') }
+  let(:billing_info) { double(card_type: 'Visa', last_four: '1111', month: '1', year: '2015') }
 
   before do
     Billing::User.stub(:billing_info).and_return(billing_info)
@@ -61,7 +79,7 @@ describe Billing::User, '.update_billing_info(user)' do
   end
 
   subject do
-    Billing::User.update_billing_info(user)
+    Billing::User.update_cached_billing_info(user)
   end
 
   it "calls recurly to find the user" do

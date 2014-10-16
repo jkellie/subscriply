@@ -15,7 +15,12 @@ module Billing::User
     end
   end
 
-  def self.update_billing_info(user)
+  def self.update_billing_info(user, token)
+    _billing_info = billing_info(user)
+    _billing_info.update_attributes(token_id: token)
+  end
+
+  def self.update_cached_billing_info(user)
     billing_info = billing_info(user)
     
     user.update_attributes(

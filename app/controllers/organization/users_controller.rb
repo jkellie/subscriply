@@ -57,7 +57,27 @@ class Organization::UsersController < Organization::BaseController
     end
   end
 
+  def edit_billing_info
+    @user = current_organization.users.find(params[:id])
+  end
+
+  def update_billing_info
+    @user = current_organization.users.find(params[:id])
+
+    if update_remote_and_cached_billing_info(@user, params[:recurly_token])
+      flash[:notice] = 'Billing Info Saved!'
+      redirect_to organization_user_path(@user)
+    else
+      flash.now[:error] = 'Error updating billing info'
+      render 'edit_billing_info'
+    end
+  end
+
   private
+
+  def update_remote_and_cached_billing_info(user, token)
+    Billing::User.update_billing_info(user, token) && Billing::User.update_cached_billing_info(user)
+  end
 
   def find_users
     @users = current_organization.users

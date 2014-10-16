@@ -1,0 +1,71 @@
+= content_for(:menubar) do
+  Update Billing Info:
+  %small.hidden-xs #{@user.name}
+
+= form_tag(update_billing_info_organization_user_path(@user), method: :put, class: 'edit-billing-info') do |f|
+  = hidden_field_tag 'recurly_token', '', 'data-recurly' => 'token'
+  = hidden_field_tag 'country', 'US', 'data-recurly' => 'country'
+  
+  .row
+    .col-md-6
+      .row
+        .col-sm-6
+          %label{for: 'first_name'} * First Name
+          = text_field_tag nil, '', required: true, id: 'first_name', class: 'form-control', data: {recurly: 'first_name'}
+        .col-sm-6
+          %label{for: 'last_name'} * Last Name
+          = text_field_tag nil, '', required: true, id: 'last_name', class: 'form-control', data: {recurly: 'last_name'}
+
+      .row{:style => "margin-top: 15px"}
+        .col-sm-12
+          %label{for: 'number'} * Card Number
+          = text_field_tag nil, '', required: true, id: 'number', class: 'form-control', placeholder: '•••• •••• •••• ••••', data: {recurly: 'number'}
+
+      .row
+        .col-sm-12
+          .row{:style => "margin-top: 15px"}
+            .col-md-4
+              %label * Exp. Month
+              = select_tag nil, options_for_select(months_for_select.collect {|p| [p[0], p[1]] }), required: true, id: 'month', class: 'form-control', data: {recurly: 'month'}
+
+            .col-md-4
+              %label * Exp. Year
+              = select_tag nil, options_for_select(years_for_select.collect {|p| [p, p] }), required: true, id: 'year', class: 'form-control', data: {recurly: 'year'}
+
+            .col-md-4
+              %label{for: 'cvv'} * CVV
+              = text_field_tag nil, '', required: true, id: 'cvv', class: 'form-control', data: {recurly: 'cvv'}
+
+  .row{:style => "margin-top: 15px"}
+    .col-sm-6
+      .row
+        .col-md-12
+          %label{for: 'address1'} * Billing Address
+          = text_field_tag nil, '', required: true, id: 'address1', placeholder: 'Street Address', class: 'form-control', data: {recurly: 'address1'}
+
+      .row{:style => "margin-top: 15px"}
+        .col-md-12
+          = text_field_tag nil, '', id: 'address2', placeholder: 'Apt / Suite No', class: 'form-control', data: {recurly: 'address2'}
+
+      .row{:style => "margin-top: 15px"}
+        .col-md-6
+          = text_field_tag nil, '', required: true, placeholder: 'City', id: 'city', class: 'form-control', data: {recurly: 'city'}
+
+        .col-md-3
+          = text_field_tag nil, '', required: true, placeholder: 'State Code', id: 'state', class: 'form-control', data: {recurly: 'state'}
+        .col-md-3
+          = text_field_tag nil, '', required: true, placeholder: 'Zip Code', id: 'postal_code', class: 'form-control', data: {recurly: 'postal_code'}
+  .row
+    .col-sm-6
+      .row
+        .col-md-12{:style => "margin-top: 30px"}
+          = link_to 'Cancel', organization_user_path(@user), class: 'btn btn-default', style: 'margin-right: 5px'
+          %button.btn.btn-primary{:style => "margin-left: 5px", :type => "submit"} Save Changes
+
+:javascript
+  var organization_edit_billing_info_ready = function () {
+    OrganizationBillingInfo.init('#{current_organization.recurly_public_key}');
+  }
+
+  $(document).on("page:load", organization_edit_billing_info_ready);
+  $(document).ready(organization_edit_billing_info_ready);
