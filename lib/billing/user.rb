@@ -1,8 +1,12 @@
-module Billing::User    
+module Billing::User
+
+  def self.account_module
+    Recurly::Account
+  end
 
   def self.create(user)
     Billing.with_lock(user.organization) do
-      Recurly::Account.create(
+      account_module.create(
         account_code: user.uuid,
         email:        user.email,
         first_name:   user.first_name,
@@ -27,7 +31,7 @@ module Billing::User
 
   def self.account_on_billing(user)
     Billing.with_lock(user.organization) do
-      Recurly::Account.find(user.uuid)
+      account_module.find(user.uuid)
     end
   end
 
