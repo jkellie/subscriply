@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
     :card_type, :last_four, :expiration
   
   scope :scoped_to, -> (organization_id) { where("organization_id = ?", organization_id)}
-  scope :search, ->(q) { where("first_name ILIKE ? OR last_name ILIKE ? OR email ILIKE ? OR member_number = ?", "%#{q}%", "%#{q}%", "%#{q}%", "#{q}")}
+  scope :search, ->(q) { where("first_name ILIKE ? OR last_name ILIKE ? OR email ILIKE ? OR member_number = ?", "%#{q}%", "%#{q}%", "%#{q}%", "#{q.to_i}")}
   scope :between, ->(start_date, end_date) { where(created_at: start_date...end_date)}
   scope :is_sales_rep, -> { where(is_sales_rep: true) }
   scope :open, -> { where(state: :open) }
