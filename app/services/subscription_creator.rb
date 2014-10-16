@@ -16,8 +16,6 @@ class SubscriptionCreator
   delegate :start_date, :start_date=, :plan_id, :plan_id=, :location_id, :location_id=, 
     to: :subscription
 
-  @@lock = Mutex.new
-
   def initialize(options)
     @organization = options[:organization]
     @user = User.new(organization_id: @organization.id)
