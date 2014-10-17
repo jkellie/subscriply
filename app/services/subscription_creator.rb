@@ -102,7 +102,7 @@ class SubscriptionCreator
   end
 
   def create_subscription_on_recurly
-    Billing::Subscription.create(subscription.reload, recurly_token)
+    Billing::Subscription.create_with_token(subscription.reload, recurly_token)
   end
   
   def update_cached_billing_info
