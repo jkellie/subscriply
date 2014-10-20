@@ -49,7 +49,13 @@ class Organization::SubscriptionsController < Organization::BaseController
     begin
       ActiveRecord::Base.transaction do
         @subscription.save
-        Billing::Subscription.create(@subscription)
+        billing_subscription = Billing::Subscription.create(@subscription)
+        @subscription.update_attributes({
+          uuid: billing_subscription.uuid,
+          state: billing_subscription.state,
+          next_bill_on: billing_subscription.current_period_ends_at,
+          start_date: billing_subscription.activated_at
+        })
       end
     rescue Exception => e
       @subscription.errors.add(:base, e)

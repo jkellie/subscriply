@@ -3,7 +3,7 @@ class SubscriptionCreator
   include ActiveModel::Conversion
   extend ActiveModel::Naming
 
-  attr_reader :errors, :organization, :user, :subscription
+  attr_reader :errors, :organization, :user, :subscription, :billing_subscription
   attr_accessor :recurly_token, :first_name, :last_name, :card_number, :expiration_month, :expiration_year, :cvv, 
     :billing_street_address, :billing_street_address_2, :billing_city, :billing_state_code, :billing_zip,
     :product_id
@@ -102,11 +102,17 @@ class SubscriptionCreator
   end
 
   def create_subscription_on_recurly
-    Billing::Subscription.create_with_token(subscription.reload, recurly_token)
+    @billing_subscription = Billing::Subscription.create_with_token(subscription.reload, recurly_token)
   end
   
   def update_cached_billing_info
     Billing::User.update_cached_billing_info(user.reload)
+    subscription.update_attributes({
+      uuid: billing_subscription.uuid,
+      state: billing_subscription.state,
+      next_bill_on: billing_subscription.current_period_ends_at,
+      start_date: billing_subscription.activated_at
+    })
   end
 
 end
