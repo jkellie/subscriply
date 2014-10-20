@@ -1,0 +1,15 @@
+.panel.panel-default
+  .panel-heading
+    %span Shipping info:
+    = link_to '#', class: 'pull-right' do
+      = icon 'pencil'
+  .panel-body
+    .col-sm-6
+      %dl.dl-horizontal
+        %dt Address:
+        %dd
+          %address= raw subscription_presenter.location_address
+    .col-sm-6
+      %dl.dl-horizontal
+        %dt Location:
+        %dd #{subscription_presenter.location_name}

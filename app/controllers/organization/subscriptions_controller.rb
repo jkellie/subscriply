@@ -36,6 +36,8 @@ class Organization::SubscriptionsController < Organization::BaseController
   end
 
   def show
+    subscription = current_organization.subscriptions.find(params[:id])
+    @subscription_presenter = Organization::SubscriptionPresenter.new(subscription)
   end
 
   def edit

@@ -1,0 +1,24 @@
+.panel.panel-default
+  .panel-heading
+    %span Charges &amp; Credits:
+    %span.credit-button
+      = link_to 'Add Credit', '#', class: 'btn btn-default btn-xs pull-right'
+  .panel-body
+    %table.table.table-condensed
+      %thead
+        %tr
+          %th
+          %th Desription
+          %th Created on
+          %th Amount
+          %th Invoice #
+      %tbody
+        %tr
+          %td
+            = icon 'credit-card'
+          %td 
+          %td 
+          %td 
+          %td
+  .panel-footer
+    = link_to 'load more', '#', class: 'btn btn-default btn-xs'

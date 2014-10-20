@@ -1,0 +1,30 @@
+.panel.panel-default{:style => "margin-top: 20px"}
+  .panel-heading
+    %span Details:
+    = link_to '#', class: 'pull-right', style: 'margin-left: 10px' do
+      = icon 'trash-o'
+    = link_to '#', class: 'pull-right' do
+      = icon 'pencil'
+  .panel-body
+    .col-sm-6
+      %dl.dl-horizontal
+        %dt Status:
+        %dd #{subscription_presenter.state}
+        %dt Start Date:
+        %dd #{subscription_presenter.start_date.try(:strftime, '%m/%-e/%y')}
+        %dt Current Period:
+        %dd= ' - '
+        %dt Next Invoice:
+        %dd #{subscription_presenter.next_bill_on.try(:strftime, '%m/%-e/%y')}
+      / #change-button
+      /   %a.btn.btn-default.btn-xs{"data-target" => "#edit-renewal", "data-toggle" => "modal", :href => "#"} Change renewal date
+    .col-sm-6
+      %dl.dl-horizontal
+        %dt Subscription:
+        %dd #{subscription_presenter.plan_name}
+        %dt Type:
+        %dd #{subscription_presenter.plan_type}
+        %dt Next Ship / Available:
+        %dd= ' - '
+        %dt Amount:
+        %dd= raw subscription_presenter.plan_amount
