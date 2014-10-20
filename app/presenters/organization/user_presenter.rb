@@ -63,6 +63,14 @@ class Organization::UserPresenter
     user.sales_rep.member_number
   end
 
+  def products
+    organization.products.order('name ASC')
+  end
+
+  def locations
+    organization.locations.order('name ASC')
+  end
+
   private
 
   def product_class(product)

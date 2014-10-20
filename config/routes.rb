@@ -36,7 +36,9 @@ Rails.application.routes.draw do
       put :update_application_settings
     end
 
-    resources :subscriptions
+    resources :subscriptions do
+      post :add, on: :collection
+    end
     resources :transactions
 
     resources :users do

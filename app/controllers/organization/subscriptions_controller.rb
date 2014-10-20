@@ -22,6 +22,18 @@ class Organization::SubscriptionsController < Organization::BaseController
     end
   end
 
+  def add
+    @subscription = Subscription.new(subscription_params)
+
+    if add_subscription
+      flash[:notice] = 'Subscription Created'
+      redirect_to organization_user_path(@subscription.user)
+    else
+      flash[:danger] = "Error Creating Subscription: #{@subscription.errors.full_messages.to_sentence.gsub('base ', '')}"
+      redirect_to organization_user_path(@subscription.user)
+    end
+  end
+
   def show
   end
 
@@ -29,6 +41,24 @@ class Organization::SubscriptionsController < Organization::BaseController
   end
 
   def update
+  end
+
+  private
+
+  def add_subscription
+    begin
+      ActiveRecord::Base.transaction do
+        @subscription.save
+        Billing::Subscription.create(@subscription)
+      end
+    rescue Exception => e
+      @subscription.errors.add(:base, e)
+      return false
+    end
+  end
+
+  def subscription_params
+    params.require(:subscription).permit(:user_id, :plan_id, :location_id).merge(organization_id: current_organization.id)
   end
 
 end

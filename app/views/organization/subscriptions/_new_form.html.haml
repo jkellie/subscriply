@@ -1,0 +1,25 @@
+.row
+  .col-md-6
+    %label * Start Date
+    .input-group
+      %span.input-group-addon
+        = icon 'calendar-o'
+      = f.input :start_date, as: :string, label: false, input_html: { class: 'form-control datepicker subscription-start-date' }, required: true
+  .col-md-6
+    %p{style: 'margin-top: 30px'} Choose a start date for the subscription.
+
+.row{:style => "margin-top: 15px"}
+  .col-md-6
+    = f.input :product_id, as: :select, collection: products, input_html: { class: 'form-control subscription-product-id'}, required: true
+  .col-md-6
+    %p{:style => "margin-top: 20px"} Once a product has been selected you may choose a plan associated with that product.
+
+.row{:style => "margin-top: 15px"}
+  .col-md-6
+    = f.input :plan_id, as: :select, collection: [], input_html: { class: 'form-control subscription-plan-id', disabled: true}, required: true
+  
+.row{:style => "margin-top: 15px"}
+  .col-md-6
+    = f.input :location_id, as: :select, collection: locations, input_html: { class: 'form-control subscription-location-id', disabled: true}
+  .col-md-6
+    %p{:style => "margin-top: 20px"} If the plan you select has the "Local Pick-up" option enabled you will also need to select a location for the customer to do their pick-up.

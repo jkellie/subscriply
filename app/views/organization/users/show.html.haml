@@ -28,16 +28,11 @@
   .col-md-5
     = render 'details', user_presenter: @user_presenter
     = render 'billing_info', user_presenter: @user_presenter
-    = render 'subscriptions', subscriptions: @user_presenter.subscriptions
+    = render 'subscriptions', subscriptions: @user_presenter.subscriptions, products: @user_presenter.products
     = render 'invoices', user_presenter: @user_presenter
     = render 'transactions', user_presenter: @user_presenter
 
 = render 'add_subscription_modal', user_presenter: @user_presenter    
 
 :javascript
-  var organizer_user_ready = function () {
-
-  }
-
-  $(document).on("ready page:load", organizer_user_ready);
-  $(document).ready(organizer_user_ready);
+  OrganizationSubscription.init();

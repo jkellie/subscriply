@@ -4,6 +4,8 @@ class Subscription < ActiveRecord::Base
   belongs_to :plan
   belongs_to :location
 
+  attr_accessor :product_id
+
   validates :organization, :plan, presence: true
   validates :location, presence: true, if: :validate_location?
 
