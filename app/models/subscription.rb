@@ -9,6 +9,14 @@ class Subscription < ActiveRecord::Base
   validates :organization, :plan, presence: true
   validates :location, presence: true, if: :validate_location?
 
+  scope :search, ->(q) do
+    joins("LEFT OUTER JOIN plans on plans.id = subscriptions.plan_id").
+    joins("LEFT OUTER JOIN users on users.id = subscriptions.user_id").
+    where("users.first_name ILIKE ? OR users.last_name ILIKE ? OR plans.name ILIKE ? OR users.member_number = ?", 
+      "%#{q}%", "%#{q}%", "%#{q}%", "#{q.to_i}")
+  end
+
+  scope :invoice_between, ->(start_date, end_date) { where(next_bill_on: start_date...end_date)}
   scope :active, -> { where(state: :active) }
   scope :canceling, -> { where(state: :canceling) }
   scope :canceled, -> { where(state: :canceled) }
