@@ -1,16 +1,21 @@
 = content_for(:menubar) do
-  Edit Subscription: #{@subscription.user.name}
+  Edit Subscription: #{@subscription_presenter.user_name}
+
+= content_for(:menubar_right) do
+  .pull-right
+    .row.status-labels
+      = @subscription_presenter.status_label
 
 .col-sm-12
   .panel.panel-default{:style => "margin-top: 20px"}
     .panel-heading
       %span Plan Details:
     .panel-body
-      = simple_form_for @subscription, url: change_plan_organization_subscription_path(@subscription), method: :put do |f|
+      = simple_form_for @subscription_presenter.subscription, url: change_plan_organization_subscription_path(@subscription_presenter.subscription), method: :put do |f|
         #plan-details.col-sm-6
           %dl.dl-horizontal
             %dt Product:
-            %dd #{@subscription.plan.product.name}
+            %dd #{@subscription_presenter.product_name}
             %br
             %dt Plan:
             %dd
@@ -24,9 +29,9 @@
         #plan-summary.col-sm-6
           %dl.dl-horizontal
             %dt Account Name:
-            %dd #{@subscription.user.name}
+            %dd #{@subscription_presenter.user_name}
             %dt Subscription Cost:
-            %dd= number_to_currency(@subscription.plan.amount)
+            %dd #{@subscription_presenter.plan_amount}
           %br
           %br
           %center

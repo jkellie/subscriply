@@ -1,9 +1,11 @@
 class Organization::SubscriptionPresenter
   include ActionView::Helpers::NumberHelper
+  include ActionView::Helpers::TagHelper
   attr_reader :subscription
 
-  delegate :organization, :user, :start_date, :next_bill_on, :plan, :location,
-    to: :subscription
+  delegate :organization, :user, :start_date, :next_bill_on, :plan, 
+    :location, :active?, :canceling?, :canceled?, :state,
+      to: :subscription
 
   def initialize(subscription)
     @subscription = subscription
@@ -29,6 +31,10 @@ class Organization::SubscriptionPresenter
     number_to_currency(plan.amount)
   end
 
+  def product_name
+    plan.product.name.titleize
+  end
+
   def show_shipping_info?
     local_pick_up? || plan.shipped?
   end
@@ -46,6 +52,16 @@ class Organization::SubscriptionPresenter
 
   def location_name
     location.name.titleize
+  end
+
+  def status_label
+    if active?
+      content_tag(:span, state.upcase, class: 'label label-success')
+    elsif canceling?
+      content_tag(:span, state.upcase, class: 'label label-default')
+    elsif canceled?
+      content_tag(:span, state.upcase, class: 'label label-warning')
+    end
   end
 
   private

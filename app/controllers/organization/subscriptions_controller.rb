@@ -41,8 +41,9 @@ class Organization::SubscriptionsController < Organization::BaseController
   end
 
   def edit
-    @subscription = current_organization.subscriptions.find params[:id]
-    @plans = current_organization.plans.where(product_id: @subscription.plan.product_id)
+    subscription = current_organization.subscriptions.find params[:id]
+    @subscription_presenter = Organization::SubscriptionPresenter.new(subscription)
+    @plans = current_organization.plans.where(product_id: subscription.plan.product_id)
   end
 
   def update
@@ -52,6 +53,8 @@ class Organization::SubscriptionsController < Organization::BaseController
       flash[:notice] = 'Subscription Updated'
       redirect_to organization_subscription_path(@subscription)
     else
+      @subscription_presenter = Organization::SubscriptionPresenter.new(@subscription)
+      @plans = current_organization.plans.where(product_id: @subscription.plan.product_id)
       flash.now[:danger] = 'Error Updating Subscription: #{@subscription.errors.full_messages.to_sentence'
       render 'edit'
     end
@@ -64,6 +67,7 @@ class Organization::SubscriptionsController < Organization::BaseController
       flash[:notice] = 'Subscription Updated'
       redirect_to organization_subscription_path(@subscription)
     else
+      @subscription_presenter = Organization::SubscriptionPresenter.new(@subscription)
       flash[:danger] = "Error Creating Subscription: #{@subscription.errors.full_messages.to_sentence.gsub('base ', '')}"
       redirect_to edit_organization_subscription_path(@subscription)
     end
@@ -157,8 +161,8 @@ class Organization::SubscriptionsController < Organization::BaseController
       ActiveRecord::Base.transaction do
         @subscription.update(subscription_params) if apply_immediately?
         Billing::Subscription.update(@subscription.reload, {
-          plan_code: @subscription.plan.permalink, 
-          timeframe: @subscription.apply_changes 
+          plan_code: new_plan_code, 
+          timeframe: timeframe
         })
       end
     rescue Exception => e
@@ -167,8 +171,16 @@ class Organization::SubscriptionsController < Organization::BaseController
     end
   end
 
+  def new_plan_code
+    current_organization.plans.find(subscription_params[:plan_id]).permalink
+  end
+
+  def timeframe
+    subscription_params[:apply_changes]
+  end
+
   def apply_immediately?
-    subscription_params[:apply_changes] == 'now'
+    timeframe == 'now'
   end
 
   def subscription_params

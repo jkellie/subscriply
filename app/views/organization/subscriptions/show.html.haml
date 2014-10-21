@@ -1,6 +1,11 @@
 = content_for(:menubar) do
   Subscription Details: #{@subscription_presenter.user_name}
 
+= content_for(:menubar_right) do
+  .pull-right
+    .row.status-labels
+      = @subscription_presenter.status_label
+
 %div{:style => "margin-left: 15px"}
   = link_to organization_user_path(@subscription_presenter.user), class: 'btn btn-primary btn-xs' do
     &lt; back to user
