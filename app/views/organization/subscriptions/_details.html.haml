@@ -9,7 +9,7 @@
     .col-sm-6
       %dl.dl-horizontal
         %dt Status:
-        %dd #{subscription_presenter.state}
+        %dd #{subscription_presenter.subscription_state}
         %dt Start Date:
         %dd #{subscription_presenter.start_date.try(:strftime, '%m/%-e/%y')}
         %dt Current Period:

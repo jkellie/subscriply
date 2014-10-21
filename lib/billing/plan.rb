@@ -1,6 +1,6 @@
 module Billing::Plan
 
-  def plan_module
+  def self.plan_module
     Recurly::Plan
   end
 

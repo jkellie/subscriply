@@ -2,23 +2,27 @@ class Organization::SubscriptionPresenter
   include ActionView::Helpers::NumberHelper
   attr_reader :subscription
 
-  delegate :organization, :user, :state, :start_date, :next_bill_on, :plan, :location,
+  delegate :organization, :user, :start_date, :next_bill_on, :plan, :location,
     to: :subscription
 
   def initialize(subscription)
     @subscription = subscription
   end
 
+  def subscription_state
+    subscription.state.titleize
+  end
+
   def user_name
-    user.name
+    user.name.titleize
   end
 
   def plan_name
-    plan.name
+    plan.name.titleize
   end
 
   def plan_type
-    plan.plan_type
+    plan.plan_type.titleize
   end
 
   def plan_amount
@@ -26,18 +30,29 @@ class Organization::SubscriptionPresenter
   end
 
   def show_shipping_info?
+    local_pick_up? || plan.shipped?
+  end
+
+  def local_pick_up?
     plan.local_pick_up?
   end
 
   def location_address
-    _address = "#{location.street_address}"
-    _address += "<br/>#{location.street_address_2}" if location.street_address_2.present?
-    _address += "<br/>#{location.city}, #{location.state} #{location.zip}"
-    _address
+    _address = "#{location_object.street_address}"
+    _address += "<br/>#{location_object.street_address_2}" if location_object.street_address_2.present?
+    _address += "<br/>#{location_object.city}, #{location_object.state} #{location_object.zip}"
+    _address.titleize
   end
 
   def location_name
-    location.name
+    location.name.titleize
+  end
+
+  private
+
+  def location_object
+    return user if plan.shipped?
+    return location if plan.local_pick_up?
   end
 
 

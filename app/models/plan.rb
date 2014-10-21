@@ -18,6 +18,10 @@ class Plan < ActiveRecord::Base
     plan_type == 'local_pick_up'
   end
 
+  def shipped?
+    plan_type == 'shipped'
+  end
+
   def amount_in_cents
     (amount * 100.0).round.to_i
   end

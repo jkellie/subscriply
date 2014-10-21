@@ -9,7 +9,8 @@
         %dt Address:
         %dd
           %address= raw subscription_presenter.location_address
-    .col-sm-6
-      %dl.dl-horizontal
-        %dt Location:
-        %dd #{subscription_presenter.location_name}
+    - if subscription_presenter.local_pick_up?
+      .col-sm-6
+        %dl.dl-horizontal
+          %dt Location:
+          %dd #{subscription_presenter.location_name}
