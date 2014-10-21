@@ -41,6 +41,8 @@ class Organization::SubscriptionsController < Organization::BaseController
   end
 
   def edit
+    @subscription = current_organization.subscriptions.find params[:id]
+    @plans = current_organization.plans.where(product_id: @subscription.plan.product_id)
   end
 
   def update
@@ -50,9 +52,20 @@ class Organization::SubscriptionsController < Organization::BaseController
       flash[:notice] = 'Subscription Updated'
       redirect_to organization_subscription_path(@subscription)
     else
-      @subscription_presenter = Organization::SubscriptionPresenter.new(@subscription)
       flash.now[:danger] = 'Error Updating Subscription: #{@subscription.errors.full_messages.to_sentence'
       render 'edit'
+    end
+  end
+
+  def change_plan
+    @subscription = current_organization.subscriptions.find params[:id]
+
+    if update_plan
+      flash[:notice] = 'Subscription Updated'
+      redirect_to organization_subscription_path(@subscription)
+    else
+      flash[:danger] = "Error Creating Subscription: #{@subscription.errors.full_messages.to_sentence.gsub('base ', '')}"
+      redirect_to edit_organization_subscription_path(@subscription)
     end
   end
 
@@ -131,12 +144,21 @@ class Organization::SubscriptionsController < Organization::BaseController
     begin
       ActiveRecord::Base.transaction do
         @subscription.save
-        billing_subscription = Billing::Subscription.create(@subscription)
-        @subscription.update_attributes({
-          uuid: billing_subscription.uuid,
-          state: billing_subscription.state,
-          next_bill_on: billing_subscription.current_period_ends_at,
-          start_date: billing_subscription.activated_at
+        Billing::Subscription.create(@subscription)
+      end
+    rescue Exception => e
+      @subscription.errors.add(:base, e)
+      return false
+    end
+  end
+
+  def update_plan
+    begin
+      ActiveRecord::Base.transaction do
+        @subscription.update(subscription_params) if apply_immediately?
+        Billing::Subscription.update(@subscription.reload, {
+          plan_code: @subscription.plan.permalink, 
+          timeframe: @subscription.apply_changes 
         })
       end
     rescue Exception => e
@@ -145,8 +167,12 @@ class Organization::SubscriptionsController < Organization::BaseController
     end
   end
 
+  def apply_immediately?
+    subscription_params[:apply_changes] == 'now'
+  end
+
   def subscription_params
-    params.require(:subscription).permit(:user_id, :plan_id, :location_id).merge(organization_id: current_organization.id)
+    params.require(:subscription).permit(:user_id, :plan_id, :location_id, :apply_changes).merge(organization_id: current_organization.id)
   end
 
 end

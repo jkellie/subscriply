@@ -3,7 +3,7 @@
     %span Details:
     = link_to '#', class: 'pull-right', style: 'margin-left: 10px' do
       = icon 'trash-o'
-    = link_to '#', class: 'pull-right' do
+    = link_to edit_organization_subscription_path(subscription_presenter.subscription), class: 'pull-right' do
       = icon 'pencil'
   .panel-body
     .col-sm-6

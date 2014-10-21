@@ -4,6 +4,8 @@ FactoryGirl.define do
     user
     plan
     location
+    uuid { SecureRandom.uuid }
+
 
     trait :active do
       state 'active'

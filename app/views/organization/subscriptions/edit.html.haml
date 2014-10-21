@@ -1,0 +1,35 @@
+= content_for(:menubar) do
+  Edit Subscription: #{@subscription.user.name}
+
+.col-sm-12
+  .panel.panel-default{:style => "margin-top: 20px"}
+    .panel-heading
+      %span Plan Details:
+    .panel-body
+      = simple_form_for @subscription, url: change_plan_organization_subscription_path(@subscription), method: :put do |f|
+        #plan-details.col-sm-6
+          %dl.dl-horizontal
+            %dt Product:
+            %dd #{@subscription.plan.product.name}
+            %br
+            %dt Plan:
+            %dd
+              = f.input :plan_id, as: :select, collection: @plans, label: false, input_html: { class: 'form-control' }, include_blank: false
+            %br
+            %dt{:style => "margin-top: 10px"} Apply Changes:
+
+            %dd
+              = f.collection_radio_buttons(:apply_changes, [['renewal', 'On Next Renewal (default)'], ['now', 'Immediately']], :first, :last, item_wrapper_tag: :div, item_wrapper_class: :radio, checked: 'renewal') { |b| content_tag(:label) { raw(b.radio_button + b.label) } }
+              %i - Applying changes immediately will result in a prorated credit or charge applied to the account based on the price difference of the updated subscription.
+        #plan-summary.col-sm-6
+          %dl.dl-horizontal
+            %dt Account Name:
+            %dd #{@subscription.user.name}
+            %dt Subscription Cost:
+            %dd= number_to_currency(@subscription.plan.amount)
+          %br
+          %br
+          %center
+            %div{:style => "margin-top: 20px"}
+              %a.btn.btn-default{:href => "subscription.html", :style => "margin-right: 5px", :type => "button"} Cancel
+              %button.btn.btn-primary{:style => "margin-left: 5px", :type => "submit"} Update Subscription
