@@ -1,0 +1,18 @@
+#edit-shipping.modal.fade{"aria-hidden" => "true", role: "dialog", style: "display: hidden;", :tabindex => "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"} ×
+        %h4#myModalLabel.modal-title
+          Edit shipping
+      .modal-body
+        = simple_form_for subscription, url: organization_subscription_path(subscription, method: :put) do |f|
+          .form-group
+            %label.control-label Pick-up Location
+            .form-group
+              = f.input :location_id, as: :select, collection: current_organization.locations, input_html: { class: 'form-control'}, include_blank: false
+          %br
+          %br
+          %center
+            %input.btn.btn-default{"data-dismiss" => "modal", style: "margin-right: 10px", value: 'Cancel'}
+            %input.btn.btn-primary{style: "margin-left: 10px", type: "submit", value: "Submit"}

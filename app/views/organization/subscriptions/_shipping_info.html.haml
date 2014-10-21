@@ -1,8 +1,9 @@
 .panel.panel-default
   .panel-heading
     %span Shipping info:
-    = link_to '#', class: 'pull-right' do
-      = icon 'pencil'
+    - if subscription_presenter.local_pick_up?
+      = link_to '#', class: 'pull-right', data: {toggle: 'modal', target: '#edit-shipping' } do
+        = icon 'pencil'
   .panel-body
     .col-sm-6
       %dl.dl-horizontal

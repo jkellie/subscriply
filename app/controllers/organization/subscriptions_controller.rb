@@ -36,7 +36,7 @@ class Organization::SubscriptionsController < Organization::BaseController
   end
 
   def show
-    subscription = current_organization.subscriptions.find(params[:id])
+    subscription = current_organization.subscriptions.find params[:id]
     @subscription_presenter = Organization::SubscriptionPresenter.new(subscription)
   end
 
@@ -44,13 +44,22 @@ class Organization::SubscriptionsController < Organization::BaseController
   end
 
   def update
+    @subscription = current_organization.subscriptions.find params[:id]
+
+    if @subscription.update(subscription_params)
+      flash[:notice] = 'Subscription Updated'
+      redirect_to organization_subscription_path(@subscription)
+    else
+      @subscription_presenter = Organization::SubscriptionPresenter.new(@subscription)
+      flash.now[:danger] = 'Error Updating Subscription: #{@subscription.errors.full_messages.to_sentence'
+      render 'edit'
+    end
   end
 
   private
 
   def find_subscriptions
     @subscriptions = current_organization.subscriptions
-
     @subscriptions = @subscriptions.search(q) if search?
     
     if search_between_invoice_dates?
@@ -63,7 +72,6 @@ class Organization::SubscriptionsController < Organization::BaseController
     @subscriptions = @subscriptions.active if active?
     @subscriptions = @subscriptions.canceled if canceled?
     @subscriptions = @subscriptions.canceling if canceling?
-
     @subscriptions = @subscriptions.order('created_at DESC').page(page).per(per_page)
   end
 
