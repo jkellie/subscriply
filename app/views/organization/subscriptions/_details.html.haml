@@ -1,7 +1,7 @@
 .panel.panel-default{:style => "margin-top: 20px"}
   .panel-heading
     %span Details:
-    = link_to '#', class: 'pull-right', style: 'margin-left: 10px' do
+    = link_to canceling_organization_subscription_path(subscription_presenter.subscription), class: 'pull-right', style: 'margin-left: 10px' do
       = icon 'trash-o'
     = link_to edit_organization_subscription_path(subscription_presenter.subscription), class: 'pull-right' do
       = icon 'pencil'
@@ -16,9 +16,10 @@
         %dd= ' - '
         %dt Next Invoice:
         %dd #{subscription_presenter.next_bill_on.try(:strftime, '%m/%-e/%y')}
-        %dt
-        %dd
-          %a.btn.btn-default.btn-xs{"data-target" => "#edit-renewal", "data-toggle" => "modal", :href => "#", style: 'margin-top: 10px'} Change renewal date
+        - if subscription_presenter.renewal_changable?
+          %dt
+          %dd
+            %a.btn.btn-default.btn-xs{"data-target" => "#edit-renewal", "data-toggle" => "modal", :href => "#", style: 'margin-top: 10px'} Change renewal date
     .col-sm-6
       %dl.dl-horizontal
         %dt Subscription:

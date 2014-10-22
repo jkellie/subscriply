@@ -1,0 +1,28 @@
+= content_for(:menubar) do
+  Cancel Subscription: #{@subscription_presenter.user_name}
+
+= content_for(:menubar_right) do
+  .pull-right
+    .row.status-labels
+      = @subscription_presenter.status_label
+
+.row
+  .col-sm-12
+    %div
+      = link_to organization_subscription_path(@subscription_presenter.subscription), class: 'btn btn-primary btn-xs' do
+        &lt; back to subscription
+
+.row{style: 'margin-top: 15px'}
+  .col-sm-12
+    %p
+      You may either
+      %strong cancel
+      this subscription so it continues through the current term but does not renew, OR you may
+      %strong terminate
+      the subscription to make it end immediately.
+
+.row
+  = render 'cancel', subscription_presenter: @subscription_presenter
+  = render 'terminate', subscription_presenter: @subscription_presenter  
+  
+  

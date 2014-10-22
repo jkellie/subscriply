@@ -1,0 +1,28 @@
+.col-sm-6
+  .panel.panel-default{:style => "margin-top: 20px"}
+    .panel-heading
+      %span Terminate immediately:
+    .panel-body
+      - if subscription_presenter.canceled?
+        %p 
+          This subscription was canceled on
+          %strong #{subscription_presenter.canceled_on}
+      - else
+        = form_tag terminate_organization_subscription_path(subscription_presenter.subscription), method: :put do
+          %p If you would like the subscription to end immediately, you may terminate the subscription now. Optionally, you may issue a refund for the time remaining (prorated) or for the full amount.
+
+          .radio{:style => "margin-left: 20%"}
+            %label
+              = radio_button_tag 'refund_type', 'none'
+              Do not issue a refund
+          .radio{:style => "margin-left: 20%"}
+            %label
+              = radio_button_tag 'refund_type', 'partial'
+              Prorated based on time remaining
+          .radio{:style => "margin-left: 20%"}
+            %label
+              = radio_button_tag 'refund_type', 'full'
+              Full refund
+          %br
+          %center
+            %button.btn.btn-danger Terminate subscription

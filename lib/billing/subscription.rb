@@ -49,6 +49,22 @@ module Billing::Subscription
     end
   end
 
+  def self.cancel(subscription)
+    Billing.with_lock(subscription.organization) do
+      subscription_on_billing(subscription).cancel
+      subscription.canceling!
+      subscription.update(canceled_on: Time.current.to_date)
+    end
+  end
+
+  def self.terminate(subscription, refund_type)
+    Billing.with_lock(subscription.organization) do
+      subscription_on_billing(subscription).terminate(refund_type.to_sym)
+      subscription.cancel!
+      subscription.update(next_bill_on: nil, canceled_on: Time.current.to_date)
+    end
+  end
+
   def self.subscription_on_billing(subscription)
     Billing.with_lock(subscription.organization) do
       subscription_module.find(subscription.uuid.gsub('-', '')) #Bug with Recurly's API that does not like dashes in uuid's. Only affects subscriptions.

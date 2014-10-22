@@ -40,6 +40,9 @@ Rails.application.routes.draw do
       post :add, on: :collection
       put :change_plan, on: :member
       put :postpone, on: :member
+      get :canceling, on: :member
+      put :cancel, on: :member
+      put :terminate, on: :member
     end
     resources :transactions
 

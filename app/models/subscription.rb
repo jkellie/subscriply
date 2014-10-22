@@ -29,7 +29,7 @@ class Subscription < ActiveRecord::Base
       transition :active => :canceling
     end
     event :cancel do
-      transition :canceling => :canceled
+      transition all => :canceled
     end
   end
 

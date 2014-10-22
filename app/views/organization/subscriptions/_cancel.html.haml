@@ -1,0 +1,23 @@
+.col-sm-6
+  .panel.panel-default{:style => "margin-top: 20px"}
+    .panel-heading
+      %span Cancel at renewal:
+    .panel-body
+      - if subscription_presenter.active?
+        %p Canceling a subscription will cause it not to renew. If you cancel the subscription, it will continue until:
+        %p
+          %strong #{subscription_presenter.next_bill_on}
+        %p On that date, the subscription will expire and not be invoiced again. The subscription can be reactivated before it expires.
+        %br
+        %br
+        %center
+          = button_to cancel_organization_subscription_path(subscription_presenter.subscription), method: :put, class: 'btn btn-danger' do
+            Cancel at renewal
+      - elsif subscription_presenter.canceling?
+        %p 
+          This subscription is already set to cancel, and will deactivate on
+          %strong #{subscription_presenter.next_bill_on}
+      - elsif subscription_presenter.canceled?
+        %p 
+          This subscription was canceled on
+          %strong #{subscription_presenter.canceled_on}

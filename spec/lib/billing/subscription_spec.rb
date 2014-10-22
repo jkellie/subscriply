@@ -95,3 +95,71 @@ describe Billing::Subscription, '.postpone' do
   end
 end
 
+describe Billing::Subscription, '.cancel' do
+  let!(:subscription) { FactoryGirl.create(:subscription) }
+  let(:recurly_subscription) { double('Recurly::Subscription')}
+  let(:billing_subscription) { double('billing_subscription') }
+
+  before do
+    Billing::Subscription.stub(:subscription_module).and_return(recurly_subscription)
+    recurly_subscription.should_receive('find').with(subscription.uuid.gsub('-', '')).and_return(billing_subscription)
+    billing_subscription.should_receive('cancel')
+  end
+
+  subject do
+    Billing::Subscription.cancel(subscription)
+  end
+
+  it "calls recurly to cancel the subscription" do
+    subject
+    expect(subscription.reload.canceling?).to be_truthy
+    expect(subscription.reload.canceled_on).to_not be_nil
+  end
+end
+
+describe Billing::Subscription, '.terminate' do
+  let!(:subscription) { FactoryGirl.create(:subscription) }
+  let(:recurly_subscription) { double('Recurly::Subscription')}
+  let(:billing_subscription) { double('billing_subscription') }
+
+  before do
+    Billing::Subscription.stub(:subscription_module).and_return(recurly_subscription)
+    subscription.stub('update_attributes').and_return(true)
+    recurly_subscription.should_receive('find').with(subscription.uuid.gsub('-', '')).and_return(billing_subscription)
+    billing_subscription.should_receive('terminate').with(:partial)
+  end
+
+  subject do
+    Billing::Subscription.terminate(subscription, 'partial')
+  end
+
+  it "calls recurly to cancel the subscription" do
+    subject
+    expect(subscription.reload.canceled?).to be_truthy
+    expect(subscription.reload.canceled_on).to_not be_nil
+    expect(subscription.reload.next_bill_on).to be_nil
+  end
+end
+
+describe Billing::Subscription, '.postpone' do
+  let!(:subscription) { FactoryGirl.create(:subscription) }
+  let(:recurly_subscription) { double('Recurly::Subscription')}
+  let(:billing_subscription) { double('billing_subscription') }
+
+  before do
+    Billing::Subscription.stub(:subscription_module).and_return(recurly_subscription)
+    subscription.stub('update_attributes').and_return(true)
+    recurly_subscription.should_receive('find').with(subscription.uuid.gsub('-', '')).and_return(billing_subscription)
+    billing_subscription.should_receive('postpone')
+    subscription.should_receive('update_attributes')
+  end
+
+  subject do
+    Billing::Subscription.postpone(subscription, 2.weeks.from_now)
+  end
+
+  it "calls recurly to update the subscription" do
+    subject
+  end
+end
+

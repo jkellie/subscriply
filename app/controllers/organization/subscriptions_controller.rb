@@ -1,7 +1,7 @@
 class Organization::SubscriptionsController < Organization::BaseController
   before_action :authenticate_organizer!
   before_action :find_subscriptions, only: :index
-  before_action :find_subscription, only: [:show, :edit, :update, :change_plan, :postpone]
+  before_action :find_subscription, only: [:show, :edit, :update, :change_plan, :postpone, :cancel, :canceling, :terminate]
 
   def index
   end
@@ -79,6 +79,36 @@ class Organization::SubscriptionsController < Organization::BaseController
   rescue Recurly::API::UnprocessableEntity => e
     flash[:danger] = "There was an error setting the date on Recurly. Most likely you selected a date in the past. Try again."
     redirect_to organization_subscription_path(@subscription)
+  end
+
+  def canceling
+    @subscription_presenter = Organization::SubscriptionPresenter.new(@subscription)
+  end
+
+  def cancel
+    if Billing::Subscription.cancel(@subscription)
+      flash[:notice] = 'Subscription set to cancel at renewal'
+      redirect_to organization_subscription_path(@subscription)
+    else
+      flash[:danger] = "Error canceling subscription: #{@subscription.errors.full_messages.to_sentence.gsub('base ', '')}"
+      redirect_to canceling_organization_subscription_path(@subscription)
+    end
+  rescue Exception => e
+    flash[:danger] = e.message
+    redirect_to canceling_organization_subscription_path(@subscription)
+  end
+
+  def terminate
+    if Billing::Subscription.terminate(@subscription, params[:refund_type])
+      flash[:notice] = 'Subscription set to cancel at renewal'
+      redirect_to organization_subscription_path(@subscription)
+    else
+      flash[:danger] = "Error canceling subscription: #{@subscription.errors.full_messages.to_sentence.gsub('base ', '')}"
+      redirect_to canceling_organization_subscription_path(@subscription)
+    end
+  rescue Exception => e
+    flash[:danger] = e.message
+    redirect_to canceling_organization_subscription_path(@subscription)
   end
 
   private
