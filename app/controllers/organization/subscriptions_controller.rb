@@ -1,6 +1,7 @@
 class Organization::SubscriptionsController < Organization::BaseController
   before_action :authenticate_organizer!
   before_action :find_subscriptions, only: :index
+  before_action :find_subscription, only: [:show, :edit, :update, :change_plan, :postpone]
 
   def index
   end
@@ -36,19 +37,15 @@ class Organization::SubscriptionsController < Organization::BaseController
   end
 
   def show
-    subscription = current_organization.subscriptions.find params[:id]
-    @subscription_presenter = Organization::SubscriptionPresenter.new(subscription)
+    @subscription_presenter = Organization::SubscriptionPresenter.new(@subscription)
   end
 
   def edit
-    subscription = current_organization.subscriptions.find params[:id]
-    @subscription_presenter = Organization::SubscriptionPresenter.new(subscription)
-    @plans = current_organization.plans.where(product_id: subscription.plan.product_id)
+    @subscription_presenter = Organization::SubscriptionPresenter.new(@subscription)
+    @plans = current_organization.plans.where(product_id: @subscription.plan.product_id)
   end
 
   def update
-    @subscription = current_organization.subscriptions.find params[:id]
-
     if @subscription.update(subscription_params)
       flash[:notice] = 'Subscription Updated'
       redirect_to organization_subscription_path(@subscription)
@@ -61,8 +58,6 @@ class Organization::SubscriptionsController < Organization::BaseController
   end
 
   def change_plan
-    @subscription = current_organization.subscriptions.find params[:id]
-
     if update_plan
       flash[:notice] = 'Subscription Updated'
       redirect_to organization_subscription_path(@subscription)
@@ -73,7 +68,24 @@ class Organization::SubscriptionsController < Organization::BaseController
     end
   end
 
+  def postpone
+    if Billing::Subscription.postpone(@subscription, params[:renewal_date])
+      flash[:notice] = "Subscription renewal date is now #{@subscription.reload.next_bill_on.strftime('%m/%-e/%y')}"
+      redirect_to organization_subscription_path(@subscription)
+    end
+  rescue Recurly::API::BadRequest => e
+    flash[:danger] = e.to_s.gsub('next_renewal_date', 'renewal date')
+    redirect_to organization_subscription_path(@subscription)
+  rescue Recurly::API::UnprocessableEntity => e
+    flash[:danger] = "There was an error setting the date on Recurly. Most likely you selected a date in the past. Try again."
+    redirect_to organization_subscription_path(@subscription)
+  end
+
   private
+
+  def find_subscription
+    @subscription = current_organization.subscriptions.find params[:id]
+  end
 
   def find_subscriptions
     @subscriptions = current_organization.subscriptions

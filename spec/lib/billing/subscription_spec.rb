@@ -72,3 +72,26 @@ describe Billing::Subscription, '.update' do
   end
 
 end
+
+describe Billing::Subscription, '.postpone' do
+  let!(:subscription) { FactoryGirl.create(:subscription) }
+  let(:recurly_subscription) { double('Recurly::Subscription')}
+  let(:billing_subscription) { double('billing_subscription') }
+
+  before do
+    Billing::Subscription.stub(:subscription_module).and_return(recurly_subscription)
+    subscription.stub('update_attributes').and_return(true)
+    recurly_subscription.should_receive('find').with(subscription.uuid.gsub('-', '')).and_return(billing_subscription)
+    billing_subscription.should_receive('postpone')
+    subscription.should_receive('update_attributes')
+  end
+
+  subject do
+    Billing::Subscription.postpone(subscription, 2.weeks.from_now)
+  end
+
+  it "calls recurly to update the subscription" do
+    subject
+  end
+end
+

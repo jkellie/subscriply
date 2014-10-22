@@ -39,6 +39,16 @@ module Billing::Subscription
     end
   end
 
+  def self.postpone(subscription, postpone_until)
+    Billing.with_lock(subscription.organization) do
+      billing_subscription = subscription_on_billing(subscription)
+      billing_subscription.postpone(postpone_until)
+      subscription.update_attributes({
+        next_bill_on: postpone_until
+      })
+    end
+  end
+
   def self.subscription_on_billing(subscription)
     Billing.with_lock(subscription.organization) do
       subscription_module.find(subscription.uuid.gsub('-', '')) #Bug with Recurly's API that does not like dashes in uuid's. Only affects subscriptions.

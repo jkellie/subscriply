@@ -39,6 +39,7 @@ Rails.application.routes.draw do
     resources :subscriptions do
       post :add, on: :collection
       put :change_plan, on: :member
+      put :postpone, on: :member
     end
     resources :transactions
 

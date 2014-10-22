@@ -16,3 +16,7 @@
   = render 'transactions', subscription_presenter: @subscription_presenter
 
 = render 'edit_location', subscription: @subscription_presenter.subscription if @subscription_presenter.local_pick_up?
+= render 'edit_renewal_date', subscription: @subscription_presenter.subscription
+
+:javascript
+  $('.datepicker').datepicker({dateFormat: 'M d, yy'})

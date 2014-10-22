@@ -16,8 +16,9 @@
         %dd= ' - '
         %dt Next Invoice:
         %dd #{subscription_presenter.next_bill_on.try(:strftime, '%m/%-e/%y')}
-      / #change-button
-      /   %a.btn.btn-default.btn-xs{"data-target" => "#edit-renewal", "data-toggle" => "modal", :href => "#"} Change renewal date
+        %dt
+        %dd
+          %a.btn.btn-default.btn-xs{"data-target" => "#edit-renewal", "data-toggle" => "modal", :href => "#", style: 'margin-top: 10px'} Change renewal date
     .col-sm-6
       %dl.dl-horizontal
         %dt Subscription:

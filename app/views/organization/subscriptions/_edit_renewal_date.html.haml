@@ -1,0 +1,28 @@
+#edit-renewal.modal.fade{"aria-hidden" => "true", :role => "dialog", :style => "display: none;", :tabindex => "-2"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+        %h4#myModalLabel.modal-title
+          Edit Renewal
+      .modal-body
+        = form_tag(postpone_organization_subscription_path(subscription), method: :put) do |f|
+          .col-sm-6
+            %label.control-label Renewal Date
+            .input-group
+              %span.input-group-addon
+                = icon 'calendar-o'
+              = text_field_tag 'renewal_date', '', class: 'datepicker form-control', required: true
+          .col-sm-6{:style => "margin-top: 20px"}
+            %p
+              Subscription will automatically renew on
+              = succeed "." do
+                %strong #{subscription.next_bill_on.try(:strftime, '%m/%-e/%y')}
+              %br
+                You may update the subscription to renew at a different time in the future. The subscription will not be prorated.
+          .clearfix
+          %br
+          %br
+          %center
+            %input.btn.btn-default{"data-dismiss" => "modal", :style => "margin-right: 10px", :type => "submit", :value => "Cancel"}
+            %input.btn.btn-primary{:style => "margin-left: 10px", :type => "submit", :value => "Submit"}
