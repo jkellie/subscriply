@@ -11,11 +11,11 @@
         %dt Status:
         %dd #{subscription_presenter.subscription_state}
         %dt Start Date:
-        %dd #{subscription_presenter.start_date.try(:strftime, '%m/%-e/%y')}
+        %dd #{subscription_presenter.start_date}
         %dt Current Period:
         %dd= ' - '
         %dt Next Invoice:
-        %dd #{subscription_presenter.next_bill_on.try(:strftime, '%m/%-e/%y')}
+        %dd #{subscription_presenter.next_bill_on}
         - if subscription_presenter.renewal_changable?
           %dt
           %dd

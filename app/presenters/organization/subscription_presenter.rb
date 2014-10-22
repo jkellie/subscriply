@@ -64,6 +64,10 @@ class Organization::SubscriptionPresenter
     end
   end
 
+  def start_date
+    subscription.start_date.try(:strftime, '%m/%-e/%y')
+  end
+
   def next_bill_on
     subscription.next_bill_on.try(:strftime, '%m/%-e/%y')
   end
