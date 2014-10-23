@@ -6,17 +6,10 @@ module Billing::Subscription
 
   def self.create(subscription)
     Billing.with_lock(subscription.organization) do
-      billing_subscription = subscription_module.create!(
+      subscription_module.create!(
         plan_code: subscription.plan.permalink, 
         account: { account_code: subscription.user.uuid }
       )
-      # TODO: Move logic into SubscriptionCreator
-      subscription.update_attributes({
-        uuid: billing_subscription.uuid,
-        state: billing_subscription.state,
-        next_bill_on: billing_subscription.current_period_ends_at,
-        start_date: billing_subscription.activated_at
-      })
     end
   end
 

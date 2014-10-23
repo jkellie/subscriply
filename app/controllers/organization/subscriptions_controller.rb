@@ -36,14 +36,14 @@ class Organization::SubscriptionsController < Organization::BaseController
   end
 
   def add
-    @subscription = Subscription.new(subscription_params)
+    subscription_creator = SubscriptionCreator.new(subscription_params)
 
-    if add_subscription
+    if subscription_creator.create
       flash[:notice] = 'Subscription Created'
-      redirect_to organization_user_path(@subscription.user)
+      redirect_to organization_user_path(subscription_creator.user)
     else
-      flash[:danger] = "Error Creating Subscription: #{@subscription.errors.full_messages.to_sentence.gsub('base ', '')}"
-      redirect_to organization_user_path(@subscription.user)
+      flash[:danger] = "Error Creating Subscription: #{subscription_creator.full_errors}"
+      redirect_to organization_user_path(subscription_creator.user)
     end
   end
 
@@ -84,8 +84,6 @@ class Organization::SubscriptionsController < Organization::BaseController
   end  
 
   def canceling
-
-
     @subscription_presenter = Organization::SubscriptionPresenter.new(@subscription)
   end
 
@@ -119,24 +117,12 @@ class Organization::SubscriptionsController < Organization::BaseController
     @subscription = current_organization.subscriptions.find params[:id]
   end
 
-  def add_subscription
-    begin
-      ActiveRecord::Base.transaction do
-        @subscription.save
-        Billing::Subscription.create(@subscription)
-      end
-    rescue Exception => e
-      @subscription.errors.add(:base, e)
-      return false
-    end
-  end
-
   def new_plan_code
     current_organization.plans.find(subscription_params[:plan_id]).permalink
   end
 
   def subscription_params
-    params.require(:subscription).permit(:user_id, :plan_id, :location_id, :apply_changes).merge(organization_id: current_organization.id)
+    params.require(:subscription).permit(:user_id, :plan_id, :location_id, :apply_changes, :start_date).merge(organization_id: current_organization.id)
   end
 
 end
