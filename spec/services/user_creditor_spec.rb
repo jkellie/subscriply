@@ -38,7 +38,7 @@ describe UserCreditor, '#create' do
         description: 'test',
         accounting_code: 'test'
       }
-      user_creditor.should_receive(:create_credit_on_recurly).and_return(true)
+      user_creditor.should_receive(:create_credit_on_billing).and_return(true)
       user_creditor.should_receive(:create_local_credit).and_return(true)
     end
 
@@ -58,7 +58,7 @@ describe UserCreditor, '#create' do
         description: 'test',
         accounting_code: 'test'
       }
-      user_creditor.should_receive(:create_credit_on_recurly).and_raise(Exception.new('request failed'))
+      user_creditor.should_receive(:create_credit_on_billing).and_raise(Exception.new('request failed'))
     end
 
     subject { user_creditor.create }

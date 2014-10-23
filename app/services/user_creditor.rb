@@ -18,7 +18,7 @@ class UserCreditor
   def create
     begin
       ActiveRecord::Base.transaction do
-        create_credit_on_recurly
+        create_credit_on_billing
         create_local_credit
       end
     rescue Exception => e
@@ -29,7 +29,7 @@ class UserCreditor
 
   private
 
-  def create_credit_on_recurly
+  def create_credit_on_billing
     Billing::User.credit(user, credit_attributes)
   end
 
