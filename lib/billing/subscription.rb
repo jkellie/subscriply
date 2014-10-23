@@ -10,6 +10,7 @@ module Billing::Subscription
         plan_code: subscription.plan.permalink, 
         account: { account_code: subscription.user.uuid }
       )
+      # TODO: Move logic into SubscriptionCreator
       subscription.update_attributes({
         uuid: billing_subscription.uuid,
         state: billing_subscription.state,
@@ -32,6 +33,8 @@ module Billing::Subscription
     Billing.with_lock(subscription.organization) do
       billing_subscription = subscription_on_billing(subscription)
       billing_subscription.update_attributes(new_attrs)
+
+      # TODO: Extract into service object SubscriptionUpdater
       subscription.update_attributes({
         state: billing_subscription.state,
         next_bill_on: billing_subscription.current_period_ends_at,
@@ -43,6 +46,8 @@ module Billing::Subscription
     Billing.with_lock(subscription.organization) do
       billing_subscription = subscription_on_billing(subscription)
       billing_subscription.postpone(postpone_until)
+
+      # TODO: Extract into service object SubscriptionPostponer
       subscription.update_attributes({
         next_bill_on: postpone_until
       })
@@ -52,6 +57,7 @@ module Billing::Subscription
   def self.cancel(subscription)
     Billing.with_lock(subscription.organization) do
       subscription_on_billing(subscription).cancel
+      # TODO: Extract into service object SubscriptionCanceler
       subscription.canceling!
       subscription.update(canceled_on: Time.current.to_date)
     end
@@ -60,6 +66,7 @@ module Billing::Subscription
   def self.terminate(subscription, refund_type)
     Billing.with_lock(subscription.organization) do
       subscription_on_billing(subscription).terminate(refund_type.to_sym)
+      # TODO: Extract into service object SubscriptionTerminator
       subscription.cancel!
       subscription.update(next_bill_on: nil, canceled_on: Time.current.to_date)
     end

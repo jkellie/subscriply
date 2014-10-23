@@ -26,6 +26,15 @@ class Organization::SubscriptionsController < Organization::BaseController
     end
   end
 
+  def show
+    @subscription_presenter = Organization::SubscriptionPresenter.new(@subscription)
+  end
+
+  def edit
+    @subscription_presenter = Organization::SubscriptionPresenter.new(@subscription)
+    @plans = current_organization.plans.where(product_id: @subscription.plan.product_id)
+  end
+
   def add
     @subscription = Subscription.new(subscription_params)
 
@@ -36,15 +45,6 @@ class Organization::SubscriptionsController < Organization::BaseController
       flash[:danger] = "Error Creating Subscription: #{@subscription.errors.full_messages.to_sentence.gsub('base ', '')}"
       redirect_to organization_user_path(@subscription.user)
     end
-  end
-
-  def show
-    @subscription_presenter = Organization::SubscriptionPresenter.new(@subscription)
-  end
-
-  def edit
-    @subscription_presenter = Organization::SubscriptionPresenter.new(@subscription)
-    @plans = current_organization.plans.where(product_id: @subscription.plan.product_id)
   end
 
   def update
