@@ -61,12 +61,13 @@ class Organization::SubscriptionsController < Organization::BaseController
   end
 
   def change_plan
-    if update_plan
+    subscription_updater = SubscriptionUpdater.new(@subscription)
+
+    if subscription_updater.update({plan_code: new_plan_code, timeframe: subscription_params[:apply_changes], plan_id: subscription_params[:plan_id]})
       flash[:notice] = 'Subscription Updated'
       redirect_to organization_subscription_path(@subscription)
     else
-      @subscription_presenter = Organization::SubscriptionPresenter.new(@subscription)
-      flash[:danger] = "Error Creating Subscription: #{@subscription.errors.full_messages.to_sentence.gsub('base ', '')}"
+      flash[:danger] = "Error Updating Subscription: #{subscription_updater.full_errors}"
       redirect_to edit_organization_subscription_path(@subscription)
     end
   end
@@ -80,9 +81,11 @@ class Organization::SubscriptionsController < Organization::BaseController
       flash[:danger] = "Error postponing subscription: #{subscription_postponer.full_errors}"
     end
     redirect_to organization_subscription_path(@subscription)
-  end
+  end  
 
   def canceling
+
+
     @subscription_presenter = Organization::SubscriptionPresenter.new(@subscription)
   end
 
@@ -128,31 +131,8 @@ class Organization::SubscriptionsController < Organization::BaseController
     end
   end
 
-  def update_plan
-    begin
-      ActiveRecord::Base.transaction do
-        @subscription.update(subscription_params) if apply_immediately?
-        Billing::Subscription.update(@subscription.reload, {
-          plan_code: new_plan_code, 
-          timeframe: timeframe
-        })
-      end
-    rescue Exception => e
-      @subscription.errors.add(:base, e)
-      return false
-    end
-  end
-
   def new_plan_code
     current_organization.plans.find(subscription_params[:plan_id]).permalink
-  end
-
-  def timeframe
-    subscription_params[:apply_changes]
-  end
-
-  def apply_immediately?
-    timeframe == 'now'
   end
 
   def subscription_params

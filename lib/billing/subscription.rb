@@ -31,14 +31,7 @@ module Billing::Subscription
 
   def self.update(subscription, new_attrs)
     Billing.with_lock(subscription.organization) do
-      billing_subscription = subscription_on_billing(subscription)
-      billing_subscription.update_attributes(new_attrs)
-
-      # TODO: Extract into service object SubscriptionUpdater
-      subscription.update_attributes({
-        state: billing_subscription.state,
-        next_bill_on: billing_subscription.current_period_ends_at,
-      })
+      subscription_on_billing(subscription).update_attributes(new_attrs)
     end
   end
 

@@ -34,7 +34,7 @@ class SubscriptionTerminator
 
   def terminate_subscription_locally
     subscription.cancel!
-    subscription.update(canceled_on: Time.current.to_date, next_bill_on: nil)
+    subscription.update!(canceled_on: Time.current.to_date, next_bill_on: nil)
   end
 
 end

@@ -34,7 +34,7 @@ class SubscriptionCanceler
 
   def cancel_subscription_locally
     subscription.canceling!
-    subscription.update(canceled_on: Time.current.to_date)
+    subscription.update!(canceled_on: Time.current.to_date)
   end
 
 end
