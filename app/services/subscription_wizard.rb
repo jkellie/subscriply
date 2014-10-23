@@ -1,4 +1,4 @@
-class SubscriptionCreator
+class SubscriptionWizard
   include ActiveModel::Validations
   include ActiveModel::Conversion
   extend ActiveModel::Naming

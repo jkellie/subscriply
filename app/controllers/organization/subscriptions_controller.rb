@@ -9,19 +9,19 @@ class Organization::SubscriptionsController < Organization::BaseController
   end
 
   def new
-    @subscription_creator = Organization::SubscriptionCreator.new(organization: current_organization)
+    @subscription_wizard = Organization::SubscriptionWizard.new(organization: current_organization)
     @sales_reps = current_organization.users.is_sales_rep.order('name ASC')
   end
 
   def create
-    @subscription_creator = Organization::SubscriptionCreator.new(organization: current_organization)
-    @subscription_creator.attributes = params[:subscription_creator]
+    @subscription_wizard = Organization::SubscriptionWizard.new(organization: current_organization)
+    @subscription_wizard.attributes = params[:subscription_wizard]
 
-    if @subscription_creator.create
+    if @subscription_wizard.create
       flash[:notice] = 'Subscription Created'
       redirect_to organization_subscriptions_path
     else
-      flash.now[:danger] = "Error Creating Subscription: #{@subscription_creator.errors_to_sentence}"
+      flash.now[:danger] = "Error Creating Subscription: #{@subscription_wizard.errors_to_sentence}"
       render 'new'
     end
   end

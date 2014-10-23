@@ -1,21 +1,21 @@
 require 'spec_helper'
 
-describe SubscriptionCreator, '#initialize' do
+describe SubscriptionWizard, '#initialize' do
   let(:organization) { FactoryGirl.create(:organization) }
 
-  subject { SubscriptionCreator.new(organization: organization) }
+  subject { SubscriptionWizard.new(organization: organization) }
 
-  it "instantiates a new SubscriptionCreator object" do
+  it "instantiates a new SubscriptionWizard object" do
     expect { subject }.to_not raise_error
   end
 end
 
-describe SubscriptionCreator, '#attributes=' do
+describe SubscriptionWizard, '#attributes=' do
   let!(:organization) { FactoryGirl.create(:organization) }
-  let!(:subscription_creator) { SubscriptionCreator.new(organization: organization) }
+  let!(:subscription_wizard) { SubscriptionWizard.new(organization: organization) }
 
   subject do 
-    subscription_creator.attributes = {
+    subscription_wizard.attributes = {
       sales_rep_id: 12345, 
       member_number: 123456,
       phone_number: '800-abc-defg',
@@ -39,30 +39,30 @@ describe SubscriptionCreator, '#attributes=' do
 
   it "delegates the correct attributes to the new user" do
     subject
-    expect(subscription_creator.user.name).to eq('Testy McTesterson')
-    expect(subscription_creator.user.email).to eq('test@example.com')
-    expect(subscription_creator.user.street_address).to eq('111 Test Lane')
+    expect(subscription_wizard.user.name).to eq('Testy McTesterson')
+    expect(subscription_wizard.user.email).to eq('test@example.com')
+    expect(subscription_wizard.user.street_address).to eq('111 Test Lane')
   end
 
   it "delegates the correct attributes to the new subscription" do
     subject
-    expect(subscription_creator.subscription.plan_id).to eq(1)
-    expect(subscription_creator.subscription.location_id).to eq(1)
-    expect(subscription_creator.subscription.start_date).to eq(2.days.from_now.to_date)
+    expect(subscription_wizard.subscription.plan_id).to eq(1)
+    expect(subscription_wizard.subscription.location_id).to eq(1)
+    expect(subscription_wizard.subscription.start_date).to eq(2.days.from_now.to_date)
   end
 end
 
-describe SubscriptionCreator, "#create" do
+describe SubscriptionWizard, "#create" do
   context 'with valid attributes' do
     let!(:organization) { FactoryGirl.create(:organization) }
-    let!(:subscription_creator) { SubscriptionCreator.new(organization: organization) }
+    let!(:subscription_wizard) { SubscriptionWizard.new(organization: organization) }
     let!(:plan) { FactoryGirl.create(:plan) }
 
     before do
-      subscription_creator.should_receive(:create_subscription_on_recurly).and_return(true)
-      subscription_creator.should_receive(:create_user_on_recurly).and_return(true)
-      subscription_creator.should_receive(:update_cached_billing_info).and_return(true)
-      subscription_creator.attributes = {
+      subscription_wizard.should_receive(:create_subscription_on_recurly).and_return(true)
+      subscription_wizard.should_receive(:create_user_on_recurly).and_return(true)
+      subscription_wizard.should_receive(:update_cached_billing_info).and_return(true)
+      subscription_wizard.attributes = {
         sales_rep_id: 12345, 
         member_number: 123456,
         phone_number: '800-abc-defg',
@@ -86,7 +86,7 @@ describe SubscriptionCreator, "#create" do
       Organization.destroy_all
     end
 
-    subject { subscription_creator.create }
+    subject { subscription_wizard.create }
 
     it "returns true" do
       expect(subject).to be_truthy
@@ -102,20 +102,20 @@ describe SubscriptionCreator, "#create" do
 
     it "has no errors" do
       subject
-      expect(subscription_creator.errors).to be_empty
+      expect(subscription_wizard.errors).to be_empty
     end
 
   end
 
   context 'with valid attributes but fails creating the subscription on recurly' do
     let!(:organization) { FactoryGirl.create(:organization) }
-    let!(:subscription_creator) { SubscriptionCreator.new(organization: organization) }
+    let!(:subscription_wizard) { SubscriptionWizard.new(organization: organization) }
     let!(:plan) { FactoryGirl.create(:plan) }
 
     before do
-      subscription_creator.should_receive(:create_subscription_on_recurly).and_raise(Exception.new('Failed creating subscription on recurly'))
-      subscription_creator.should_receive(:create_user_on_recurly).and_return(true)
-      subscription_creator.attributes = {
+      subscription_wizard.should_receive(:create_subscription_on_recurly).and_raise(Exception.new('Failed creating subscription on recurly'))
+      subscription_wizard.should_receive(:create_user_on_recurly).and_return(true)
+      subscription_wizard.attributes = {
         sales_rep_id: 12345, 
         member_number: 123456,
         phone_number: '800-abc-defg',
@@ -139,7 +139,7 @@ describe SubscriptionCreator, "#create" do
       Organization.destroy_all
     end
 
-    subject { subscription_creator.create }
+    subject { subscription_wizard.create }
 
     it "returns false" do
       expect(subject).to be_falsey
@@ -155,17 +155,17 @@ describe SubscriptionCreator, "#create" do
 
     it "has an error about failing on recurly" do
       subject
-      expect(subscription_creator.errors_to_sentence).to eq('Failed creating subscription on recurly')
+      expect(subscription_wizard.errors_to_sentence).to eq('Failed creating subscription on recurly')
     end
 
   end
   
   context 'with invalid attributes' do
     let!(:organization) { FactoryGirl.create(:organization) }
-    let!(:subscription_creator) { SubscriptionCreator.new(organization: organization) }
+    let!(:subscription_wizard) { SubscriptionWizard.new(organization: organization) }
 
     before do
-      subscription_creator.attributes = {
+      subscription_wizard.attributes = {
         sales_rep_id: 12345, 
         member_number: 123456,
         phone_number: '800-abc-defg',
@@ -189,7 +189,7 @@ describe SubscriptionCreator, "#create" do
       Organization.destroy_all
     end
 
-    subject { subscription_creator.create }
+    subject { subscription_wizard.create }
 
     it "returns false" do
       expect(subject).to be_falsey
@@ -205,7 +205,7 @@ describe SubscriptionCreator, "#create" do
 
     it "tells you why it failed" do
       subject
-      expect(subscription_creator.errors.count).to eq(2)
+      expect(subscription_wizard.errors.count).to eq(2)
     end
 
   end
