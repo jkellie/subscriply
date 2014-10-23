@@ -57,9 +57,6 @@ module Billing::Subscription
   def self.terminate(subscription, refund_type)
     Billing.with_lock(subscription.organization) do
       subscription_on_billing(subscription).terminate(refund_type.to_sym)
-      # TODO: Extract into service object SubscriptionTerminator
-      subscription.cancel!
-      subscription.update(next_bill_on: nil, canceled_on: Time.current.to_date)
     end
   end
 

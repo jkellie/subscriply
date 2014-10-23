@@ -87,28 +87,27 @@ class Organization::SubscriptionsController < Organization::BaseController
   end
 
   def cancel
-    @subscription_canceler = SubscriptionCanceler.new(@subscription)
+    subscription_canceler = SubscriptionCanceler.new(@subscription)
     
-    if @subscription_canceler.cancel
+    if subscription_canceler.cancel
       flash[:notice] = 'Subscription set to cancel at renewal'
       redirect_to organization_subscription_path(@subscription)
     else
-      flash[:danger] = "Error canceling subscription: #{@subscription_canceler.full_errors}"
+      flash[:danger] = "Error canceling subscription: #{subscription_canceler.full_errors}"
       redirect_to canceling_organization_subscription_path(@subscription)
     end
   end
 
   def terminate
-    if Billing::Subscription.terminate(@subscription, params[:refund_type])
+    subscription_terminator = SubscriptionTerminator.new(@subscription)
+
+    if subscription_terminator.terminate(params[:refund_type])
       flash[:notice] = 'Subscription set to cancel at renewal'
       redirect_to organization_subscription_path(@subscription)
     else
-      flash[:danger] = "Error canceling subscription: #{@subscription.errors.full_messages.to_sentence.gsub('base ', '')}"
+      flash[:danger] = "Error canceling subscription: #{subscription_terminator.full_errors}"
       redirect_to canceling_organization_subscription_path(@subscription)
     end
-  rescue Exception => e
-    flash[:danger] = e.message
-    redirect_to canceling_organization_subscription_path(@subscription)
   end
 
   private
