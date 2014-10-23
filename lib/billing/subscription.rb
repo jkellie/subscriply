@@ -46,11 +46,6 @@ module Billing::Subscription
     Billing.with_lock(subscription.organization) do
       billing_subscription = subscription_on_billing(subscription)
       billing_subscription.postpone(postpone_until)
-
-      # TODO: Extract into service object SubscriptionPostponer
-      subscription.update_attributes({
-        next_bill_on: postpone_until
-      })
     end
   end
 

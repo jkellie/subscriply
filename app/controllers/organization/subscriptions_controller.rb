@@ -71,15 +71,13 @@ class Organization::SubscriptionsController < Organization::BaseController
   end
 
   def postpone
-    if Billing::Subscription.postpone(@subscription, params[:renewal_date])
+    subscription_postponer = SubscriptionPostponer.new(@subscription)
+    
+    if subscription_postponer.postpone(params[:renewal_date])
       flash[:notice] = "Subscription renewal date is now #{@subscription.reload.next_bill_on.strftime('%m/%-e/%y')}"
-      redirect_to organization_subscription_path(@subscription)
+    else
+      flash[:danger] = "Error postponing subscription: #{subscription_postponer.full_errors}"
     end
-  rescue Recurly::API::BadRequest => e
-    flash[:danger] = e.to_s.gsub('next_renewal_date', 'renewal date')
-    redirect_to organization_subscription_path(@subscription)
-  rescue Recurly::API::UnprocessableEntity => e
-    flash[:danger] = "There was an error setting the date on Recurly. Most likely you selected a date in the past. Try again."
     redirect_to organization_subscription_path(@subscription)
   end
 
