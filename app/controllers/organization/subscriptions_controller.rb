@@ -47,6 +47,7 @@ class Organization::SubscriptionsController < Organization::BaseController
     end
   end
 
+  #changing locations
   def update
     if @subscription.update(subscription_params)
       flash[:notice] = 'Subscription Updated'
@@ -86,16 +87,15 @@ class Organization::SubscriptionsController < Organization::BaseController
   end
 
   def cancel
-    if Billing::Subscription.cancel(@subscription)
+    @subscription_canceler = SubscriptionCanceler.new(@subscription)
+    
+    if @subscription_canceler.cancel
       flash[:notice] = 'Subscription set to cancel at renewal'
       redirect_to organization_subscription_path(@subscription)
     else
-      flash[:danger] = "Error canceling subscription: #{@subscription.errors.full_messages.to_sentence.gsub('base ', '')}"
+      flash[:danger] = "Error canceling subscription: #{@subscription_canceler.full_errors}"
       redirect_to canceling_organization_subscription_path(@subscription)
     end
-  rescue Exception => e
-    flash[:danger] = e.message
-    redirect_to canceling_organization_subscription_path(@subscription)
   end
 
   def terminate

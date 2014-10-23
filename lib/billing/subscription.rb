@@ -51,9 +51,6 @@ module Billing::Subscription
   def self.cancel(subscription)
     Billing.with_lock(subscription.organization) do
       subscription_on_billing(subscription).cancel
-      # TODO: Extract into service object SubscriptionCanceler
-      subscription.canceling!
-      subscription.update(canceled_on: Time.current.to_date)
     end
   end
 

@@ -83,7 +83,6 @@ describe Billing::Subscription, '.postpone' do
     subscription.stub('update_attributes').and_return(true)
     recurly_subscription.should_receive('find').with(subscription.uuid.gsub('-', '')).and_return(billing_subscription)
     billing_subscription.should_receive('postpone')
-    subscription.should_receive('update_attributes')
   end
 
   subject do
@@ -112,8 +111,6 @@ describe Billing::Subscription, '.cancel' do
 
   it "calls recurly to cancel the subscription" do
     subject
-    expect(subscription.reload.canceling?).to be_truthy
-    expect(subscription.reload.canceled_on).to_not be_nil
   end
 end
 
@@ -135,9 +132,6 @@ describe Billing::Subscription, '.terminate' do
 
   it "calls recurly to cancel the subscription" do
     subject
-    expect(subscription.reload.canceled?).to be_truthy
-    expect(subscription.reload.canceled_on).to_not be_nil
-    expect(subscription.reload.next_bill_on).to be_nil
   end
 end
 
