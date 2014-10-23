@@ -2,7 +2,7 @@
   .panel-heading
     %span Charges &amp; Credits:
     %span.credit-button
-      = link_to 'Add Credit', '#', class: 'btn btn-default btn-xs pull-right'
+      = link_to 'Add Credit', new_organization_user_credit_path(subscription_presenter.user), class: 'btn btn-default btn-xs pull-right'
   .panel-body
     %table.table.table-condensed
       %thead

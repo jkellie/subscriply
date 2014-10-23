@@ -1,0 +1,27 @@
+= content_for(:menubar) do
+  Issue Credit: #{@user.name.titleize}
+
+%p
+  Are you sure you want to issue a credit instead of a refund? A credit applies to an account and is deducted from the next invoice. A refund happens immediately and is deducted from the previous or most current invoice. To perform a refund please use a
+  = succeed "." do
+    %a{:href => "user.html"} transaction
+%br
+
+= simple_form_for(@user_creditor, url: organization_user_credits_path, method: :post) do |f|
+  .row
+    .col-sm-6
+      .form-group
+        %label Amount
+        .input-group{:style => "margin-bottom: 15px"}
+          %span.input-group-addon $
+          = f.input :amount, required: true, label: false, placeholder: '0.0', input_html: {class: 'form-control'}
+      .form-group
+        = f.input :description, input_html: { class: 'form-control' }
+      .form-group
+        = f.input :accounting_code, input_html: { class: 'form-control' }
+    .col-sm-6
+      %p *You may enter a description of the adjustment for the invoice as well as an optional accounting code should you need it for internal use.
+  
+  %div{:style => "margin: 20px 0 0 0"}
+    %a.btn.btn-default{:href => "subscription.html", :style => "margin-right: 5px", :type => "button"} Cancel
+    %button.btn.btn-primary{:style => "margin-left: 5px", :type => "submit"} Credit Account

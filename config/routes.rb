@@ -47,6 +47,7 @@ Rails.application.routes.draw do
     resources :transactions
 
     resources :users do
+      resources :credits, only: [:new, :create]
       resources :notes
       get :edit_billing_info, on: :member
       put :update_billing_info, on: :member
