@@ -3,7 +3,7 @@
     .panel-heading
       %span Cancel at renewal:
     .panel-body
-      - if subscription_presenter.active?
+      - if subscription_presenter.cancelable?
         %p Canceling a subscription will cause it not to renew. If you cancel the subscription, it will continue until:
         %p
           %strong #{subscription_presenter.next_bill_on}

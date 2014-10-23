@@ -18,6 +18,7 @@ module Billing::Subscription
     Billing.with_lock(subscription.organization) do
       subscription_module.create!(
         plan_code: subscription.plan.permalink,
+        starts_at: subscription.start_date,
         account: { account_code: subscription.user.uuid, billing_info: { token_id: token } }
       )
     end

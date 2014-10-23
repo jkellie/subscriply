@@ -40,6 +40,7 @@ class SubscriptionCreator
   end
 
   def update_subscription_locally
+    binding.pry_remote
     subscription.update!({
       uuid: billing_subscription.uuid,
       state: billing_subscription.state,

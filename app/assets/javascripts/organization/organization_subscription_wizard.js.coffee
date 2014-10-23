@@ -1,4 +1,4 @@
-OrganizationSubscriptionCreator = 
+OrganizationSubscriptionWizard = 
 
   init: (public_key) ->
     @_initCardValidation()
@@ -8,14 +8,14 @@ OrganizationSubscriptionCreator =
     @_updatePreview()
 
   _initCardValidation: ->
-    $('#subscription_creator_phone_number').formance('format_phone_number')
-    $('#subscription_creator_member_number').formance('format_number')
+    $('#subscription_wizard_phone_number').formance('format_phone_number')
+    $('#subscription_wizard_member_number').formance('format_number')
     $('#number').formance('format_credit_card_number')
 
   _initRecurly: (public_key) ->
     recurly.configure public_key
 
-    $(document).on 'submit', '.new_subscription_creator', (e) ->
+    $(document).on 'submit', '.new_subscription_wizard', (e) ->
       e.preventDefault()
       form = this
       
@@ -29,11 +29,11 @@ OrganizationSubscriptionCreator =
     $(document).on 'change', '#same_as_shipping', (e) ->
       e.preventDefault()
 
-      $('#address1').val($('#subscription_creator_street_address').val())
-      $('#address2').val($('#subscription_creator_street_address_2').val())
-      $('#city').val($('#subscription_creator_city').val())
-      $('#state').val($('#subscription_creator_state_code').val())
-      $('#postal_code').val($('#subscription_creator_zip').val())
+      $('#address1').val($('#subscription_wizard_street_address').val())
+      $('#address2').val($('#subscription_wizard_street_address_2').val())
+      $('#city').val($('#subscription_wizard_city').val())
+      $('#state').val($('#subscription_wizard_state_code').val())
+      $('#postal_code').val($('#subscription_wizard_zip').val())
 
   _initSteps: ->
     $steps = $(".form-wizard .step")
@@ -41,15 +41,15 @@ OrganizationSubscriptionCreator =
     $tabs = $(".header .steps .step")
     active_step = 0
 
-    $('#subscription_creator_sales_rep_id').select2()
+    $('#subscription_wizard_sales_rep_id').select2()
     
     $buttons.click (e) ->
       has_back = $(e.target).hasClass('back') or $(e.target).parent().hasClass('back')
       has_next = $(e.target).hasClass('next') or $(e.target).parent().hasClass('next')
 
-      if has_back or (has_next and OrganizationSubscriptionCreator._validateStep())
+      if has_back or (has_next and OrganizationSubscriptionWizard._validateStep())
         e.preventDefault()
-        OrganizationSubscriptionCreator._updatePreview()
+        OrganizationSubscriptionWizard._updatePreview()
         step_index = $(this).data("step") - 1
         in_fade_class = (if (step_index > active_step) then "fadeInRightStep" else "fadeInLeftStep")
         out_fade_class = (if (in_fade_class is "fadeInRightStep") then "fadeOutLeftStep" else "fadeOutRightStep")
@@ -65,22 +65,22 @@ OrganizationSubscriptionCreator =
   _updatePreview: ->
     $('.finish dd').text('')
 
-    if $('#subscription_creator_sales_rep_id').val()
-      $('.finish .sales-rep').text($('#subscription_creator_sales_rep_id option:selected').text())
+    if $('#subscription_wizard_sales_rep_id').val()
+      $('.finish .sales-rep').text($('#subscription_wizard_sales_rep_id option:selected').text())
     else
       $('.finish .sales-rep').text('none')
 
-    $('.finish .member-number').text($('#subscription_creator_member_number').val())
-    $('.finish .name').text("#{$('#subscription_creator_first_name').val()} #{$('#subscription_creator_last_name').val()}")
-    $('.finish .phone').text($('#subscription_creator_phone_number').val()).formance('format_phone_number')
-    $('.finish .email').text($('#subscription_creator_email').val())
-    $('.finish .shipping-address').html(OrganizationSubscriptionCreator._shippingAddress())
-    $('.finish .start-date').text($('#subscription_creator_start_date').val())
-    $('.finish .product').text($('#subscription_creator_product_id option:selected').text())
-    $('.finish .plan').text($('#subscription_creator_plan_id option:selected').text())
+    $('.finish .member-number').text($('#subscription_wizard_member_number').val())
+    $('.finish .name').text("#{$('#subscription_wizard_first_name').val()} #{$('#subscription_wizard_last_name').val()}")
+    $('.finish .phone').text($('#subscription_wizard_phone_number').val()).formance('format_phone_number')
+    $('.finish .email').text($('#subscription_wizard_email').val())
+    $('.finish .shipping-address').html(OrganizationSubscriptionWizard._shippingAddress())
+    $('.finish .start-date').text($('#subscription_wizard_start_date').val())
+    $('.finish .product').text($('#subscription_wizard_product_id option:selected').text())
+    $('.finish .plan').text($('#subscription_wizard_plan_id option:selected').text())
 
-    if $('#subscription_creator_location_id').val()
-      $('.finish .location').text($('#subscription_creator_location_id option:selected').text())
+    if $('#subscription_wizard_location_id').val()
+      $('.finish .location').text($('#subscription_wizard_location_id option:selected').text())
     else
       $('.finish .location').text('n/a')
 
@@ -89,12 +89,12 @@ OrganizationSubscriptionCreator =
     $('.finish .card-number').text("**** #{last_four}")
     $('.finish .expiration').text("#{$('#month option:selected').text()} #{$('#year option:selected').text()}")
     $('.finish .cvv').text($('#cvv').val())
-    $('.finish .billing-address').html(OrganizationSubscriptionCreator._billingAddress())
+    $('.finish .billing-address').html(OrganizationSubscriptionWizard._billingAddress())
 
   _shippingAddress: ->
-    address = "#{$('#subscription_creator_street_address').val()}<br/>"
-    address += "#{$('#subscription_creator_street_address_2').val()}<br/>" if $('#subscription_creator_street_address_2').val()
-    address += "#{$('#subscription_creator_city').val()}, #{$('#subscription_creator_state_code').val()} #{$('#subscription_creator_zip').val()}"
+    address = "#{$('#subscription_wizard_street_address').val()}<br/>"
+    address += "#{$('#subscription_wizard_street_address_2').val()}<br/>" if $('#subscription_wizard_street_address_2').val()
+    address += "#{$('#subscription_wizard_city').val()}, #{$('#subscription_wizard_state_code').val()} #{$('#subscription_wizard_zip').val()}"
     address
 
   _billingAddress: ->
@@ -116,4 +116,4 @@ OrganizationSubscriptionCreator =
 
     valid
 
-window.OrganizationSubscriptionCreator = OrganizationSubscriptionCreator
+window.OrganizationSubscriptionWizard = OrganizationSubscriptionWizard

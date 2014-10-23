@@ -15,6 +15,7 @@ class Organization::SubscriptionsController < Organization::BaseController
 
   def create
     @subscription_wizard = Organization::SubscriptionWizard.new(organization: current_organization)
+    params[:subscription_wizard][:start_date] = Date.strptime(params[:subscription_wizard][:start_date], '%m/%d/%Y')
     @subscription_wizard.attributes = params[:subscription_wizard]
 
     if @subscription_wizard.create
