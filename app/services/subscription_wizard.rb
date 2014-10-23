@@ -89,7 +89,7 @@ class SubscriptionWizard
   end
 
   def create_user
-    user.save
+    user.save!
   end
 
   def create_user_on_recurly
@@ -98,7 +98,7 @@ class SubscriptionWizard
 
   def create_subscription
     subscription.user = user
-    subscription.save
+    subscription.save!
   end
 
   def create_subscription_on_recurly
@@ -107,7 +107,7 @@ class SubscriptionWizard
   
   def update_cached_billing_info
     Billing::User.update_cached_billing_info(user.reload)
-    subscription.update_attributes({
+    subscription.update!({
       uuid: billing_subscription.uuid,
       state: billing_subscription.state,
       next_bill_on: billing_subscription.current_period_ends_at,
