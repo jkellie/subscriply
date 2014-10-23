@@ -16,7 +16,7 @@ class Organization::CreditsController < Organization::BaseController
       flash[:notice] = "Credit Issued for #{number_to_currency(@user_creditor.amount)}"
       redirect_to organization_user_path(@user)
     else
-      flash.now[:danger] = "Error Issuing Credit: #{@user_creditor.errors.full_messages.to_sentence}"
+      flash.now[:danger] = "Error Issuing Credit: #{@user_creditor.full_errors}"
       render 'new'
     end
   end

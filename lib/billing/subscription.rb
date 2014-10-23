@@ -6,16 +6,11 @@ module Billing::Subscription
 
   def self.create(subscription)
     Billing.with_lock(subscription.organization) do
-      billing_subscription = subscription_module.create!(
+      subscription_module.create!(
         plan_code: subscription.plan.permalink, 
+        starts_at: subscription.start_date,
         account: { account_code: subscription.user.uuid }
       )
-      subscription.update_attributes({
-        uuid: billing_subscription.uuid,
-        state: billing_subscription.state,
-        next_bill_on: billing_subscription.current_period_ends_at,
-        start_date: billing_subscription.activated_at
-      })
     end
   end
 
@@ -23,6 +18,7 @@ module Billing::Subscription
     Billing.with_lock(subscription.organization) do
       subscription_module.create!(
         plan_code: subscription.plan.permalink,
+        starts_at: subscription.start_date,
         account: { account_code: subscription.user.uuid, billing_info: { token_id: token } }
       )
     end
@@ -30,38 +26,25 @@ module Billing::Subscription
 
   def self.update(subscription, new_attrs)
     Billing.with_lock(subscription.organization) do
-      billing_subscription = subscription_on_billing(subscription)
-      billing_subscription.update_attributes(new_attrs)
-      subscription.update_attributes({
-        state: billing_subscription.state,
-        next_bill_on: billing_subscription.current_period_ends_at,
-      })
+      subscription_on_billing(subscription).update_attributes(new_attrs)
     end
   end
 
   def self.postpone(subscription, postpone_until)
     Billing.with_lock(subscription.organization) do
-      billing_subscription = subscription_on_billing(subscription)
-      billing_subscription.postpone(postpone_until)
-      subscription.update_attributes({
-        next_bill_on: postpone_until
-      })
+      subscription_on_billing(subscription).postpone(postpone_until)
     end
   end
 
   def self.cancel(subscription)
     Billing.with_lock(subscription.organization) do
       subscription_on_billing(subscription).cancel
-      subscription.canceling!
-      subscription.update(canceled_on: Time.current.to_date)
     end
   end
 
   def self.terminate(subscription, refund_type)
     Billing.with_lock(subscription.organization) do
       subscription_on_billing(subscription).terminate(refund_type.to_sym)
-      subscription.cancel!
-      subscription.update(next_bill_on: nil, canceled_on: Time.current.to_date)
     end
   end
 

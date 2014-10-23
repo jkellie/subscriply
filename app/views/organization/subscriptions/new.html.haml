@@ -5,19 +5,19 @@
 
 .col-md-12
   %section.form-wizard
-    = simple_form_for(@subscription_creator, url: organization_subscriptions_path, method: :post) do |f|
-      = hidden_field_tag 'subscription_creator[recurly_token]', '', 'data-recurly' => 'token'
+    = simple_form_for(@subscription_wizard, url: organization_subscriptions_path, method: :post) do |f|
+      = hidden_field_tag 'subscription_wizard[recurly_token]', '', 'data-recurly' => 'token'
       = hidden_field_tag 'country', 'US', 'data-recurly' => 'country'
       = render 'setup_account', f: f
-      = render 'select_subscription', f: f, products: @subscription_creator.products, locations: @subscription_creator.locations
+      = render 'select_subscription', f: f, products: @subscription_wizard.products, locations: @subscription_wizard.locations
       = render 'credit_card_info', f: f
       = render 'finish', f: f
       
 :javascript
-  var organization_subscription_creator_ready = function () {
-    OrganizationSubscriptionCreator.init('#{current_organization.recurly_public_key}');
+  var organization_subscription_wizard_ready = function () {
+    OrganizationSubscriptionWizard.init('#{current_organization.recurly_public_key}');
     OrganizationSubscription.init();
   }
 
-  $(document).on("page:load", organization_subscription_creator_ready);
-  $(document).ready(organization_subscription_creator_ready);
+  $(document).on("page:load", organization_subscription_wizard_ready);
+  $(document).ready(organization_subscription_wizard_ready);

@@ -4,7 +4,7 @@ class Organization::SubscriptionPresenter
   attr_reader :subscription
 
   delegate :organization, :user, :start_date, :next_bill_on, :plan, 
-    :location, :active?, :canceling?, :canceled?, :state,
+    :location, :active?, :canceling?, :canceled?, :state, :future?,
       to: :subscription
 
   def initialize(subscription)
@@ -77,7 +77,11 @@ class Organization::SubscriptionPresenter
   end
 
   def renewal_changable?
-    active? || canceling?
+    active? || canceling? || future?
+  end
+
+  def cancelable?
+    active? || future?
   end
 
   private

@@ -36,5 +36,5 @@
           %br
           %center
             %div{:style => "margin-top: 20px"}
-              %a.btn.btn-default{:href => "subscription.html", :style => "margin-right: 5px", :type => "button"} Cancel
+              = link_to 'Cancel', organization_subscription_path(@subscription_presenter.subscription), class: 'btn btn-default', type: 'button', style: 'margin-right: 5px'
               %button.btn.btn-primary{:style => "margin-left: 5px", :type => "submit"} Update Subscription

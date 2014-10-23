@@ -35,6 +35,7 @@ module Billing::User
   def self.update_cached_billing_info(user)
     billing_info = billing_info(user)
     
+    # TODO: Move into service object UserBillingInfoUpdater
     user.update_attributes(
       card_type: billing_info.card_type,
       last_four: billing_info.last_four, 

@@ -17,6 +17,7 @@ class Subscription < ActiveRecord::Base
   end
 
   scope :invoice_between, ->(start_date, end_date) { where(next_bill_on: start_date...end_date)}
+  scope :active, -> { where(state: :future) }
   scope :active, -> { where(state: :active) }
   scope :canceling, -> { where(state: :canceling) }
   scope :canceled, -> { where(state: :canceled) }
@@ -31,6 +32,7 @@ class Subscription < ActiveRecord::Base
     event :cancel do
       transition all => :canceled
     end
+    state :future
   end
 
   private
