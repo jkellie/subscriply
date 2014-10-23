@@ -103,7 +103,7 @@ class Organization::SubscriptionsController < Organization::BaseController
     subscription_terminator = SubscriptionTerminator.new(@subscription)
 
     if subscription_terminator.terminate(params[:refund_type])
-      flash[:notice] = 'Subscription set to cancel at renewal'
+      flash[:notice] = "Subscription terminated and refund set to #{params[:refund_type]}"
       redirect_to organization_subscription_path(@subscription)
     else
       flash[:danger] = "Error canceling subscription: #{subscription_terminator.full_errors}"

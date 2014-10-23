@@ -28,8 +28,8 @@ class SubscriptionTerminator
 
   private
 
-  def terminate_subscription_on_billing
-    Billing::Subscription.terminate(subscription)
+  def terminate_subscription_on_billing(refund_type)
+    Billing::Subscription.terminate(subscription, refund_type)
   end
 
   def terminate_subscription_locally
