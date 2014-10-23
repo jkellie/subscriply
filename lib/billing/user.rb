@@ -15,6 +15,18 @@ module Billing::User
     end
   end
 
+  def self.credit(user, options)
+    Billing.with_lock(user.organization) do
+      account_on_billing(user).adjustments.create(
+        unit_amount_in_cents: options[:amount],
+        description:          options[:description],
+        accounting_code:      options[:accounting_code],
+        currency:             'USD',
+        quantity:             1
+      )
+    end
+  end
+
   def self.update_billing_info(user, token)
     _billing_info = billing_info(user)
     _billing_info.update_attributes(token_id: token)

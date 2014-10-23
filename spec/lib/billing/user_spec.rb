@@ -26,6 +26,39 @@ describe Billing::User, '.create' do
   end
 end
 
+describe Billing::User, '.credit' do
+  let!(:user) { FactoryGirl.create(:user) }
+  let(:account_module) { double('Recurly::Account') }
+  let(:recurly_account) { double('recurly_account') }
+  let(:recurly_adjustments) { double('recurly_adjustments') }
+
+  before do
+    Billing::User.stub(:account_module).and_return(account_module)
+    Billing::User.stub(:account_on_billing).and_return(recurly_account)
+    recurly_account.stub('adjustments').and_return(recurly_adjustments)
+    recurly_adjustments.should_receive('create').with({
+      unit_amount_in_cents: '1000',
+      description:          'test credit',
+      accounting_code:      'credit',
+      currency:             'USD',
+      quantity:             1
+    })
+  end
+
+  subject do
+    Billing::User.credit(user, {
+      amount:          '1000',
+      description:     'test credit',
+      accounting_code: 'credit'
+    })
+  end
+
+  it "calls recurly to create the credit" do
+    subject
+  end
+
+end
+
 describe Billing::User, '.account_on_billing' do
   let!(:user) { FactoryGirl.create(:user, first_name: 'Test', last_name: 'User', email: 'test@user.com') }
   let(:recurly_account) { double('Recurly::Account') }
