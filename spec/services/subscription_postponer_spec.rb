@@ -42,8 +42,5 @@ describe SubscriptionPostponer, '#postpone' do
       subject
       expect(subscription_postponer.full_errors).to eq('the request failed')
     end
-
   end
-
-  
 end

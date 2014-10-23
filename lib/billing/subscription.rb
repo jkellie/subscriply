@@ -44,8 +44,7 @@ module Billing::Subscription
 
   def self.postpone(subscription, postpone_until)
     Billing.with_lock(subscription.organization) do
-      billing_subscription = subscription_on_billing(subscription)
-      billing_subscription.postpone(postpone_until)
+      subscription_on_billing(subscription).postpone(postpone_until)
     end
   end
 

@@ -35,4 +35,5 @@ class SubscriptionPostponer
   def update_local_subscription(renewal_date)
     subscription.update(next_bill_on: renewal_date)
   end
+
 end
