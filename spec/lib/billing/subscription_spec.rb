@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Billing::Subscription, '.create_with_token' do
-  let!(:subscription) { FactoryGirl.create(:subscription) }
+  let!(:subscription) { FactoryGirl.create(:subscription, start_date: 1.day.from_now) }
   let(:recurly_subscription) { double('Recurly::Subscription')}
 
   before do
@@ -9,6 +9,7 @@ describe Billing::Subscription, '.create_with_token' do
     recurly_subscription.should_receive('create!').with(
       {
         plan_code: subscription.plan.permalink,
+        starts_at: 1.day.from_now.to_date,
         account: { account_code: subscription.user.uuid, billing_info: { token_id: '12345' } }  
       }
     )
@@ -24,7 +25,7 @@ describe Billing::Subscription, '.create_with_token' do
 end
 
 describe Billing::Subscription, '.create' do
-  let!(:subscription) { FactoryGirl.create(:subscription) }
+  let!(:subscription) { FactoryGirl.create(:subscription, start_date: 1.day.from_now) }
   let(:recurly_subscription) { double('Recurly::Subscription')}
   let(:billing_subscription) { double('billing_subscription', uuid: '123', state: 'active', current_period_ends_at: 1.month.from_now, activated_at: Date.today) }
 
@@ -34,6 +35,7 @@ describe Billing::Subscription, '.create' do
     recurly_subscription.should_receive('create!').with(
       {
         plan_code: subscription.plan.permalink,
+        starts_at: 1.day.from_now.to_date,
         account: { account_code: subscription.user.uuid }  
       }
     ).and_return(billing_subscription)
@@ -145,7 +147,6 @@ describe Billing::Subscription, '.postpone' do
     subscription.stub('update_attributes').and_return(true)
     recurly_subscription.should_receive('find').with(subscription.uuid.gsub('-', '')).and_return(billing_subscription)
     billing_subscription.should_receive('postpone')
-    subscription.should_receive('update_attributes')
   end
 
   subject do

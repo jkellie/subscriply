@@ -6,7 +6,7 @@ describe SubscriptionCreator, '#initialize' do
   let!(:location) { FactoryGirl.create(:location) }
 
   subject do
-    SubscriptionCreator.new(user_id: user.id, organization_id: user.organization_id, plan_id: plan.id, location_id: location.id, start_date: 1.day.from_now)
+    SubscriptionCreator.new(user_id: user.id, organization_id: user.organization_id, plan_id: plan.id, location_id: location.id, start_date: 1.day.from_now.strftime('%m/%d/%Y'))
   end
 
   it "instantiates the subscription canceler" do
@@ -18,7 +18,7 @@ describe SubscriptionCreator, '#create' do
   let!(:user) { FactoryGirl.create(:user) }
   let!(:plan) { FactoryGirl.create(:plan) }
   let!(:location) { FactoryGirl.create(:location) }
-  let(:subscription_creator) { SubscriptionCreator.new(user_id: user.id, organization_id: user.organization_id, plan_id: plan.id, location_id: location.id, start_date: 1.day.from_now)}
+  let(:subscription_creator) { SubscriptionCreator.new(user_id: user.id, organization_id: user.organization_id, plan_id: plan.id, location_id: location.id, start_date: 1.day.from_now.strftime('%m/%d/%Y')) }
 
   context 'with a successful cancelation' do
     before do
