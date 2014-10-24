@@ -27,6 +27,6 @@
         %dt Type:
         %dd #{subscription_presenter.plan_type}
         %dt Next Ship / Available:
-        %dd= ' - '
+        %dd #{subscription_presenter.next_ship_on}
         %dt Amount:
         %dd= raw subscription_presenter.plan_amount

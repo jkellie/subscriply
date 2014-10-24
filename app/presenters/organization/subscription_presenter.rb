@@ -3,7 +3,7 @@ class Organization::SubscriptionPresenter
   include ActionView::Helpers::TagHelper
   attr_reader :subscription
 
-  delegate :organization, :user, :start_date, :next_bill_on, :plan, 
+  delegate :organization, :user, :start_date, :next_bill_on, :plan, :next_ship_on,
     :location, :active?, :canceling?, :canceled?, :state, :future?,
       to: :subscription
 
@@ -72,6 +72,10 @@ class Organization::SubscriptionPresenter
 
   def next_bill_on
     subscription.next_bill_on.try(:strftime, '%m/%-e/%y')
+  end
+
+  def next_ship_on
+    subscription.next_ship_on.try(:strftime, '%m/%-e/%y')
   end
 
   def canceled_on

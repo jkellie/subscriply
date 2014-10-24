@@ -4,5 +4,5 @@
   %td #{subscription.user.name}
   %td #{subscription.plan.name}
   %td #{subscription.next_bill_on.try(:strftime, '%m/%-e/%y')}
-  %td #{" - "}
+  %td #{subscription.next_ship_on.try(:strftime, '%m/%-e/%y')}
   %td #{subscription.state}
