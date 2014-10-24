@@ -1,3 +1,5 @@
+require 'csv'
+
 class Organization::UsersPresenter
   include ActionView::Helpers::TagHelper
   attr_reader :organization, :query, :start_date, :end_date, :status, :page
@@ -36,7 +38,18 @@ class Organization::UsersPresenter
   end
 
   def to_csv
-    true
+    ::CSV.generate do |csv|
+      csv << ['Member #', 'Name', 'Email', 'Created', 'Status']
+      users(ignore_pagination: true).each do |user|
+        row = []
+        row << user.member_number
+        row << user.name
+        row << user.email
+        row << user.created_at.strftime('%m/%-e/%y')
+        row << user.state
+        csv << row
+      end
+    end
   end
 
   def start_date_friendly
