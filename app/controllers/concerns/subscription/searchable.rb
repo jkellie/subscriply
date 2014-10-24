@@ -16,6 +16,7 @@ module Subscription::Searchable
     @subscriptions = @subscriptions.active if active?
     @subscriptions = @subscriptions.canceled if canceled?
     @subscriptions = @subscriptions.canceling if canceling?
+    @subscriptions = @subscriptions.future if future?
     @subscriptions = @subscriptions.order('created_at DESC').page(page).per(per_page)
   end
 
@@ -29,6 +30,10 @@ module Subscription::Searchable
 
   def canceled?
     params[:state] == 'Canceled'
+  end
+
+  def future?
+    params[:state] == 'Future'
   end
 
   def q

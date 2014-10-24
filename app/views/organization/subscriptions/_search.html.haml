@@ -1,5 +1,4 @@
 = simple_form_for organization_subscriptions_path, method: :get do |f|
-  .col-sm-3
   %h4 Search &amp; Filters
   %br
   
@@ -20,22 +19,10 @@
       %i.fa.fa-calendar-o
     = text_field_tag 'invoice_end_date', params[:invoice_end_date], placeholder: 'end date', class: 'form-control datepicker'
   %br
-
-  / %span Next Ship Date Range
-  / .input-group{:style => "padding-top: 5px"}
-  /   %span.input-group-addon
-  /     %i.fa.fa-calendar-o
-  /   = text_field_tag 'ship_start_date', params[:ship_start_date], placeholder: 'start date', class: 'form-control datepicker'
-  / .input-group{:style => "padding-top: 15px"}
-  /   %span.input-group-addon
-  /     %i.fa.fa-calendar-o
-  /   = text_field_tag 'ship_end_date', params[:ship_end_date], placeholder: 'end date', class: 'form-control datepicker'
-  / %br
-
   
   %span Status
   .input-group{:style => "padding-top: 5px; width: 100%"}
-    = select_tag 'state', options_for_select([["All", "All"], ["Active", "Active"], ["Canceling", "Canceling"], ["Canceled", "Canceled"]], params[:state]), class: 'form-control input-md'
+    = select_tag 'state', options_for_select([["All", "All"], ["Future", "Future"], ["Active", "Active"], ["Canceling", "Canceling"], ["Canceled", "Canceled"]], params[:state]), class: 'form-control input-md'
   
   %br
   = f.submit 'Search', class: 'btn btn-primary btn-lg btn-block center-block'
