@@ -100,6 +100,10 @@ describe SubscriptionWizard, "#create" do
       expect { subject }.to change{ Subscription.count }.by(1)
     end
 
+    it "updates the next ship on" do
+      expect { subject }.to change{ subscription_wizard.subscription.next_ship_on }
+    end
+
     it "has no errors" do
       subject
       expect(subscription_wizard.errors).to be_empty

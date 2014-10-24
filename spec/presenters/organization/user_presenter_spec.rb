@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe Organization::UserPresenter, '#product_status_labels' do
   let!(:organization) { FactoryGirl.create(:organization) }
-  let!(:product) { FactoryGirl.create(:product, organization: organization, name: 'Gold')}
-  let!(:product2) { FactoryGirl.create(:product, organization: organization, name: 'Silver')}
-  let!(:product3) { FactoryGirl.create(:product, organization: organization, name: 'Platinum')}
+  let!(:product) { FactoryGirl.create(:product, organization: organization, prepend_code: 'Gold')}
+  let!(:product2) { FactoryGirl.create(:product, organization: organization, prepend_code: 'Silver')}
+  let!(:product3) { FactoryGirl.create(:product, organization: organization, prepend_code: 'Platinum')}
   let!(:plan) { FactoryGirl.create(:plan, organization: organization, product: product)}
   let!(:plan2) { FactoryGirl.create(:plan, organization: organization, product: product2)}
   let!(:user) { FactoryGirl.create(:user, organization: organization) }

@@ -36,6 +36,7 @@ class SubscriptionWizard
           create_subscription
           create_subscription_on_recurly
           update_cached_billing_info
+          update_next_ship_date
         end
       rescue Exception => e
         errors.add(:base, e)
@@ -113,6 +114,14 @@ class SubscriptionWizard
       next_bill_on: billing_subscription.current_period_ends_at,
       start_date: billing_subscription.activated_at
     })
+  end
+
+  def update_next_ship_date
+    subscription.update!(next_ship_on: next_ship_on)
+  end
+
+  def next_ship_on
+    NextShipDateCalculator.new(subscription).calculate
   end
 
 end

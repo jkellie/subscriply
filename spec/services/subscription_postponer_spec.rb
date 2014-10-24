@@ -18,7 +18,6 @@ describe SubscriptionPostponer, '#postpone' do
     before do
       subscription_postponer.should_receive(:postpone_on_billing).and_return(true)
       subscription_postponer.should_receive(:update_local_subscription).and_return(true)
-      subscription_postponer.should_receive(:update_next_ship_date).and_return(true)
     end
 
     subject { subscription_postponer.postpone(1.day.from_now.to_date) }

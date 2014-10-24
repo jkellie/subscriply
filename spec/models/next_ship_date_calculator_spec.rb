@@ -1,11 +1,18 @@
 require 'spec_helper'
 
 describe NextShipDateCalculator, '#calculate' do
+
+
+
   context 'with a plan that is a local pick up' do
     let(:plan) { FactoryGirl.create(:plan, :local_pick_up) }
 
-    context 'with a next_bill_on that is between 1st and 15th of the month' do
-      let!(:subscription) { FactoryGirl.create(:subscription, plan: plan, next_bill_on: Date.strptime('10/1/2014', '%m/%d/%Y')) }
+    context 'when teh current day of the month is between 1st and 15th of the month' do
+      before do
+        NextShipDateCalculator.any_instance.stub(:base_date).and_return(Date.parse('October 2, 2014'))
+      end
+
+      let!(:subscription) { FactoryGirl.create(:subscription, plan: plan) }
 
       subject { NextShipDateCalculator.new(subscription).calculate }
 
@@ -14,8 +21,12 @@ describe NextShipDateCalculator, '#calculate' do
       end
     end
 
-    context 'with a next_bill_on that is after the 15th of the month' do
-      let!(:subscription) { FactoryGirl.create(:subscription, plan: plan, next_bill_on: Date.strptime('10/16/2014', '%m/%d/%Y')) }
+    context 'when the current day is is after the 15th of the month' do
+      before do
+        NextShipDateCalculator.any_instance.stub(:base_date).and_return(Date.parse('October 24, 2014'))
+      end
+
+      let!(:subscription) { FactoryGirl.create(:subscription, plan: plan) }
 
       subject { NextShipDateCalculator.new(subscription).calculate }
 
@@ -26,8 +37,12 @@ describe NextShipDateCalculator, '#calculate' do
   end
 
   context 'with a plan that is shipped out' do
+    before do
+      NextShipDateCalculator.any_instance.stub(:base_date).and_return(Date.parse('October 24, 2014'))
+    end
+
     let(:plan) { FactoryGirl.create(:plan, :shipped) }
-    let!(:subscription) { FactoryGirl.create(:subscription, plan: plan, next_bill_on: Date.strptime('10/24/2014', '%m/%d/%Y')) }
+    let!(:subscription) { FactoryGirl.create(:subscription, plan: plan) }
 
     subject { NextShipDateCalculator.new(subscription).calculate }
 

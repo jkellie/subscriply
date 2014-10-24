@@ -15,7 +15,6 @@ class SubscriptionPostponer
       ActiveRecord::Base.transaction do
         postpone_on_billing(renewal_date)
         update_local_subscription(renewal_date)
-        update_next_ship_date
       end
     rescue Exception => e
       errors.add(:base, e.message)
@@ -35,14 +34,6 @@ class SubscriptionPostponer
 
   def update_local_subscription(renewal_date)
     subscription.update!(next_bill_on: renewal_date)
-  end
-
-  def update_next_ship_date
-    subscription.update!(next_ship_on: next_ship_on)
-  end
-
-  def next_ship_on
-    NextShipDateCalculator.new(subscription).calculate
   end
 
 end
