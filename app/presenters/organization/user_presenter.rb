@@ -40,7 +40,7 @@ class Organization::UserPresenter
   def product_status_labels
     ('').tap do |labels|
       organization.products.each do |product|
-        labels << content_tag(:span, product.name.upcase, class: "label label-#{product_class(product)}")
+        labels << content_tag(:span, product.prepend_code.upcase, class: "label label-#{product_class(product)}")
       end
     end
   end

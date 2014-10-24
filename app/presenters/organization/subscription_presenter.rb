@@ -55,7 +55,9 @@ class Organization::SubscriptionPresenter
   end
 
   def status_label
-    if active?
+    if future?
+      content_tag(:span, state.upcase, class: 'label label-success')
+    elsif active?
       content_tag(:span, state.upcase, class: 'label label-success')
     elsif canceling?
       content_tag(:span, state.upcase, class: 'label label-default')
