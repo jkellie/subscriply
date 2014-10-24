@@ -31,6 +31,7 @@ describe SubscriptionUpdater, '#update' do
       subject
       expect(subscription.reload.active?).to be_truthy
       expect(subscription.reload.next_bill_on).to_not be_nil
+      expect(subscription.reload.next_ship_on).to_not be_nil
     end
   end
 

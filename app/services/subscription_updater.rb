@@ -15,6 +15,7 @@ class SubscriptionUpdater
       ActiveRecord::Base.transaction do
         update_subscription_on_billing(options)
         update_subscription_locally(options)
+        update_next_ship_date
       end
     rescue Exception => e
       errors.add(:base, e)
@@ -38,6 +39,14 @@ class SubscriptionUpdater
   def update_subscription_locally(options)
     subscription.update!(plan_id: options[:plan_id]) if options[:timeframe] == 'now'
     subscription.update!(state: billing_subscription.state, next_bill_on: billing_subscription.current_period_ends_at)
+  end
+  
+  def update_next_ship_date
+    subscription.update!(next_ship_on: next_ship_on)
+  end
+
+  def next_ship_on
+    NextShipDateCalculator.new(subscription).calculate
   end
 
   def billing_subscription

@@ -32,12 +32,13 @@ describe SubscriptionCreator, '#create' do
       expect(subject).to be_truthy
     end
 
-    it "does updates the subscription" do
+    it "updates the subscription" do
       subject
       expect(subscription_creator.subscription.uuid).not_to be_nil
       expect(subscription_creator.subscription.state).not_to be_nil
       expect(subscription_creator.subscription.next_bill_on).not_to be_nil
       expect(subscription_creator.subscription.start_date).not_to be_nil
+      expect(subscription_creator.subscription.next_ship_on).not_to be_nil
     end
   end
 

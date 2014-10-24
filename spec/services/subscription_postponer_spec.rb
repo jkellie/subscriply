@@ -18,6 +18,7 @@ describe SubscriptionPostponer, '#postpone' do
     before do
       subscription_postponer.should_receive(:postpone_on_billing).and_return(true)
       subscription_postponer.should_receive(:update_local_subscription).and_return(true)
+      subscription_postponer.should_receive(:update_next_ship_date).and_return(true)
     end
 
     subject { subscription_postponer.postpone(1.day.from_now.to_date) }
@@ -25,6 +26,7 @@ describe SubscriptionPostponer, '#postpone' do
     it "returns true if successful" do
       expect(subject).to be_truthy
     end
+
   end
 
   context 'with a non successful postpone' do

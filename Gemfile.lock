@@ -39,6 +39,7 @@ GEM
       httparty (>= 0.6, < 1.0)
       multi_json (~> 1.0)
     builder (3.2.2)
+    business (1.1.0)
     capybara (2.4.1)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -272,6 +273,7 @@ DEPENDENCIES
   better_errors
   bootstrap-sass
   bugsnag
+  business
   capybara-webkit
   carrierwave
   ckeditor_rails
