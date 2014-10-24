@@ -1,0 +1,30 @@
+= content_for(:body_id) do
+  account
+
+= content_for(:menubar) do
+  Profile Settings
+
+#panel.profile
+  %p.intro
+    Change your account information, avatar, login credentials, etc.
+
+  = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+    = f.error_notification
+    = render 'form', f: f
+  
+:javascript
+  $(function() {
+    $(document).on('change', '#organizer_avatar', function(){
+      if (this.files && this.files[0]){
+        reader = new FileReader();
+        reader.onprogress = function(e){
+          width = Math.round((e.loaded / e.total) * 100);
+          $('#organizer_avatar_progress_bar').css('width', width + '%');
+        }
+        reader.onload = function(e){
+          $('#organizer-avatar').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(this.files[0]);
+      }
+    });
+  });

@@ -1,0 +1,18 @@
+#organizer_avatar_progress_bar
+= image_tag f.object.avatar.url(:medium), class: 'img img-responsive avatar', id: 'organizer-avatar'
+.form-group
+  = f.input :avatar, as: :file, input_html: {class: 'form-control'}
+.form-group
+  = f.input :first_name, as: :string, required: true, input_html: {class: 'form-control'}
+.form-group
+  = f.input :last_name, as: :string, required: true, input_html: {class: 'form-control'}
+.form-group
+  = f.input :email, required: true, autofocus: true, input_html: {class: 'form-control'}
+.form-group
+  = f.input :password, label: 'New Password', autocomplete: "off", :hint => "leave it blank if you don't want to change it", required: false, input_html: {class: 'form-control'}
+.form-group
+  = f.input :password_confirmation, label: 'Confirm New Password', :required => false, input_html: {class: 'form-control'}
+.form-group
+  = f.input :current_password, :hint => "we need your current password to confirm your changes", required: true, input_html: {class: 'form-control'}
+.form-group.action
+  %input.btn.btn-primary{type: "submit", value: "Save changes"}

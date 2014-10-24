@@ -98,16 +98,8 @@
     }
 
     #panel {
-      top: -67px;
-      position: relative;
-      width: 78%;
-      margin-left: 20%;
-      padding: 24px 50px;
-      padding-bottom: 80px;
       
       @media (max-width: $maxMedium) {
-        width: 72%;
-        margin-left: 28%;
       }
 
       @media (max-width: $maxSmall) {
@@ -119,7 +111,14 @@
 
       .avatar {
         border-radius: 50%;
-        width: 70px
+        width: 120px
+      }
+
+      .organizer_avatar {
+        margin-top: 10px;
+        input {
+          width: 300px
+        }
       }
 
 
