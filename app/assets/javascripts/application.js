@@ -22,5 +22,6 @@
 //= require select2
 //= require recurly
 //= require sweetalert.min
+//= require ss
 //= require_tree ./organization
 //= require_tree ./ckeditor

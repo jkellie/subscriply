@@ -1,12 +1,24 @@
 class Organization::UsersController < Organization::BaseController
-  include User::Searchable
-
   before_action :authenticate_organizer!
-  before_action :find_users, only: :index
 
-  respond_to :html, :json
+  respond_to :html, :json, :csv
 
   def index
+    @users_presenter = Organization::UsersPresenter.new(
+      current_organization,
+      query: params[:query],
+      start_date: params[:start_date],
+      end_date: params[:end_date],
+      status: params[:status],
+      page: params[:page] || 1)
+    
+    respond_to do |format|
+      format.html
+      format.js
+      format.csv do
+        send_data @users_presenter.to_csv
+      end
+    end
   end
 
   def new

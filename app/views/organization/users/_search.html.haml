@@ -5,26 +5,24 @@
   .input-group{:style => "padding-top: 5px"}
     %span.input-group-addon
       = icon 'search'
-    = text_field_tag 'q', params[:q], placeholder: 'email / name / member number', class: 'form-control'
+    = text_field_tag 'query', users_presenter.query, placeholder: 'email / name / member number', class: 'form-control'
   %br
     %span Created Date Range
     .input-group{:style => "padding-top: 5px"}
       %span.input-group-addon
         %i.fa.fa-calendar-o
-      = text_field_tag 'start_date', params[:start_date], placeholder: 'start date', class: 'form-control datepicker'
+      = text_field_tag 'start_date', users_presenter.start_date_friendly, placeholder: 'start date', class: 'form-control datepicker'
     .input-group{:style => "padding-top: 15px"}
       %span.input-group-addon
         %i.fa.fa-calendar-o
-      = text_field_tag 'end_date', params[:end_date], placeholder: 'end date', class: 'form-control datepicker'
+      = text_field_tag 'end_date', users_presenter.end_date_friendly, placeholder: 'end date', class: 'form-control datepicker'
   %br
   %span Status
   .input-group{:style => "padding-top: 5px; width: 100%"}
-    = select_tag 'state', options_for_select([["All", "All"], ["Open", "Open"], ["Closed", "Closed"]], params[:state]), class: 'form-control input-md'
-  %br
-  = f.submit 'Search', class: 'btn btn-primary btn-lg btn-block center-block'
+    = select_tag 'state', options_for_select([["All", "All"], ["Open", "Open"], ["Closed", "Closed"]], users_presenter.status), class: 'form-control input-md'
   
-  / %br
-  / %br
-  / %a.btn.btn-default.center-block
-  /   = icon 'download'
-  /   Download CSV file
+  %br
+  %br
+  = link_to organization_users_path(format: 'csv'), class: 'btn btn-primary btn-block', id: 'download_csv' do
+    = icon 'download'
+    Download CSV

@@ -9,24 +9,15 @@
 
 .col-md-9
   #users
-    .row
-      .col-md-12
-        %table.table.table-hover
-          %thead
-            %tr
-              %th Member #
-              %th Name
-              %th Email
-              %th Created
-              %th Status
-          %tbody
-            = render partial: 'user', collection: @users, as: :user
-
-    %center
-      = paginate @users
+    = render 'users', users: @users_presenter.users
 
 .col-md-3
-  = render 'search'
+  = render 'search', users_presenter: @users_presenter
 
 :javascript
-  $('.datepicker').datepicker({dateFormat: 'M d, yy'})
+  var organization_users_ready = function () {
+    OrganizationUsers.init();
+  }
+
+  $(document).on("ready page:load", organization_users_ready);
+  $(document).ready(organization_users_ready);
