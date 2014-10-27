@@ -11,12 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141020171010) do
+ActiveRecord::Schema.define(version: 20141027164958) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
   enable_extension "uuid-ossp"
+
+  create_table "invoices", force: true do |t|
+    t.integer  "user_id"
+    t.text     "href"
+    t.integer  "number"
+    t.integer  "total_in_cents"
+    t.datetime "created_at"
+    t.uuid     "uuid"
+  end
 
   create_table "locations", force: true do |t|
     t.integer "organization_id"

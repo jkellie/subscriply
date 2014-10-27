@@ -1,0 +1,32 @@
+require 'spec_helper'
+
+describe Billing::Notification::NewInvoice, '.perform' do
+  let!(:user) { FactoryGirl.create(:user) }
+  let(:billing_invoice) { double('billing_invoice', 
+    href: 'http://recurly.com/invoice', 
+    number: '1',
+    total_in_cents: '100',
+    created_at: 1.day.ago
+  )}
+
+  before do
+    Billing::Invoice.stub('invoice_on_billing').and_return(billing_invoice)
+  end
+
+  subject do
+    Billing::Notification::NewInvoice.new(user_uuid: user.reload.uuid, invoice_uuid: '12345').perform
+  end
+
+  it "creates a new invoice" do
+    expect{subject}.to change { Invoice.count }.by(1)
+  end
+
+  it "has the correct attributes" do
+    subject
+    invoice = Invoice.first
+    expect(invoice.href).to eq('http://recurly.com/invoice')
+    expect(invoice.number).to eq(1)
+    expect(invoice.total_in_cents).to eq(100)
+  end
+
+end
