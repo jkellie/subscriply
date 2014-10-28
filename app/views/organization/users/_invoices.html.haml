@@ -2,27 +2,21 @@
   .panel-heading
     %span Invoices:
   .panel-body
-    %table.table.table-condensed
-      %thead
-        %tr
-          %th Invoice
-          %th Date
-          %th Amount
-      %tbody
-        %tr
-          %td
-            %a{:href => "invoice.pdf"} 1067
-          %td 08/12/14
-          %td $100.00
-        %tr
-          %td
-            %a{:href => "invoice.pdf"} 845
-          %td 07/12/14
-          %td $100.00
-        %tr
-          %td
-            %a{:href => "invoice.pdf"} 627
-          %td 06/12/14
-          %td $100.00
-  .panel-footer
-    = link_to 'view all', organization_invoices_path(user_id: user_presenter.user.id), class: 'btn btn-default btn-xs'
+    - if invoices.any?
+      %table.table.table-condensed
+        %thead
+          %tr
+            %th Invoice
+            %th Date
+            %th Amount
+        %tbody
+          - invoices.each do |invoice|
+            %tr
+              %td= link_to invoice.number, '#', target: '_blank'
+              %td #{invoice.created_at.strftime('%m/%d/%Y')}
+              %td #{number_to_currency(invoice.price)}
+    - else
+      %p None
+  - if invoices.any?
+    .panel-footer
+      = link_to 'view all', organization_invoices_path(user_id: user_id), class: 'btn btn-default btn-xs'

@@ -4,9 +4,9 @@ module Billing::Invoice
     Recurly::Invoice
   end
 
-  def self.invoice_on_billing(organization, uuid)
+  def self.invoice_on_billing(organization, number)
     Billing.with_lock(organization) do
-      invoice_module.find(uuid)
+      invoice_module.find(number)
     end
   end
   

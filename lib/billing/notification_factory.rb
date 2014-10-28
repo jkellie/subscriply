@@ -21,7 +21,7 @@ module Billing
       def new_invoice_params
         {
           user_uuid: @body['new_invoice_notification']['account']['account_code'],
-          invoice_uuid: @body['new_invoice_notification']['invoice']['uuid']
+          invoice_number: @body['new_invoice_notification']['invoice']['invoice_number']
         }
       end
     end

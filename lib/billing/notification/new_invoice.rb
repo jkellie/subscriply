@@ -4,10 +4,10 @@ module Billing
     def perform
       ::Invoice.create({
         user_id:        user.id,
-        href:           billing_invoice.href,  
-        number:         billing_invoice.number,
+        number:         billing_invoice.invoice_number,
         total_in_cents: billing_invoice.total_in_cents,
-        created_at:     billing_invoice.created_at
+        created_at:     billing_invoice.created_at,
+        uuid:           billing_invoice.uuid
       })
     end
 
@@ -16,15 +16,15 @@ module Billing
     end
 
     def billing_invoice
-      @billing_invoice ||= Billing::Invoice.invoice_on_billing(user.organization, invoice_uuid)
+      @billing_invoice ||= Billing::Invoice.invoice_on_billing(user.organization, invoice_number)
     end
 
     def user_uuid
       options[:user_uuid]
     end
 
-    def invoice_uuid
-      options[:invoice_uuid]
+    def invoice_number
+      options[:invoice_number]
     end
     
   end

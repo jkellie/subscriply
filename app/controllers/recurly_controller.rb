@@ -9,7 +9,7 @@ class RecurlyController < ApplicationController
   private
 
   def notification
-    Billing::NotificationFactory.new(body)
+    Billing::NotificationFactory.build_notification(body)
   end
 
   def body
