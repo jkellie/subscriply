@@ -5,6 +5,7 @@ class Organization < ActiveRecord::Base
   has_many :products
   has_many :plans
   has_many :subscriptions
+  has_many :invoices, through: :users
   accepts_nested_attributes_for :organizers
 
   validates :name, presence: true

@@ -12,7 +12,7 @@
         %tbody
           - invoices.each do |invoice|
             %tr
-              %td= link_to invoice.number, '#', target: '_blank'
+              %td= link_to invoice.number, organization_invoice_path(invoice, format: :pdf), target: '_blank'
               %td #{invoice.created_at.strftime('%m/%d/%Y')}
               %td #{number_to_currency(invoice.price)}
     - else
