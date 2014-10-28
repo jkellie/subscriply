@@ -7,6 +7,7 @@ module Billing
         number:         billing_invoice.invoice_number,
         total_in_cents: billing_invoice.total_in_cents,
         created_at:     billing_invoice.created_at,
+        state:          billing_invoice.state,
         uuid:           billing_invoice.uuid
       })
     end
