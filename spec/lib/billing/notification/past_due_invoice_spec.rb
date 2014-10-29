@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Billing::Notification::ClosedInvoice, '.perform' do
+describe Billing::Notification::PastDueInvoice, '.perform' do
   let!(:user) { FactoryGirl.create(:user) }
 
   context 'with a previous existing invoice' do
@@ -18,7 +18,7 @@ describe Billing::Notification::ClosedInvoice, '.perform' do
     end
 
     subject do
-      Billing::Notification::ClosedInvoice.new(user_uuid: user.reload.uuid, invoice_number: '1').perform
+      Billing::Notification::PastDueInvoice.new(user_uuid: user.reload.uuid, invoice_number: '1').perform
     end
 
     it "does not create a new invoice" do
@@ -46,7 +46,7 @@ describe Billing::Notification::ClosedInvoice, '.perform' do
     end
 
     subject do
-      Billing::Notification::ClosedInvoice.new(user_uuid: user.reload.uuid, invoice_number: '1').perform
+      Billing::Notification::PastDueInvoice.new(user_uuid: user.reload.uuid, invoice_number: '1').perform
     end
 
     it "does create a new invoice" do

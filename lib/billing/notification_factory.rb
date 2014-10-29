@@ -11,6 +11,8 @@ module Billing
           return Billing::Notification::NewInvoice.new(new_invoice_params)
         when 'closed_invoice_notification'
           return Billing::Notification::ClosedInvoice.new(closed_invoice_params)
+        when 'past_due_invoice_notification'
+          return Billing::Notification::PastDueInvoice.new(past_due_invoice_params)
         end
       end
 
@@ -31,6 +33,13 @@ module Billing
         {
           user_uuid:      @body['closed_invoice_notification']['account']['account_code'],
           invoice_number: @body['closed_invoice_notification']['invoice']['invoice_number']
+        }
+      end
+
+      def past_due_invoice_params
+        {
+          user_uuid:      @body['past_due_invoice_notification']['account']['account_code'],
+          invoice_number: @body['past_due_invoice_notification']['invoice']['invoice_number']
         }
       end
 

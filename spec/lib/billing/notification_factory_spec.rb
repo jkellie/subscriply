@@ -65,6 +65,35 @@ describe Billing::NotificationFactory, '.build_notification' do
     end
   end
 
+  context 'with a past due invoice notification' do
+    let(:body) { 
+      %Q{<past_due_invoice_notification>
+        <account>
+          <account_code>1</account_code>
+          <username nil="true"></username>
+          <email>verena@example.com</email>
+          <first_name>Verana</first_name>
+          <last_name>Example</last_name>
+          <company_name nil="true"></company_name>
+        </account>
+        <invoice>
+          <uuid>ffc64d71d4b5404e93f13aac9c63b007</uuid>
+          <subscription_id nil="true"></subscription_id>
+          <state>past_due</state>
+          <invoice_number type="integer">1000</invoice_number>
+          <po_number></po_number>
+          <vat_number></vat_number>
+          <total_in_cents type="integer">1100</total_in_cents>
+          <currency>USD</currency>
+          <date type="datetime">2014-01-01T20:20:29Z</date>
+          <closed_at type="datetime">2014-01-01T20:24:02Z</closed_at>
+        </invoice>
+      </past_due_invoice_notification>}
+    }
+
+    it 'sends a message to the right notification class' do
+      expect(subject.class).to eq(Billing::Notification::PastDueInvoice)
+    end
+  end
 
 end
-
