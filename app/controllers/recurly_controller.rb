@@ -3,7 +3,7 @@ class RecurlyController < ApplicationController
 
   def recurly_notification
     puts "request body is: #{request.body.to_s}"
-    Rails.logger.debug "request body is #{request.body.to_s}
+    Rails.logger.debug "request body is #{request.body.to_s}"
     notification.perform
     render text: 'request accepted'
   end
