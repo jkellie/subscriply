@@ -18,7 +18,7 @@ module Billing::User
   def self.credit(user, options)
     Billing.with_lock(user.organization) do
       account_on_billing(user).adjustments.create(
-        unit_amount_in_cents: options[:amount],
+        unit_amount_in_cents: options[:amount].to_i.abs * -1,
         description:          options[:description],
         accounting_code:      options[:accounting_code],
         currency:             'USD',

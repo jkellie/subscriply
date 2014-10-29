@@ -1,0 +1,42 @@
+module Billing
+  class Notification::SuccessfulPayment < Struct.new(:options)
+    
+    def perform
+      ::Transaction.create({
+        transaction_type: 'charge',
+        user_id:          user.id,
+        subscription_id:  subscription.id,
+        invoice_id:       invoice.id,
+        amount_in_cents:  billing_transaction.amount_in_cents,
+        created_at:       billing_transaction.created_at,
+        state:            billing_transaction.status,
+        uuid:             billing_transaction.uuid
+      })
+    end
+
+    def user
+      @user ||= ::User.find_by_uuid(user_uuid)
+    end
+
+    def subscription
+      @subscription ||= ::Subscription.find_by_uuid(billing_transaction.subscription.uuid)
+    end
+
+    def invoice
+      @invoice ||= ::Invoice.find_by_uuid(billing_transaction.invoice.uuid)
+    end
+
+    def billing_transaction
+      @billing_transaction ||= Billing::Transaction.transaction_on_billing(user.organization, transaction_uuid)
+    end
+
+    def user_uuid
+      options[:user_uuid]
+    end
+
+    def transaction_uuid
+      options[:transaction_uuid]
+    end
+    
+  end
+end

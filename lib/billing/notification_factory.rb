@@ -13,6 +13,8 @@ module Billing
           return Billing::Notification::ClosedInvoice.new(closed_invoice_params)
         when 'past_due_invoice_notification'
           return Billing::Notification::PastDueInvoice.new(past_due_invoice_params)
+        when 'successful_payment_notification'
+          return Billing::Notification::SuccessfulPayment.new(successful_payment_params)
         end
       end
 
@@ -40,6 +42,13 @@ module Billing
         {
           user_uuid:      @body['past_due_invoice_notification']['account']['account_code'],
           invoice_number: @body['past_due_invoice_notification']['invoice']['invoice_number']
+        }
+      end
+
+      def successful_payment_params
+        {
+          user_uuid:         @body['successful_payment_notification']['account']['account_code'],
+          transaction_uuid:  @body['successful_payment_notification']['transaction']['id']
         }
       end
 
