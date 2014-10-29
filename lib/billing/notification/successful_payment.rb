@@ -23,7 +23,22 @@ module Billing
     end
 
     def invoice
-      @invoice ||= ::Invoice.find_by_uuid(billing_transaction.invoice.uuid)
+      if _invoice = ::Invoice.find_by_uuid(invoice_on_billing.uuid)
+        return _invoice
+      else
+        return ::Invoice.create({
+          user_id:        user.id,
+          number:         invoice_on_billing.invoice_number,
+          total_in_cents: invoice_on_billing.total_in_cents,
+          created_at:     invoice_on_billing.created_at,
+          state:          invoice_on_billing.state,
+          uuid:           invoice_on_billing.uuid
+        })
+      end
+    end
+
+    def invoice_on_billing
+      @invoice_on_billing ||= billing_transaction.invoice
     end
 
     def billing_transaction
