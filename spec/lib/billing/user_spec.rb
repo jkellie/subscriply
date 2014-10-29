@@ -37,7 +37,7 @@ describe Billing::User, '.credit' do
     Billing::User.stub(:account_on_billing).and_return(recurly_account)
     recurly_account.stub('adjustments').and_return(recurly_adjustments)
     recurly_adjustments.should_receive('create').with({
-      unit_amount_in_cents: '1000',
+      unit_amount_in_cents: -1000,
       description:          'test credit',
       accounting_code:      'credit',
       currency:             'USD',
