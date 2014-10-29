@@ -9,6 +9,8 @@ module Billing
         case notification_type
         when 'new_invoice_notification'
           return Billing::Notification::NewInvoice.new(new_invoice_params)
+        when 'closed_invoice_notification'
+          return Billing::Notification::ClosedInvoice.new(closed_invoice_params)
         end
       end
 
@@ -20,10 +22,18 @@ module Billing
 
       def new_invoice_params
         {
-          user_uuid: @body['new_invoice_notification']['account']['account_code'],
+          user_uuid:      @body['new_invoice_notification']['account']['account_code'],
           invoice_number: @body['new_invoice_notification']['invoice']['invoice_number']
         }
       end
+
+      def closed_invoice_params
+        {
+          user_uuid:      @body['closed_invoice_notification']['account']['account_code'],
+          invoice_number: @body['closed_invoice_notification']['invoice']['invoice_number']
+        }
+      end
+
     end
 
   end

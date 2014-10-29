@@ -6,5 +6,4 @@ describe Invoice, '#price' do
   it "calculates the correct price" do
     expect(invoice.price).to eq(100.0)
   end
-
 end

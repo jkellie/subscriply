@@ -6,7 +6,8 @@ describe Billing::Notification::NewInvoice, '.perform' do
     invoice_number: '1',
     total_in_cents: '100',
     created_at: 1.day.ago,
-    uuid: SecureRandom.uuid
+    uuid: SecureRandom.uuid,
+    state: 'open'
   )}
 
   before do
@@ -26,6 +27,7 @@ describe Billing::Notification::NewInvoice, '.perform' do
     invoice = Invoice.first
     expect(invoice.number).to eq(1)
     expect(invoice.total_in_cents).to eq(100)
+    expect(invoice.state).to eq('open')
   end
 
 end
