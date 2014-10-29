@@ -2,8 +2,8 @@ class RecurlyController < ApplicationController
   protect_from_forgery except: :recurly_notification
 
   def recurly_notification
-    puts request.body
-    Rails.logger.debug request.body
+    puts "request body is: #{request.body.to_s}"
+    Rails.logger.debug "request body is #{request.body.to_s}
     notification.perform
     render text: 'request accepted'
   end
