@@ -14,6 +14,8 @@ module Billing
       })
     end
 
+    private
+
     def user
       @user ||= ::User.find_by_uuid(user_uuid)
     end

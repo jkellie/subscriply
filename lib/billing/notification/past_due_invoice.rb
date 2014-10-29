@@ -19,6 +19,8 @@ module Billing
       end
     end
 
+    private
+
     def user
       ::User.find_by_uuid(user_uuid)
     end
