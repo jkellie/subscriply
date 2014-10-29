@@ -29,7 +29,7 @@ OrganizationInvoices =
         OrganizationInvoices.search()
       ), 500
 
-    $(document).on 'change', '#start_date, #end_date', (e) ->
+    $(document).on 'change', '#start_date, #end_date, #state', (e) ->
       OrganizationInvoices.search()
 
   _updateDownloadCSVButton: ->
@@ -42,7 +42,7 @@ OrganizationInvoices =
     data['query'] = $('#query').val().toLowerCase() if $('#query').val()
     data['start_date'] = $('#start_date').val().toLowerCase()
     data['end_date'] = $('#end_date').val().toLowerCase()
-    # data['status'] = $('#state').val() if $('#state').val()
+    data['status'] = $('#state').val() if $('#state').val()
     data['page'] = page if page > 1
     data
 

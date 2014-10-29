@@ -17,7 +17,9 @@ class Organization::InvoicesPresenter
     _invoices = organization.invoices
     _invoices = _invoices.search(query) if query?
     _invoices = _invoices.open if open?
-    _invoices = _invoices.closed if closed?
+    _invoices = _invoices.past_due if past_due?
+    _invoices = _invoices.failed if failed?
+    _invoices = _invoices.collected if collected?
 
     if start_date? && end_date?
       _invoices = _invoices.between(start_date, end_date)
@@ -68,8 +70,16 @@ class Organization::InvoicesPresenter
     @status == 'Open'
   end
 
-  def closed?
-    @status == 'Closed'
+  def collected?
+    @status == 'Collected'
+  end
+
+  def failed?
+    @status == 'Failed'
+  end
+
+  def past_due?
+    @status == 'Past Due'
   end
 
   def query?
