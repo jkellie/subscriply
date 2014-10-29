@@ -19,4 +19,4 @@
       %p None
   - if invoices.any?
     .panel-footer
-      = link_to 'view all', organization_invoices_path(user_id: user_id), class: 'btn btn-default btn-xs'
+      = link_to 'view all', organization_invoices_path(query: user_id), class: 'btn btn-default btn-xs'

@@ -5,8 +5,8 @@ class Invoice < ActiveRecord::Base
 
   scope :between, ->(start_date, end_date) { where(created_at: start_date...end_date) }
   scope :search, ->(q) do
-    where("invoices.number = ? OR users.first_name ILIKE ? OR users.last_name ILIKE ?",
-      "#{q.to_i}", "%#{q}%", "%#{q}%") 
+    where("invoices.number = ? OR users.first_name ILIKE ? OR users.last_name ILIKE ? OR users.id = ?",
+      "#{q.to_i}", "%#{q}%", "%#{q}%", "#{q.to_i}") 
   end
 
   def price
