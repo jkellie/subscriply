@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   has_many :notes
   has_many :subscriptions
   has_many :invoices
+  has_many :transactions
 
   store_accessor :billing_info, 
     :card_type, :last_four, :expiration

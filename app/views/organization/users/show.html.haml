@@ -30,7 +30,7 @@
     = render 'billing_info', user_presenter: @user_presenter
     = render 'subscriptions', subscriptions: @user_presenter.subscriptions, products: @user_presenter.products
     = render 'invoices', invoices: @user_presenter.invoices, user_id: @user_presenter.user.id
-    = render 'transactions', user_presenter: @user_presenter
+    = render 'transactions', transactions: @user_presenter.transactions, user_id: @user_presenter.user.id
 
 = render 'add_subscription_modal', user_presenter: @user_presenter    
 

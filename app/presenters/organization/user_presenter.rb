@@ -21,6 +21,10 @@ class Organization::UserPresenter
     user.invoices.order('created_at DESC').limit(3)
   end
 
+  def transactions
+    user.transactions.order('created_at DESC').limit(3)
+  end
+
   def address
     _address = "#{user.street_address}"
     _address += "<br/>#{user.street_address_2}" if user.street_address_2.present?

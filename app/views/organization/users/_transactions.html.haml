@@ -2,27 +2,21 @@
   .panel-heading
     %span Transactions:
   .panel-body
-    %table.table.table-condensed
-      %thead
-        %tr
-          %th Transaction
-          %th Date
-          %th Amount
-      %tbody
-        %tr
-          %td
-            %a{:href => "transaction.html"} 2346
-          %td 08/12/14
-          %td $50.00
-        %tr
-          %td
-            %a{:href => "transaction.html"} 2345
-          %td 08/12/14
-          %td $50.00
-        %tr
-          %td
-            %a{:href => "transaction.html"} 1985
-          %td 07/12/14
-          %td $50.00
-  .panel-footer
-    = link_to 'view all', organization_transactions_path(user_id: user_presenter.user.id), class: 'btn btn-default btn-xs'
+    - if transactions.any?
+      %table.table.table-condensed
+        %thead
+          %tr
+            %th Transaction
+            %th Date
+            %th Amount
+        %tbody
+          - transactions.each do |transaction|
+            %tr
+              %td= link_to transaction.id, organization_transaction_path(transaction)
+              %td #{transaction.created_at.strftime('%m/%d/%Y')}
+              %td #{number_to_currency(transaction.price)}
+    - else
+      %p None
+  - if transactions.any?
+    .panel-footer
+      = link_to 'view all', organization_transactions_path(query: user_id), class: 'btn btn-default btn-xs'
