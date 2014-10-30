@@ -1,0 +1,33 @@
+.loader
+.row
+  .col-md-12
+    %table.table.table-hover
+      %thead
+        %tr
+          %th
+          %th Desription
+          %th Name
+          %th Created on
+          %th Amount
+          %th Status
+      %tbody
+        - transactions.each do |transaction|
+          %tr
+            %td
+              - if transaction.charge?
+                = icon 'credit-card'
+              - elsif transaction.credit?
+                = icon 'plus'
+            %td
+              - if transaction.charge?
+                = transaction.subscription.plan
+              - elsif transaction.credit?
+                'Credit'
+            %td= link_to transaction.user.name, organization_user_path(transaction.user)
+            %td #{transaction.created_at.strftime('%m/%d/%Y')}
+            %td #{number_to_currency(transaction.price)}
+            %td #{transaction.state.titleize}
+
+
+%center
+  = paginate transactions

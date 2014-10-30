@@ -2,6 +2,7 @@ require 'csv'
 
 class Organization::UsersPresenter
   include ActionView::Helpers::TagHelper
+  extend Memoist
   attr_reader :organization, :query, :start_date, :end_date, :status, :page
 
   def initialize(organization, options)
@@ -23,7 +24,7 @@ class Organization::UsersPresenter
       _users = _users.between(start_date, end_date)
     elsif start_date? || end_date?
       _users = _users.where(["users.created_at >= ?", start_date]) if start_date?
-      _users = _users.where(["users.created_at >= ?", end_date]) if end_date?
+      _users = _users.where(["users.created_at <= ?", end_date]) if end_date?
     else
       _users = _users
     end
@@ -36,6 +37,7 @@ class Organization::UsersPresenter
 
     _users
   end
+  memoize :users
 
   def to_csv
     ::CSV.generate do |csv|

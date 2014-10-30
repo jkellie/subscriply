@@ -1,0 +1,1 @@
+$('#transactions').html("#{escape_javascript(render partial: 'transactions', locals: {transactions: @transactions_presenter.transactions})}");

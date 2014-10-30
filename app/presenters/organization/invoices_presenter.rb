@@ -2,6 +2,7 @@ require 'csv'
 
 class Organization::InvoicesPresenter
   include ActionView::Helpers::NumberHelper
+  extend Memoist
   attr_reader :organization, :query, :start_date, :end_date, :status, :page
 
   def initialize(organization, options)
@@ -25,7 +26,7 @@ class Organization::InvoicesPresenter
       _invoices = _invoices.between(start_date, end_date)
     elsif start_date? || end_date?
       _invoices = _invoices.where(["invoices.created_at >= ?", start_date]) if start_date?
-      _invoices = _invoices.where(["invoices.created_at >= ?", end_date]) if end_date?
+      _invoices = _invoices.where(["invoices.created_at <= ?", end_date]) if end_date?
     else
       _invoices = _invoices
     end
@@ -38,6 +39,7 @@ class Organization::InvoicesPresenter
 
     _invoices
   end
+  memoize :invoices
 
   def to_csv
     ::CSV.generate do |csv|
