@@ -1,5 +1,5 @@
 module Billing
-  class Notification::SuccessfulPayment < Struct.new(:options)
+  class Notification::FailedPayment < Struct.new(:options)
     
     def perform
       ::Transaction.create({
