@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   root 'user/products#index', constraints: { subdomain: /.+/ }
 
-  post 'recurly/recurly_notification', constraints: { subdomain: /.+/ }
+  post 'notifications' => 'notifications#create', constraints: { subdomain: /.+/ }
   
   resources :organizations
 

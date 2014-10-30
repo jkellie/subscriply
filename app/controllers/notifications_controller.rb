@@ -1,7 +1,7 @@
-class RecurlyController < ApplicationController
-  protect_from_forgery except: :recurly_notification
+class NotificationsController < ApplicationController
+  protect_from_forgery except: :create
 
-  def recurly_notification
+  def create
     notification.perform
     render text: 'request accepted'
   end
