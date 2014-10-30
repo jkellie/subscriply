@@ -1,6 +1,6 @@
 .panel.panel-default
   .panel-heading
-    %span Charges &amp; Credits:
+    %span Transactions:
     %span.credit-button
       = link_to 'Add Credit', new_organization_user_credit_path(subscription_presenter.user), class: 'btn btn-default btn-xs pull-right'
   .panel-body
@@ -12,6 +12,7 @@
           %th Created on
           %th Amount
           %th Invoice #
+          %th Status
       %tbody
         - subscription_presenter.transactions.each do |transaction|
           %tr
@@ -28,3 +29,4 @@
             %td #{transaction.created_at.strftime('%m/%d/%Y')}
             %td #{number_to_currency(transaction.price)}
             %td= link_to transaction.invoice.number, organization_invoice_path(transaction.invoice, format: :pdf), target: '_blank'
+            %td #{transaction.state.titleize}

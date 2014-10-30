@@ -9,12 +9,14 @@
             %th Transaction
             %th Date
             %th Amount
+            %th Status
         %tbody
           - transactions.each do |transaction|
             %tr
               %td= link_to transaction.id, organization_transaction_path(transaction)
               %td #{transaction.created_at.strftime('%m/%d/%Y')}
               %td #{number_to_currency(transaction.price)}
+              %td #{transaction.state.titleize}
     - else
       %p None
   - if transactions.any?
