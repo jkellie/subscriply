@@ -6,6 +6,10 @@ class Plan < ActiveRecord::Base
     "#{product.prepend_code}_#{self.code}"
   end
 
+  def to_s
+    "#{product.prepend_code.upcase} #{name}"
+  end
+
   def deletable?
     false
   end

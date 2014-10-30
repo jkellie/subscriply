@@ -13,12 +13,18 @@
           %th Amount
           %th Invoice #
       %tbody
-        %tr
-          %td
-            = icon 'credit-card'
-          %td 
-          %td 
-          %td 
-          %td
-  .panel-footer
-    = link_to 'load more', '#', class: 'btn btn-default btn-xs'
+        - subscription_presenter.transactions.each do |transaction|
+          %tr
+            %td
+              - if transaction.charge?
+                = icon 'credit-card'
+              - elsif transaction.credit?
+                = icon 'plus'
+            %td
+              - if transaction.charge?
+                = transaction.subscription.plan
+              - elsif transaction.credit?
+                'Credit'
+            %td #{transaction.created_at.strftime('%m/%d/%Y')}
+            %td #{number_to_currency(transaction.price)}
+            %td= link_to transaction.invoice.number, organization_invoice_path(transaction.invoice, format: :pdf), target: '_blank'

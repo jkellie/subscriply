@@ -39,7 +39,6 @@ describe UserCreditor, '#create' do
         accounting_code: 'test'
       }
       user_creditor.should_receive(:create_credit_on_billing).and_return(true)
-      user_creditor.should_receive(:create_credit_locally).and_return(true)
     end
 
     subject { user_creditor.create }
@@ -47,8 +46,6 @@ describe UserCreditor, '#create' do
     it "calls billing to create the credit" do
       subject
     end
-
-    skip "it creates a local credit"
   end
 
   context 'with a non successful credit' do

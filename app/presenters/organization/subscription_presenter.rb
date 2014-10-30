@@ -15,6 +15,10 @@ class Organization::SubscriptionPresenter
     subscription.state.titleize
   end
 
+  def transactions
+    subscription.transactions.order('created_at DESC')
+  end
+
   def user_name
     user.name.titleize
   end

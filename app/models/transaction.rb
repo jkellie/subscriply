@@ -8,4 +8,13 @@ class Transaction < ActiveRecord::Base
   def price
     self.amount_in_cents / 100.0
   end
+
+  def charge?
+    self.transaction_type == 'charge'
+  end
+
+  def refund?
+    self.transaction_type == 'refund'
+  end
+
 end

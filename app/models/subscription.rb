@@ -3,6 +3,7 @@ class Subscription < ActiveRecord::Base
   belongs_to :user
   belongs_to :plan
   belongs_to :location
+  has_many :transactions
 
   attr_accessor :product_id, :apply_changes
 
