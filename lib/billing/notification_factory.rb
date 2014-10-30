@@ -17,6 +17,8 @@ module Billing
           return Billing::Notification::SuccessfulPayment.new(successful_payment_params)
         when 'failed_payment_notification'
           return Billing::Notification::FailedPayment.new(failed_payment_params)
+        when 'void_payment_notification'
+          return Billing::Notification::VoidPayment.new(void_payment_params)
         when 'successful_refund_notification'
           return Billing::Notification::SuccessfulRefund.new(successful_refund_params)
         end
@@ -60,6 +62,13 @@ module Billing
         {
           user_uuid:         @body['failed_payment_notification']['account']['account_code'],
           transaction_uuid:  @body['failed_payment_notification']['transaction']['id']
+        }
+      end
+
+      def void_payment_params
+        {
+          user_uuid:         @body['void_payment_notification']['account']['account_code'],
+          transaction_uuid:  @body['void_payment_notification']['transaction']['id']
         }
       end
 

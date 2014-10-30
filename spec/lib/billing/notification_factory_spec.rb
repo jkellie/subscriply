@@ -175,6 +175,45 @@ describe Billing::NotificationFactory, '.build_notification' do
     end
   end
 
+  context 'with a void payment notification' do
+    let(:body) { 
+      %Q{<void_payment_notification>
+          <account>
+            <account_code>1</account_code>
+            <username nil="true"></username>
+            <email>verena@example.com</email>
+            <first_name>Verena</first_name>
+            <last_name>Example</last_name>
+            <company_name nil="true"></company_name>
+          </account>
+          <transaction>
+            <id>4997ace0f57341adb3e857f9f7d15de8</id>
+            <invoice_id>ffc64d71d4b5404e93f13aac9c63b007</invoice_id>
+            <invoice_number type="integer">2059</invoice_number>
+            <subscription_id>1974a098jhlkjasdfljkha898326881c</subscription_id>
+            <action>purchase</action>
+            <date type="datetime">2010-10-05T23:00:50Z</date>
+            <amount_in_cents type="integer">235</amount_in_cents>
+            <status>void</status>
+            <message>Test Gateway: Successful test transaction</message>
+            <reference></reference>
+            <source>subscription</source>
+            <cvv_result code="M">Match</cvv_result>
+            <avs_result code="D">Street address and postal code match.</avs_result>
+            <avs_result_street></avs_result_street>
+            <avs_result_postal></avs_result_postal>
+            <test type="boolean">true</test>
+            <voidable type="boolean">false</voidable>
+            <refundable type="boolean">false</refundable>
+          </transaction>
+        </void_payment_notification>}
+      }
+
+    it 'sends a message to the right notification class' do
+      expect(subject.class).to eq(Billing::Notification::VoidPayment)
+    end
+  end
+
   context 'with a successful refund notification' do
     let(:body) { 
       %Q{<successful_refund_notification>
