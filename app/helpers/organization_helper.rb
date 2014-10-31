@@ -12,4 +12,10 @@ module OrganizationHelper
     current_organizer.super_admin?
   end
 
+  def sales_rep_w8_w9_status(sales_rep)
+    return 'W9' if sales_rep.w9?
+    return 'W8' if sales_rep.w8?
+    'No'
+  end
+
 end

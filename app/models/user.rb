@@ -13,12 +13,16 @@ class User < ActiveRecord::Base
   store_accessor :billing_info, 
     :card_type, :last_four, :expiration
   
-  scope :scoped_to, -> (organization_id) { where("organization_id = ?", organization_id)}
-  scope :search, ->(q) { where("first_name ILIKE ? OR last_name ILIKE ? OR email ILIKE ? OR member_number = ?", "%#{q}%", "%#{q}%", "%#{q}%", "#{q.to_i}")}
-  scope :between, ->(start_date, end_date) { where(created_at: start_date...end_date)}
+  scope :scoped_to, -> (organization_id) { where("organization_id = ?", organization_id) }
+  scope :search, ->(q) { where("first_name ILIKE ? OR last_name ILIKE ? OR email ILIKE ? OR member_number = ?", "%#{q}%", "%#{q}%", "%#{q}%", "#{q.to_i}") }
+  scope :between, ->(start_date, end_date) { where(created_at: start_date...end_date) }
   scope :is_sales_rep, -> { where(is_sales_rep: true) }
   scope :open, -> { where(state: :open) }
   scope :closed, -> { where(state: :closed) }
+  scope :contract, -> { where(contract: true) }
+  scope :no_contract, -> { where(contract: false) }
+  scope :w8, -> { where(w8: true) }
+  scope :w9, -> { where(w9: true) }
   
   validates :first_name, :last_name, presence: true
   validates :email, presence: true, uniqueness: { scope: :organization }
