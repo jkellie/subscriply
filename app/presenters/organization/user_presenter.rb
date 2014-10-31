@@ -3,7 +3,7 @@ class Organization::UserPresenter
   attr_reader :user
 
   delegate :organization, :name, :id, :email, :created_at, :phone_number,
-    :state, :open?, :closed?, :pending?, :last_four, :card_type, :expiration, to: :user
+    :state, :open?, :closed?, :pending?, :last_four, :card_type, :expiration, :invoices, to: :user
 
   def initialize(user)
     @user = user
@@ -15,6 +15,14 @@ class Organization::UserPresenter
 
   def subscriptions
     user.subscriptions.order('created_at DESC')
+  end
+
+  def invoices
+    user.invoices.order('created_at DESC').limit(3)
+  end
+
+  def transactions
+    user.transactions.order('created_at DESC').limit(3)
   end
 
   def address

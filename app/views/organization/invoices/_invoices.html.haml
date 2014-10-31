@@ -1,0 +1,22 @@
+.loader
+.row
+  .col-md-12
+    %table.table.table-hover
+      %thead
+        %tr
+          %th Invoice #
+          %th Name
+          %th Created
+          %th Status
+          %th Total
+      %tbody
+      - invoices.each do |invoice|
+        %tr
+          %td= link_to invoice.number, organization_invoice_path(invoice, format: :pdf), target: '_blank'
+          %td= link_to invoice.user.name, organization_user_path(invoice.user)
+          %td #{invoice.created_at.strftime('%m/%-e/%y')}
+          %td #{invoice.state.try(:capitalize)}
+          %td #{number_to_currency(invoice.price)}
+
+%center
+  = paginate invoices

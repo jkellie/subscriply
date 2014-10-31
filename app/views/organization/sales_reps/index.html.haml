@@ -1,195 +1,23 @@
 = content_for(:menubar) do
   Sales Reps
 
+= content_for(:menubar_right) do
+  .pull-right
+    = link_to new_organization_user_path, class: 'btn btn-primary' do
+      = icon 'plus-circle'
+      Add New
 
-.col-sm-9
-  .row
-    %table.table.table-striped
-      %thead
-        %tr
-          %th Member#
-          %th Name
-          %th email
-          %th Contract
-          %th &nbsp;W9 /W8&nbsp;
-          %th Status
-      %tbody
-        %tr
-          %td
-            %a{:href => "user.html"} 123
-          %td Steve Woods
-          %td steve.woods@gmail.com
-          %td Yes
-          %td W9
-          %td Active
-        %tr
-          %td
-            %a{:href => "user.html"} 456
-          %td Tim Foley
-          %td tim.foley@gmail.com
-          %td Yes
-          %td W9
-          %td Active
-        %tr
-          %td
-            %a{:href => "user.html"} 789
-          %td Pedro Lizardi
-          %td pedro.lizardi@gmail.com
-          %td Yes
-          %td W9
-          %td None
-        %tr
-          %td
-            %a{:href => "user.html"} 012
-          %td Tony Morales
-          %td tony.morales@gmail.com
-          %td Yes
-          %td No
-          %td Active
-        %tr
-          %td
-            %a{:href => "user.html"} 987
-          %td Ivan Morales
-          %td ivan.morales@gmail.com
-          %td Yes
-          %td W8
-          %td Active
-        %tr
-          %td
-            %a{:href => "user.html"} 654
-          %td Alberto Aguilera
-          %td alberto.aguilera@gmail.com
-          %td No
-          %td W9
-          %td Past Due
-        %tr
-          %td
-            %a{:href => "user.html"} 321
-          %td Victor Cid
-          %td victor.cid@gmail.com
-          %td Yes
-          %td W9
-          %td Canceled
-        %tr
-          %td
-            %a{:href => "user.html"} 147
-          %td Ernesto Espinosa
-          %td ernesto.espinosa@gmail.com
-          %td Yes
-          %td W9
-          %td Active
-        %tr
-          %td
-            %a{:href => "user.html"} 258
-          %td Johny Matos
-          %td johnymatos@gmail.com
-          %td Yes
-          %td W9
-          %td Active
-        %tr
-          %td
-            %a{:href => "user.html"} 369
-          %td Carmen Hechavaria
-          %td carmen.hechavaria@gmail.com
-          %td Yes
-          %td W9
-          %td Active
-        %tr
-          %td
-            %a{:href => "user.html"} 753
-          %td Maria Garcia
-          %td maria.garcia@gmail.com
-          %td Yes
-          %td W9
-          %td Active
-        %tr
-          %td
-            %a{:href => "user.html"} 951
-          %td Nelly Nunez
-          %td nelly.nunez@gmail.com
-          %td Yes
-          %td W9
-          %td Active
-        %tr
-          %td
-            %a{:href => "user.html"} 963
-          %td Jesus Arevalo
-          %td willy.arevalo@gmail.com
-          %td Yes
-          %td W9
-          %td Active
-        %tr
-          %td
-            %a{:href => "user.html"} 852
-          %td Tom Matz
-          %td tom.matz@gmail.com
-          %td Yes
-          %td W9
-          %td Active
-        %tr
-          %td
-            %a{:href => "user.html"} 741
-          %td John smith
-          %td john.smith@gmail.com
-          %td Yes
-          %td W9
-          %td Active
-    %center
-      %ul.pagination
-        %li
-          %a{:href => "#"} «
-        %li.active
-          %a{:href => "#"} 1
-        %li
-          %a{:href => "#"} 2
-        %li
-          %a{:href => "#"} 3
-        %li
-          %a{:href => "#"} 4
-        %li
-          %a{:href => "#"} 5
-        %li
-          %a{:href => "#"} »
-.col-sm-3
-  %h4 Search &amp; Filters
-  %br
-    %span Search
-    .input-group{:style => "padding-top: 5px"}
-      %span.input-group-addon
-        %i.ion-search
-      %input.form-control{:type => "text"}
-    %br
-      %span Contract
-      .input-group{:style => "padding-top: 5px; width: 100%"}
-        .fake-select-wrap
-          %select.form-control{"data-smart-select" => ""}
-            %option All
-            %option Yes
-            %option No
-          .fake-select All
-      %br
-        %span W9/W8
-        .input-group{:style => "padding-top: 5px; width: 100%"}
-          .fake-select-wrap
-            %select.form-control{"data-smart-select" => ""}
-              %option All
-              %option W9
-              %option W8
-              %option No
-            .fake-select All
-        %br
-          %span Status
-          .input-group{:style => "padding-top: 5px; width: 100%"}
-            .fake-select-wrap
-              %select.form-control{"data-smart-select" => ""}
-                %option All
-                %option Active
-                %option Past Due
-                %option Canceled
-                %option None
-              .fake-select All
-          %br
-            %br
-              %a.btn.btn-primary.center-block
-                %i.fa.fa-download>
-                \&nbsp; Download CSV file
+.col-md-9
+  #sales_reps
+    = render 'sales_reps', sales_reps: @sales_reps_presenter.sales_reps
+
+.col-md-3
+  = render 'search', sales_reps_presenter: @sales_reps_presenter
+
+:javascript
+  var organization_sales_reps_ready = function () {
+    OrganizationSalesReps.init();
+  }
+
+  $(document).on("ready page:load", organization_sales_reps_ready);
+  $(document).ready(organization_sales_reps_ready);

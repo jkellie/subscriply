@@ -1,0 +1,28 @@
+.loader
+.row
+  .col-md-12
+    %table.table.table-hover
+      %thead
+        %tr
+          %th Member #
+          %th Name
+          %th Email
+          %th Contract
+          %th W9/W8
+          %th Status
+      %tbody
+      - sales_reps.each do |user|
+        %tr
+          %td
+            - if user.member_number?
+              = link_to user.member_number, organization_user_path(user)
+            - else
+              = link_to 'n/a', organization_user_path(user)
+          %td= link_to user.name, organization_user_path(user)
+          %td= link_to user.email, "mailto:#{user.email}"
+          %td= user.contract ? 'Yes' : 'No'
+          %td= sales_rep_w8_w9_status(user)
+          %td #{user.state.titleize}
+
+%center
+  = paginate sales_reps

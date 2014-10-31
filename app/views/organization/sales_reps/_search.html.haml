@@ -1,0 +1,29 @@
+= simple_form_for organization_sales_reps_path, method: :get do |f|
+  %h4 Search &amp; Filters
+  %br
+  %span Search
+  .input-group{:style => "padding-top: 5px"}
+    %span.input-group-addon
+      = icon 'search'
+    = text_field_tag 'query', sales_reps_presenter.query, placeholder: 'email / name / member number', class: 'form-control'
+
+  %br
+  %span Contract
+  .input-group{:style => "padding-top: 5px; width: 100%"}
+    = select_tag 'contract', options_for_select([["All", "All"], ["Yes", "Yes"], ["No", "No"]], sales_reps_presenter.contract), class: 'form-control input-md'
+
+  %br
+  %span W8/W9
+  .input-group{:style => "padding-top: 5px; width: 100%"}
+    = select_tag 'w8_w9', options_for_select([["All", "All"], ["W9", "W9"], ["W8", "W8"], ["No", "No"]], sales_reps_presenter.w8_w9), class: 'form-control input-md'
+
+  %br
+  %span Status
+  .input-group{:style => "padding-top: 5px; width: 100%"}
+    = select_tag 'state', options_for_select([["All", "All"], ["Open", "Open"], ["Closed", "Closed"]], sales_reps_presenter.status), class: 'form-control input-md'
+  
+  %br
+  %br
+  = link_to organization_sales_reps_path(format: 'csv'), class: 'btn btn-primary btn-block', id: 'download_csv' do
+    = icon 'download'
+    Download CSV

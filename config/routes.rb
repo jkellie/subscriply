@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {registrations: 'user/registrations', sessions: 'user/sessions', passwords: 'user/passwords', invitations: 'organization/invitations'}
 
   root 'user/products#index', constraints: { subdomain: /.+/ }
+
+  post 'notifications' => 'notifications#create', constraints: { subdomain: /.+/ }
   
   resources :organizations
 

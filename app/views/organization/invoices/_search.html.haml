@@ -1,0 +1,30 @@
+= simple_form_for organization_invoices_path, method: :get do |f|
+  %h4 Search &amp; Filters
+  %br
+  %span Search
+  .input-group{:style => "padding-top: 5px"}
+    %span.input-group-addon
+      = icon 'search'
+    = text_field_tag 'query', invoices_presenter.query, placeholder: 'number / name', class: 'form-control'
+  %br
+  %span Created Date Range
+  .input-group{:style => "padding-top: 5px"}
+    %span.input-group-addon
+      %i.fa.fa-calendar-o
+    = text_field_tag 'start_date', invoices_presenter.start_date_friendly, placeholder: 'start date', class: 'form-control datepicker'
+  .input-group{:style => "padding-top: 15px"}
+    %span.input-group-addon
+      %i.fa.fa-calendar-o
+    = text_field_tag 'end_date', invoices_presenter.end_date_friendly, placeholder: 'end date', class: 'form-control datepicker'
+
+  %br
+  %span Status
+  .input-group{:style => "padding-top: 5px; width: 100%"}
+    = select_tag 'state', options_for_select([["All", "All"], ["Open", "Open"], ["Past Due", "Past Due"], ["Failed", "Failed"], ["Collected", "Collected"]], invoices_presenter.status), class: 'form-control input-md'
+
+  
+  %br
+  %br
+  = link_to organization_invoices_path(format: 'csv'), class: 'btn btn-primary btn-block', id: 'download_csv' do
+    = icon 'download'
+    Download CSV

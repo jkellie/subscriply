@@ -11,12 +11,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141020171010) do
+ActiveRecord::Schema.define(version: 20141031171543) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
   enable_extension "uuid-ossp"
+
+  create_table "delayed_jobs", force: true do |t|
+    t.integer  "priority",   default: 0, null: false
+    t.integer  "attempts",   default: 0, null: false
+    t.text     "handler",                null: false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+
+  create_table "invoices", force: true do |t|
+    t.integer  "user_id"
+    t.text     "href"
+    t.integer  "number"
+    t.integer  "total_in_cents"
+    t.datetime "created_at"
+    t.uuid     "uuid"
+    t.string   "state"
+  end
 
   create_table "locations", force: true do |t|
     t.integer "organization_id"
@@ -117,6 +143,17 @@ ActiveRecord::Schema.define(version: 20141020171010) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.uuid     "uuid",            default: "uuid_generate_v4()"
+  end
+
+  create_table "transactions", force: true do |t|
+    t.integer  "subscription_id"
+    t.integer  "user_id"
+    t.integer  "invoice_id"
+    t.integer  "amount_in_cents"
+    t.string   "state"
+    t.string   "transaction_type"
+    t.datetime "created_at"
+    t.uuid     "uuid"
   end
 
   create_table "users", force: true do |t|

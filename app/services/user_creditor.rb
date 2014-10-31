@@ -19,7 +19,6 @@ class UserCreditor
     begin
       ActiveRecord::Base.transaction do
         create_credit_on_billing
-        create_credit_locally
       end
     rescue Exception => e
       errors.add(:base, e)
@@ -33,13 +32,8 @@ class UserCreditor
 
   private
 
-  def create_credit_locally
+  def create_credit_on_billing
     Billing::User.credit(user, credit_attributes)
-  end
-
-  def create_local_credit
-    # pending on credit model.
-    true
   end
 
   def credit_attributes
