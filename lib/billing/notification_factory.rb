@@ -21,6 +21,8 @@ module Billing
           return Billing::Notification::VoidPayment.new(void_payment_params)
         when 'successful_refund_notification'
           return Billing::Notification::SuccessfulRefund.new(successful_refund_params)
+        else
+          return Billing::Notification::NullNotification.new()
         end
       end
 
