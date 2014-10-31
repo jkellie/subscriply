@@ -14,8 +14,8 @@ class Transaction < ActiveRecord::Base
   scope :search, -> (q) do
     joins("LEFT OUTER JOIN subscriptions on subscriptions.id = transactions.subscription_id").
     joins("LEFT OUTER JOIN plans on plans.id = subscriptions.plan_id").
-    where("plans.name ILIKE ? OR users.first_name ILIKE ? OR users.last_name ILIKE ? OR users.member_number = ?",
-      "%#{q}%", "%#{q}%", "%#{q}%", "#{q.to_i}") 
+    where("plans.name ILIKE ? OR users.first_name ILIKE ? OR users.last_name ILIKE ? OR users.member_number = ? OR users.id = ?",
+      "%#{q}%", "%#{q}%", "%#{q}%", "#{q.to_i}", "#{q.to_i}") 
   end
 
   def price
