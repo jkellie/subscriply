@@ -18,3 +18,4 @@
       %dt Shipping:
       %dd
         = simple_format user_presenter.address
+    = link_to 'Add Credit', new_organization_user_credit_path(user_presenter.user), class: 'btn btn-default btn-xs pull-right'
