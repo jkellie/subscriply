@@ -1,6 +1,6 @@
 module Billing
   class Notification::SuccessfulPayment < Struct.new(:options)
-    
+
     def perform
       ::Transaction.create({
         transaction_type: 'charge',
@@ -12,6 +12,7 @@ module Billing
         state:            billing_transaction.status.downcase,
         uuid:             billing_transaction.uuid
       })
+      subscription.update(next_ship_on: next_ship_on)
     end
 
     private
@@ -45,6 +46,10 @@ module Billing
 
     def billing_transaction
       @billing_transaction ||= Billing::Transaction.transaction_on_billing(user.organization, transaction_uuid)
+    end
+
+    def next_ship_on
+      NextShipDateCalculator.new(subscription).calculate  
     end
 
     def user_uuid

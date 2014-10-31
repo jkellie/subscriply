@@ -35,4 +35,9 @@ describe Billing::Notification::SuccessfulPayment, '.perform' do
     expect(transaction.state).to eq('open')
   end
 
+  it "updates the subscription next ship on" do
+    subject
+    expect(subscription.reload.next_ship_on).not_to be_nil
+  end
+
 end
