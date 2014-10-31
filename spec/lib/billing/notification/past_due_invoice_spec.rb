@@ -19,6 +19,7 @@ describe Billing::Notification::PastDueInvoice, '.perform' do
 
     subject do
       Billing::Notification::PastDueInvoice.new(user_uuid: user.reload.uuid, invoice_number: '1').perform
+      Delayed::Worker.new.work_off 
     end
 
     it "does not create a new invoice" do
@@ -47,6 +48,7 @@ describe Billing::Notification::PastDueInvoice, '.perform' do
 
     subject do
       Billing::Notification::PastDueInvoice.new(user_uuid: user.reload.uuid, invoice_number: '1').perform
+      Delayed::Worker.new.work_off 
     end
 
     it "does create a new invoice" do

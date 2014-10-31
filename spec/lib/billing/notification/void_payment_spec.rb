@@ -21,6 +21,7 @@ describe Billing::Notification::VoidPayment, '.perform' do
 
   subject do
     Billing::Notification::VoidPayment.new(user_uuid: user.reload.uuid, invoice_number: '1').perform
+    Delayed::Worker.new.work_off 
   end
 
   it "creates a new trnasaction" do

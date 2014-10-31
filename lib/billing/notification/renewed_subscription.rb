@@ -4,10 +4,11 @@ module Billing
     def perform
       subscription.activate!
       subscription.update_attributes({
-        next_bill_on: subscription_on_billing.current_period_ends_at,
+        next_bill_on: next_bill_on,
         next_ship_on: next_ship_on
       })
     end
+    handle_asynchronously :perform
 
     private
 
@@ -21,6 +22,10 @@ module Billing
 
     def next_ship_on
       NextShipDateCalculator.new(subscription).calculate
+    end
+
+    def next_bill_on
+      subscription_on_billing.current_period_ends_at
     end
     
   end

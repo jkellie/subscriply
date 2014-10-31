@@ -16,6 +16,7 @@ describe Billing::Notification::NewInvoice, '.perform' do
 
   subject do
     Billing::Notification::NewInvoice.new(user_uuid: user.reload.uuid, invoice_number: '1').perform
+    Delayed::Worker.new.work_off
   end
 
   it "creates a new invoice" do

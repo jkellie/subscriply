@@ -18,6 +18,7 @@ module Billing
         })
       end
     end
+    handle_asynchronously :perform
 
     private
 

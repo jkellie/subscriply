@@ -6,6 +6,7 @@ describe Billing::Notification::ExpiredSubscription, '.perform' do
 
   subject do
     Billing::Notification::ExpiredSubscription.new(subscription_uuid: 'd1b6d359a01ded71caed78eaa0fedf8e').perform
+    Delayed::Worker.new.work_off 
   end
 
   it "updates the subscription to do canceled" do

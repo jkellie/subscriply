@@ -5,6 +5,7 @@ module Billing
       create_transaction
       update_subscription
     end
+    handle_asynchronously :perform
 
     private
 

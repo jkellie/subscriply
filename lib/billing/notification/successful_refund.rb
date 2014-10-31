@@ -13,6 +13,7 @@ module Billing
         uuid:             billing_transaction.uuid
       })
     end
+    handle_asynchronously :perform
 
     private
 
