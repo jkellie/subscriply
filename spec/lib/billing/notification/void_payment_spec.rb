@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Billing::Notification::SuccessfulPayment, '.perform' do
+describe Billing::Notification::VoidPayment, '.perform' do
   let!(:user) { FactoryGirl.create(:user) }
   let!(:subscription) { FactoryGirl.create(:subscription, user: user, uuid: SecureRandom.uuid) }
   let!(:invoice) { FactoryGirl.create(:invoice, user: user, uuid: SecureRandom.uuid) }
@@ -20,7 +20,7 @@ describe Billing::Notification::SuccessfulPayment, '.perform' do
   end
 
   subject do
-    Billing::Notification::SuccessfulPayment.new(user_uuid: user.reload.uuid, invoice_number: '1').perform
+    Billing::Notification::VoidPayment.new(user_uuid: user.reload.uuid, invoice_number: '1').perform
   end
 
   it "creates a new trnasaction" do

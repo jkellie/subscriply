@@ -13,8 +13,11 @@ describe Billing::Notification::SuccessfulPayment, '.perform' do
     status: 'open'
   )}
 
+  let(:billing_subscription) { double('billing_subscription', current_period_ends_at: 1.month.from_now) }
+
   before do
     Billing::Transaction.stub('transaction_on_billing').and_return(billing_transaction)
+    Billing::Subscription.stub('subscription_on_billing').and_return(billing_subscription)
     billing_transaction.stub('subscription').and_return(subscription)
     billing_transaction.stub('invoice').and_return(invoice)
   end
@@ -38,6 +41,11 @@ describe Billing::Notification::SuccessfulPayment, '.perform' do
   it "updates the subscription next ship on" do
     subject
     expect(subscription.reload.next_ship_on).not_to be_nil
+  end
+
+  it "updates the subscription next bill on" do
+    subject
+    expect(subscription.reload.next_bill_on).not_to be_nil
   end
 
 end
