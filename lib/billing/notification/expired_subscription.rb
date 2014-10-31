@@ -3,6 +3,7 @@ module Billing
     
     def perform
       subscription.cancel!
+      subscription.update(canceled_on: Date.today) unless subscription.canceled_on
     end
 
     private

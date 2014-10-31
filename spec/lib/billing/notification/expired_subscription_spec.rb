@@ -11,6 +11,7 @@ describe Billing::Notification::ExpiredSubscription, '.perform' do
   it "updates the subscription to do canceled" do
     subject
     expect(subscription.reload.state).to eq('canceled')
+    expect(subscription.reload.canceled_on).not_to be_nil
   end
 
 end
