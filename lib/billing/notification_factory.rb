@@ -21,8 +21,10 @@ module Billing
           return Billing::Notification::VoidPayment.new(void_payment_params)
         when 'successful_refund_notification'
           return Billing::Notification::SuccessfulRefund.new(successful_refund_params)
+        when 'expired_subscription_notification'
+          return Billing::Notification::ExpiredSubscription.new(expired_subscription_params)
         else
-          return Billing::Notification::NullNotification.new()
+          return Billing::Notification::NullNotification.new
         end
       end
 
@@ -78,6 +80,12 @@ module Billing
         {
           user_uuid:         @body['successful_refund_notification']['account']['account_code'],
           transaction_uuid:  @body['successful_refund_notification']['transaction']['id']
+        }
+      end
+
+      def expired_subscription_params
+        {
+          subscription_uuid: @body['expired_subscription_notification']['subscription']['uuid']
         }
       end
 
