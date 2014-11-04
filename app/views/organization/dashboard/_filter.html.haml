@@ -1,23 +1,19 @@
 .row
   .col-sm-10
-    .col-sm-5
-      .form-group
-        .fake-select-wrap
-          %select.form-control{"data-smart-select" => ""}
-            %option All Plans
-            %option Plan 1
-            %option Plan 2
-            %option Plan 3
-          .fake-select All Plans
-    .col-sm-3
-      .input-group
-        %span.input-group-addon
-          = icon 'calendar-o'
-        %input.form-control.datepicker{:name => "start", :placeholder => "02/01/2014", :type => "text"}
-    .col-sm-3
-      .input-group
-        %span.input-group-addon
-          = icon 'calendar-o'
-        %input.form-control.datepicker{:name => "end", :placeholder => "02/27/2014", :type => "text"}
-    .col-sm-1
-      %button.btn.btn-primary submit
+    = simple_form_for organization_dashboard_path, method: :get do |f|
+      .col-sm-5
+        .form-group
+          = select_tag :plan_id, options_from_collection_for_select(dashboard_presenter.plans, 'id', 'name', dashboard_presenter.plan_id), prompt: 'All Plans', class: 'form-control'
+
+      .col-sm-3
+        .input-group
+          %span.input-group-addon
+            = icon 'calendar-o'
+          = text_field_tag 'start_date', dashboard_presenter.start_date_friendly, class: 'form-control datepicker'
+      .col-sm-3
+        .input-group
+          %span.input-group-addon
+            = icon 'calendar-o'
+          = text_field_tag 'end_date', dashboard_presenter.end_date_friendly, class: 'form-control datepicker'
+      .col-sm-1
+        %button.btn.btn-primary submit

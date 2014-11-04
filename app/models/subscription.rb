@@ -17,6 +17,8 @@ class Subscription < ActiveRecord::Base
       "%#{q}%", "%#{q}%", "%#{q}%", "#{q.to_i}")
   end
 
+  scope :between, ->(start_date, end_date) { where(start_date: start_date...end_date)}
+  scope :canceled_between, ->(start_date, end_date) { where(canceled_on: start_date...end_date)}
   scope :invoice_between, ->(start_date, end_date) { where(next_bill_on: start_date...end_date)}
   scope :active, -> { where(state: :future) }
   scope :active, -> { where(state: :active) }

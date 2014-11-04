@@ -1,27 +1,73 @@
 class Organization::DashboardPresenter
-  attr_reader :organizer
+  attr_reader :organization, :plan_id, :start_date, :end_date
+  delegate :subscriptions, :transactions, to: :organization
 
-  delegate :organization, :first_name, :last_name, to: :organizer
-  delegate :subscriptions, to: :organization
+  def initialize(options)
+    @organization = options[:organization]
+    @plan_id = options[:plan_id]
+    set_dates(start_date: options[:start_date], end_date: options[:end_date])
+  end
 
-  def initialize(organizer)
-    @organizer = organizer
+  def plans
+    organization.plans.order('name ASC')
   end
 
   def total_subscriptions
-    rand(1000)
+    organization.subscriptions.count
   end
 
   def new_this_period
-    rand(100)    
+    _subscriptions = subscriptions.between(start_date, end_date)
+    _subscriptions = _subscriptions.where(plan_id: plan_id) if plan?
+    _subscriptions.count
   end
 
   def canceled_this_period
-    rand(10)
+    _subscriptions = subscriptions.canceled_between(start_date, end_date)
+    _subscriptions = _subscriptions.where(plan_id: plan_id) if plan?
+    _subscriptions.count
   end
 
   def sales_this_period
-    120000
+    _transactions = transactions.successful.charge
+    _transactions = _transactions.by_plan(plan_id) if plan?
+    _transactions = _transactions.between(start_date, end_date)
+    _transactions.sum(:amount_in_cents) / 100
+  end
+
+  def start_date_friendly
+    @start_date.strftime('%b %d, %Y')
+  end
+
+  def end_date_friendly
+    @end_date.strftime('%b %d, %Y')
+  end
+
+  private
+
+  def set_dates(dates)
+    set_start_date(dates[:start_date])
+    set_end_date(dates[:end_date])
+  end
+
+  def set_start_date(start_date)
+    if start_date.present?
+      @start_date = ActiveSupport::TimeWithZone.new(nil, Time.zone, DateTime.parse(start_date.to_s).at_beginning_of_day)
+    else
+      @start_date = Time.zone.now.at_beginning_of_month
+    end
+  end
+
+  def set_end_date(end_date)
+    if end_date.present?
+      @end_date = ActiveSupport::TimeWithZone.new(nil, Time.zone, DateTime.parse(end_date.to_s).at_end_of_day)
+    else
+      @end_date = Time.zone.now.at_end_of_month
+    end
+  end
+
+  def plan?
+    @plan_id.present?
   end
 
 end
