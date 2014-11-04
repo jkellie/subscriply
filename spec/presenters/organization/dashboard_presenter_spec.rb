@@ -1,13 +1,13 @@
 require 'spec_helper'
 
-describe Organization::DashboardPresenter, '#total_subscriptions' do
+describe Organization::DashboardPresenter, '#total_subscriptions_count' do
   let!(:organization) { FactoryGirl.create(:organization) }
   let!(:subscription) { FactoryGirl.create(:subscription, organization: organization)}
   let!(:subscription2) { FactoryGirl.create(:subscription, organization: organization)}
   let!(:subscription3) { FactoryGirl.create(:subscription, organization: organization)}
   let(:dashboard_presenter) { Organization::DashboardPresenter.new(organization: organization)}
 
-  subject { dashboard_presenter.total_subscriptions }
+  subject { dashboard_presenter.total_subscriptions_count }
 
   it "calculates the correct count" do
     expect(subject).to eq(3)  
@@ -15,28 +15,28 @@ describe Organization::DashboardPresenter, '#total_subscriptions' do
   
 end
 
-describe Organization::DashboardPresenter, '#new_this_period' do
+describe Organization::DashboardPresenter, '#new_this_period_count' do
   let!(:organization) { FactoryGirl.create(:organization) }
   let!(:subscription) { FactoryGirl.create(:subscription, organization: organization, start_date: 8.days.ago)}
   let!(:subscription2) { FactoryGirl.create(:subscription, organization: organization, start_date: 4.days.ago)}
   let!(:subscription3) { FactoryGirl.create(:subscription, organization: organization, start_date: 1.day.ago)}
   let(:dashboard_presenter) { Organization::DashboardPresenter.new(organization: organization, start_date: 7.days.ago, end_date: 3.days.ago)}  
 
-  subject { dashboard_presenter.new_this_period }
+  subject { dashboard_presenter.new_this_period_count }
   
   it "calculates the correct number of subscriptions" do
     expect(subject).to eq(1)
   end
 end
 
-describe Organization::DashboardPresenter, '#canceled_this_period' do
+describe Organization::DashboardPresenter, '#canceled_this_period_count' do
   let!(:organization) { FactoryGirl.create(:organization) }
   let!(:subscription) { FactoryGirl.create(:subscription, organization: organization, canceled_on: 8.days.ago)}
   let!(:subscription2) { FactoryGirl.create(:subscription, organization: organization, canceled_on: 4.days.ago)}
   let!(:subscription3) { FactoryGirl.create(:subscription, organization: organization, canceled_on: 1.day.ago)}
   let(:dashboard_presenter) { Organization::DashboardPresenter.new(organization: organization, start_date: 7.days.ago, end_date: 3.days.ago)}  
 
-  subject { dashboard_presenter.canceled_this_period }
+  subject { dashboard_presenter.canceled_this_period_count }
   
   it "calculates the correct number of subscriptions" do
     expect(subject).to eq(1)

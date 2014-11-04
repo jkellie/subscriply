@@ -13,19 +13,33 @@ class Organization::DashboardPresenter
   end
 
   def total_subscriptions
-    organization.subscriptions.count
+    _subscriptions = subscriptions.active
+    _subscriptions = _subscriptions.where(plan_id: plan_id) if plan?
+    _subscriptions
+  end
+
+  def total_subscriptions_count
+    total_subscriptions.count
   end
 
   def new_this_period
     _subscriptions = subscriptions.between(start_date, end_date)
     _subscriptions = _subscriptions.where(plan_id: plan_id) if plan?
-    _subscriptions.count
+    _subscriptions
+  end
+
+  def new_this_period_count
+    new_this_period.count
   end
 
   def canceled_this_period
     _subscriptions = subscriptions.canceled_between(start_date, end_date)
     _subscriptions = _subscriptions.where(plan_id: plan_id) if plan?
-    _subscriptions.count
+    _subscriptions
+  end
+
+  def canceled_this_period_count
+    canceled_this_period.count
   end
 
   def sales_this_period
