@@ -4,6 +4,7 @@
     %title Subscriply
     = stylesheet_link_tag    'organizer', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'https://maps.google.com/maps/api/js?sensor=true'
+    = javascript_include_tag '//www.google.com/jsapi'
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body{id: yield(:body_id)}

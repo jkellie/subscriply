@@ -18,6 +18,7 @@
 //= require jquery.formance.min
 //= require jquery.pnotify.min
 //= require bootstrap
+//= require chartkick
 //= require ckeditor-jquery
 //= require select2
 //= require recurly
