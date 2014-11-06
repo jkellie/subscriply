@@ -22,6 +22,14 @@ class Organization::DashboardPresenter
     total_subscriptions.count
   end
 
+  def new_this_period_data
+    ({}).tap do |data|
+      (start_date.to_date..end_date.to_date).each do |day|
+        data[day.strftime('%Y/%m/%d')] = new_on_day(day)
+      end
+    end
+  end
+
   def new_this_period
     _subscriptions = subscriptions.between(start_date, end_date)
     _subscriptions = _subscriptions.where(plan_id: plan_id) if plan?
@@ -30,6 +38,14 @@ class Organization::DashboardPresenter
 
   def new_this_period_count
     new_this_period.count
+  end
+
+  def canceled_this_period_data
+    ({}).tap do |data|
+      (start_date.to_date..end_date.to_date).each do |day|
+        data[day.strftime('%Y/%m/%d')] = canceled_on_day(day)
+      end
+    end
   end
 
   def canceled_this_period
@@ -82,6 +98,14 @@ class Organization::DashboardPresenter
 
   def plan?
     @plan_id.present?
+  end
+
+  def new_on_day(day)
+    [new_this_period.where(start_date: day).count, 0].max
+  end
+
+  def canceled_on_day(day)
+    [canceled_this_period.where(start_date: day).count, 0].max
   end
 
 end
