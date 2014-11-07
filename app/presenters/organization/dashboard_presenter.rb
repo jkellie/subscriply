@@ -23,6 +23,14 @@ class Organization::DashboardPresenter
     total_subscriptions.count
   end
 
+  def total_subscriptions_data
+    ({}).tap do |data|
+      (start_date.to_date..end_date.to_date).each do |day|
+        data[day.strftime('%Y/%m/%d')] = total_on_day(day)
+      end
+    end
+  end
+
   def new_this_period_data
     ({}).tap do |data|
       (start_date.to_date..end_date.to_date).each do |day|
@@ -105,7 +113,17 @@ class Organization::DashboardPresenter
   end
 
   def canceled_on_day(day)
-    [canceled_this_period.where(start_date: day).count, 0].max
+    [canceled_this_period.where(canceled_on: day).count, 0].max
+  end
+
+  def total_on_day(day)
+    [subscription_total_record(day), 0].max
+  end
+
+  def subscription_total_record(day)
+    record = SubscriptionTotalRecord.where(organization: @organization, created_at: day)
+    record = record.where(plan_id: @plan_id) if plan?
+    record.first.try(:total).to_i
   end
 
 end

@@ -67,4 +67,5 @@ end
 
 group :staging, :production do
   gem 'font_assets'
+  gem 'clockwork'
 end
