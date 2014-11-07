@@ -58,7 +58,6 @@ group :production do
   gem 'rails_12factor'
   gem 'heroku-deflater'
   gem 'unicorn'
-  gem 'clockwork'
 end
 
 group :staging do
@@ -67,5 +66,4 @@ end
 
 group :staging, :production do
   gem 'font_assets'
-  gem 'clockwork'
 end
