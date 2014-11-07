@@ -12,10 +12,11 @@ class Organization::DashboardPresenter
     organization.plans.order('name ASC')
   end
 
-  def total_subscriptions
-    _subscriptions = subscriptions.active
-    _subscriptions = _subscriptions.where(plan_id: plan_id) if plan?
-    _subscriptions
+  def sales_this_period
+    _transactions = transactions.successful.charge
+    _transactions = _transactions.by_plan(plan_id) if plan?
+    _transactions = _transactions.between(start_date, end_date)
+    _transactions.sum(:amount_in_cents) / 100
   end
 
   def total_subscriptions_count
@@ -30,12 +31,6 @@ class Organization::DashboardPresenter
     end
   end
 
-  def new_this_period
-    _subscriptions = subscriptions.between(start_date, end_date)
-    _subscriptions = _subscriptions.where(plan_id: plan_id) if plan?
-    _subscriptions
-  end
-
   def new_this_period_count
     new_this_period.count
   end
@@ -48,21 +43,8 @@ class Organization::DashboardPresenter
     end
   end
 
-  def canceled_this_period
-    _subscriptions = subscriptions.canceled_between(start_date, end_date)
-    _subscriptions = _subscriptions.where(plan_id: plan_id) if plan?
-    _subscriptions
-  end
-
   def canceled_this_period_count
     canceled_this_period.count
-  end
-
-  def sales_this_period
-    _transactions = transactions.successful.charge
-    _transactions = _transactions.by_plan(plan_id) if plan?
-    _transactions = _transactions.between(start_date, end_date)
-    _transactions.sum(:amount_in_cents) / 100
   end
 
   def start_date_friendly
@@ -74,6 +56,10 @@ class Organization::DashboardPresenter
   end
 
   private
+
+  def plan?
+    @plan_id.present?
+  end
 
   def set_dates(dates)
     set_start_date(dates[:start_date])
@@ -96,8 +82,22 @@ class Organization::DashboardPresenter
     end
   end
 
-  def plan?
-    @plan_id.present?
+  def new_this_period
+    _subscriptions = subscriptions.between(start_date, end_date)
+    _subscriptions = _subscriptions.where(plan_id: plan_id) if plan?
+    _subscriptions
+  end
+
+  def canceled_this_period
+    _subscriptions = subscriptions.canceled_between(start_date, end_date)
+    _subscriptions = _subscriptions.where(plan_id: plan_id) if plan?
+    _subscriptions
+  end
+
+  def total_subscriptions
+    _subscriptions = subscriptions.active
+    _subscriptions = _subscriptions.where(plan_id: plan_id) if plan?
+    _subscriptions
   end
 
   def new_on_day(day)
