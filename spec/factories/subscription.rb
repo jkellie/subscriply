@@ -6,7 +6,6 @@ FactoryGirl.define do
     location
     uuid { SecureRandom.uuid }
 
-
     trait :active do
       state 'active'
     end
