@@ -1,15 +1,10 @@
 = content_for(:menubar) do
   Subscriply Dashboard
-  
+
+= render 'filter', dashboard_presenter: @dashboard_presenter
+
 #dashboard
-  .content-wrapper
-    = render 'filter', dashboard_presenter: @dashboard_presenter
-    = render 'metrics', dashboard_presenter: @dashboard_presenter
-    = render 'total_subscriptions', dashboard_presenter: @dashboard_presenter
-    .charts-half.clearfix
-      = render 'new_subscriptions', dashboard_presenter: @dashboard_presenter
-      = render 'canceled_subscriptions', dashboard_presenter: @dashboard_presenter
-      
+  = render 'dashboard', dashboard_presenter: @dashboard_presenter
 
 :javascript
   dashboard_ready = function(){
