@@ -86,7 +86,7 @@ class Organization::DashboardPresenter
     if end_date.present?
       @end_date = ActiveSupport::TimeWithZone.new(nil, Time.zone, DateTime.parse(end_date.to_s).at_end_of_day)
     else
-      @end_date = Time.zone.now.at_end_of_month
+      @end_date = Time.zone.now
     end
   end
 
