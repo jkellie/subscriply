@@ -29,8 +29,7 @@
             %li.dropdown
               %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "javascript:void(0);"} My Account
               %ul.dropdown-menu
-                %li
-                  %a{:href => "index.html"} Dashboard
+                %li= link_to 'Dashboard', root_path
                 %li
                   %a{:href => "profile.html"} Profile
                 %li
