@@ -14,4 +14,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
-//= require user/jquery.backstretch.min
+//= require recurly
+//= require jquery.ui.datepicker
+//= require jquery.pnotify.min

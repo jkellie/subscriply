@@ -25,6 +25,7 @@ class User < ActiveRecord::Base
   scope :w9, -> { where(w9: true) }
   
   validates :first_name, :last_name, presence: true
+  validates :terms_of_service, acceptance: { accept: 'yes' }
   validates :email, presence: true, uniqueness: { scope: :organization }
 
   state_machine initial: :open do

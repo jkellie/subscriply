@@ -1,0 +1,35 @@
+.row
+  .session-form.col-md-5.col-md-offset-3
+    %h3 Login to your account
+    %p.text-center
+      Not Signed Up Yet?
+      = link_to 'Click here', new_user_registration_path
+      to create your account.
+    %hr
+
+    = simple_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+      
+      .form-group
+        .input-group
+          %span.input-group-addon= icon 'user'
+          = f.input :email, as: :string, label: false, required: false, autofocus: true, input_html: {class: 'form-control', placeholder: 'Email'}
+      .form-group
+        .input-group
+          %span.input-group-addon= icon 'lock'
+          = f.input :password, as: :password, label: false, required: false, input_html: {class: 'form-control', placeholder: 'Password'}
+      .row
+        .col-md-7
+          .form-group.form-inline
+            = f.input :remember_me, as: :boolean, label: 'Stay Signed In', input_html: {class: 'form-control remember-me'} if devise_mapping.rememberable?
+        .col-md-5.text-right
+          .form-group
+            = f.button :submit, "Login", class: 'btn btn-primary'
+
+    %hr
+
+    %h4 Forgot your Password?
+
+    %p
+      No worries, 
+      = link_to 'Click here', new_user_password_path
+      to reset your password.

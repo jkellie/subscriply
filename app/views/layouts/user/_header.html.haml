@@ -1,0 +1,45 @@
+.header
+  .topbar
+    .container
+      %ul.loginbar.pull-right
+        %li
+          %a{:href => "page_faq.html"} Help
+        %li.topbar-devider
+        - if current_user
+          %li= link_to 'Logout', destroy_user_session_path, method: :delete
+        - else
+          %li= link_to 'Login', new_user_session_path
+
+  .navbar.navbar-default.mega-menu{:role => "navigation"}
+    .container
+      .navbar-header
+        %button.navbar-toggle{"data-target" => ".navbar-responsive-collapse", "data-toggle" => "collapse", :type => "button"}
+          %span.sr-only Toggle navigation
+          %span.fa.fa-bars
+        = link_to image_tag(current_organization.logo.url(:thumb), class: 'organization-logo', id: 'logo-header'), root_path, class: 'navbar-brand'
+
+      - if current_user
+        .collapse.navbar-collapse.navbar-responsive-collapse
+          %ul.nav.navbar-nav
+            %li.dropdown
+              %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "javascript:void(0);"} Products
+              %ul.dropdown-menu
+                %li
+                  %a{:href => "product_1.html"} Continuing Education
+                %li
+                  %a{:href => "product_2.html"} Mobile
+            %li.dropdown
+              %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "javascript:void(0);"} My Account
+              %ul.dropdown-menu
+                %li
+                  %a{:href => "index.html"} Dashboard
+                %li
+                  %a{:href => "profile.html"} Profile
+                %li
+                  %a{:href => "history.html"} History
+                %li
+                  %a{:href => "invoices.html"} Invoices
+                %li
+                  %a{:href => "billing.html"} Billing
+            %li.color-aqua
+              %a{:href => "faq.html"} FAQ

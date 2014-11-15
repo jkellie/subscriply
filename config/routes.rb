@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :organizers, controllers: {passwords: 'organization/passwords', registrations: 'organization/registrations', sessions: 'organization/sessions', invitations: 'organization/invitations'}
   devise_for :users, controllers: {registrations: 'user/registrations', sessions: 'user/sessions', passwords: 'user/passwords', invitations: 'organization/invitations'}
 
-  root 'user/products#index', constraints: { subdomain: /.+/ }
+  root 'user/dashboard#show', constraints: { subdomain: /.+/ }
 
   post 'notifications' => 'notifications#create', constraints: { subdomain: /.+/ }
   
