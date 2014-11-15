@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
   has_many :invoices
   has_many :transactions
 
+  mount_uploader :avatar, AvatarUploader
+
   store_accessor :billing_info, 
     :card_type, :last_four, :expiration
   

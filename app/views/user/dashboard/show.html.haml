@@ -1,1 +1,44 @@
-index.html.haml
+.profile.container.content
+  .row
+    = render '/user/shared/user_sidebar'
+    
+    .col-md-9
+      .profile-body
+        .row.margin-bottom-10
+          / show account alerts
+          = render 'alerts', dashboard_presenter: @dashboard_presenter
+
+          / list out all products, ordered by products with active plan first
+          .col-sm-6
+            .easy-block-v1
+              %img.img-responsive{:src => "assets/img/main/20.jpg"}
+
+            .projects
+              %h2 Continuing Education
+              %ul.list-unstyled.list-inline.blog-info-v2
+                %li
+                  Status:
+                  %span.label.label-success Active
+                %li
+                  Next Charge:
+                  %i.fa.fa-clock-o
+                  Jan 07, 2013
+              %p
+                %strong> Plan:
+                CEP Plus! - English &nbsp; &nbsp;
+                %a{:href => "subscription-edit.html"} edit
+          .col-sm-6
+            .easy-block-v1
+              %img.img-responsive{:src => "assets/img/main/18.jpg"}
+                
+            .projects
+              %h2 Mobile Apps
+              %ul.list-unstyled.list-inline.blog-info-v2
+                %li
+                  Status:
+                  %span.label.label-default None
+                %li Next Charge: N/A
+              %p
+                %strong> Plan:
+                None -
+                %a{:href => "subscription-new.html"} Subscribe Now!

@@ -1,0 +1,24 @@
+.col-md-3.md-margin-bottom-40
+  = image_tag current_user.avatar.url(:medium), class: 'img img-responsive profile-img margin-bottom-20'
+  %ul#sidebar-nav-1.list-group.sidebar-nav-v1.margin-bottom-40
+    %li.list-group-item.active
+      = link_to root_path do
+        = icon 'bar-chart-o'
+        Dashboard
+    %li.list-group-item
+      = link_to '#' do
+        = icon 'user'
+        Profile
+    %li.list-group-item
+      = link_to '#' do
+        = icon 'history'
+        History
+    %li.list-group-item
+      = link_to '#' do
+        = icon 'newspaper-o'
+        Invoices
+    %li.list-group-item
+      = link_to '#' do
+        = icon 'credit-card'
+        Billing info
+    .margin-bottom-50
