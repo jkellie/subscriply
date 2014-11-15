@@ -50,6 +50,13 @@ class User < ActiveRecord::Base
     [first_name, last_name].join ' '
   end
 
+  def active_subscription_for_product(product)
+    subscriptions.active.
+      joins("LEFT OUTER JOIN plans on plans.id = subscriptions.plan_id").
+      joins("LEFT OUTER JOIN products on products.id = plans.product_id").
+      where(["products.id = ?", product.id]).first
+  end
+
   private
 
   def accepted?

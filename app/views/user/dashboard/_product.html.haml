@@ -1,0 +1,19 @@
+.col-sm-6
+  .easy-block-v1
+    = image_tag product_presenter.image.url(:full), class: 'img img-responsive'
+
+  .projects
+    %h2 #{product_presenter.name}
+    %ul.list-unstyled.list-inline.blog-info-v2
+      %li
+        Status:
+        = product_presenter.status_label
+        
+      %li
+        Next Charge:
+        = icon 'clock'
+        = product_presenter.next_charge
+    %p
+      %strong Plan:
+      = product_presenter.plan_name
+      = product_presenter.subscription_link

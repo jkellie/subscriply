@@ -24,10 +24,8 @@
             %li.dropdown
               %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "javascript:void(0);"} Products
               %ul.dropdown-menu
-                %li
-                  %a{:href => "product_1.html"} Continuing Education
-                %li
-                  %a{:href => "product_2.html"} Mobile
+                - current_organization.products.each do |product|
+                  %li= link_to product.name, user_product_path(product)
             %li.dropdown
               %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "javascript:void(0);"} My Account
               %ul.dropdown-menu

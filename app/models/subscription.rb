@@ -2,6 +2,7 @@ class Subscription < ActiveRecord::Base
   belongs_to :organization
   belongs_to :user
   belongs_to :plan
+  has_one :product, through: :plan
   belongs_to :location
   has_many :transactions
 

@@ -6,4 +6,8 @@ class User::DashboardPresenter
     @user = options[:user]
   end
 
+  def products
+    user.organization.products
+  end
+
 end

@@ -55,5 +55,9 @@ Rails.application.routes.draw do
       put :update_billing_info, on: :member
     end
   end
+
+  namespace :user do
+    resources :products, only: [:show, :index]
+  end
   
 end
