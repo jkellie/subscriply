@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe Billing::Notification::NewInvoice, '.perform' do
   let!(:user) { FactoryGirl.create(:user) }
+  let!(:subscription) { FactoryGirl.create(:subscription, user: user)}
   let(:billing_invoice) { double('billing_invoice', 
     invoice_number: '1',
     total_in_cents: '100',
@@ -12,6 +13,7 @@ describe Billing::Notification::NewInvoice, '.perform' do
 
   before do
     Billing::Invoice.stub('invoice_on_billing').and_return(billing_invoice)
+    Billing::Notification::NewInvoice.any_instance.stub(:subscription).and_return(subscription)
   end
 
   subject do
@@ -29,6 +31,8 @@ describe Billing::Notification::NewInvoice, '.perform' do
     expect(invoice.number).to eq(1)
     expect(invoice.total_in_cents).to eq(100)
     expect(invoice.state).to eq('open')
+    expect(invoice.subscription).to eq(subscription)
   end
+
 
 end

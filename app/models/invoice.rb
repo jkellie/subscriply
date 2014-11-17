@@ -1,5 +1,6 @@
 class Invoice < ActiveRecord::Base
   belongs_to :user
+  belongs_to :subscription
 
   validates :number, uniqueness: { scope: :user_id }
 

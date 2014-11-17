@@ -1,6 +1,6 @@
 %tr
   %td #{invoice.number}
-  %td.hidden-sm CEP Plus! - English
+  %td.hidden-sm #{invoice.subscription.try(:plan)}
   %td.hidden-sm #{invoice.created_at.strftime('%m/%d/%Y')}
   %td #{number_to_currency(invoice.price)}
   %td #{invoice.state.try(:titleize)}
