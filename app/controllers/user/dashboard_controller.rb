@@ -1,5 +1,5 @@
 class User::DashboardController < User::BaseController
-  before_action :authenticate_user!
+  # before_action :authenticate_user!
   layout 'splash'
 
   def show
