@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141115175151) do
+ActiveRecord::Schema.define(version: 20141117165709) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,7 +99,6 @@ ActiveRecord::Schema.define(version: 20141115175151) do
     t.text     "avatar"
   end
 
-  add_index "organizers", ["email"], name: "index_organizers_on_email", unique: true, using: :btree
   add_index "organizers", ["invitation_token"], name: "index_organizers_on_invitation_token", unique: true, using: :btree
   add_index "organizers", ["invitations_count"], name: "index_organizers_on_invitations_count", using: :btree
   add_index "organizers", ["invited_by_id"], name: "index_organizers_on_invited_by_id", using: :btree
@@ -205,7 +204,6 @@ ActiveRecord::Schema.define(version: 20141115175151) do
     t.text     "avatar"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
   add_index "users", ["invitations_count"], name: "index_users_on_invitations_count", using: :btree
   add_index "users", ["invited_by_id"], name: "index_users_on_invited_by_id", using: :btree

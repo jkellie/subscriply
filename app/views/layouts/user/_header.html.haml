@@ -16,7 +16,7 @@
         %button.navbar-toggle{"data-target" => ".navbar-responsive-collapse", "data-toggle" => "collapse", :type => "button"}
           %span.sr-only Toggle navigation
           %span.fa.fa-bars
-        = link_to image_tag(current_organization.logo.url(:thumb), class: 'organization-logo', id: 'logo-header'), root_path, class: 'navbar-brand'
+        = link_to image_tag(current_organization.logo.url(:thumb), class: 'organization-logo', id: 'logo-header'), root_path, class: 'navbar-brand' if current_organization.logo?
 
       - if current_user
         .collapse.navbar-collapse.navbar-responsive-collapse
