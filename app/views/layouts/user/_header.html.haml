@@ -33,8 +33,7 @@
                 %li= link_to 'Profile', edit_user_registration_path
                 %li
                   %a{:href => "history.html"} History
-                %li
-                  %a{:href => "invoices.html"} Invoices
+                %li= link_to 'Invoices', user_invoices_path
                 %li
                   %a{:href => "billing.html"} Billing
             %li.color-aqua
