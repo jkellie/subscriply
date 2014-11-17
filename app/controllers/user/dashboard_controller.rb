@@ -3,6 +3,7 @@ class User::DashboardController < User::BaseController
   layout 'splash'
 
   def show
-    @dashboard_presenter = User::DashboardPresenter.new(user: current_user)
+    render 'splash'
+    #@dashboard_presenter = User::DashboardPresenter.new(user: current_user)
   end
 end
