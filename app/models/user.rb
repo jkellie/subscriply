@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
 
   has_many :notes
   has_many :subscriptions
+  has_many :plans, through: :subscriptions
+  has_many :products, through: :plans
   has_many :invoices
   has_many :transactions
 

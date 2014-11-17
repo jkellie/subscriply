@@ -5,7 +5,8 @@
     .col-md-9
       .profile-body
         .row.margin-bottom-10
-          / show account alerts
           = render 'alerts', dashboard_presenter: @dashboard_presenter
+          
           - @dashboard_presenter.products.each do |product|
             = render 'product', product_presenter: User::ProductPresenter.new(product: product, user: current_user)
+
