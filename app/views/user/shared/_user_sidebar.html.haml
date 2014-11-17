@@ -13,8 +13,8 @@
       = link_to '#' do
         = icon 'history'
         History
-    %li.list-group-item
-      = link_to '#' do
+    %li.list-group-item{class: "#{nav == 'invoices' && 'active'}"}
+      = link_to user_invoices_path do
         = icon 'newspaper-o'
         Invoices
     %li.list-group-item

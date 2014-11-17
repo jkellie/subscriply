@@ -1,0 +1,7 @@
+%tr
+  %td #{invoice.number}
+  %td.hidden-sm CEP Plus! - English
+  %td.hidden-sm #{invoice.created_at.strftime('%m/%d/%Y')}
+  %td #{number_to_currency(invoice.price)}
+  %td #{invoice.state.try(:titleize)}
+  %td= link_to 'View', user_invoice_path(invoice, format: :pdf), target: '_blank'

@@ -58,6 +58,7 @@ Rails.application.routes.draw do
 
   namespace :user do
     resources :products, only: [:show, :index]
+    resources :invoices, only: [:show, :index]
   end
   
 end

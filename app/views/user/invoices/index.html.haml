@@ -1,0 +1,20 @@
+.profile.container.content
+  .row
+    = render '/user/shared/user_sidebar', nav: 'invoices'
+    
+    .col-md-9
+      .profile-body
+        .table-search-v1.margin-bottom-20
+          .table-responsive
+            %table.table.table-hover
+              %thead
+                %tr
+                  %th Invoice#
+                  %th.hidden-sm Description
+                  %th.hidden-sm Billed On
+                  %th Amount
+                  %th Status
+                  %th
+              %tbody
+                = render partial: 'invoice', collection: @invoices
+                
