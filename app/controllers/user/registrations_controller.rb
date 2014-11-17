@@ -15,7 +15,9 @@ class User::RegistrationsController < Devise::RegistrationsController
     end
     
     devise_parameter_sanitizer.for(:account_update) do |u|
-      u.permit(:first_name, :last_name, :email, :password, :password_confirmation, :current_password)
+      u.permit(:member_number, :avatar, :first_name, :last_name, :email,
+       :street_address, :street_address_2, :city, :state_code, :zip,
+       :phone_number, :password, :password_confirmation, :current_password)
     end
   end
 

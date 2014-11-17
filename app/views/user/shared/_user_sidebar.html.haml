@@ -1,12 +1,12 @@
 .col-md-3.md-margin-bottom-40
   = image_tag current_user.avatar.url(:medium), class: 'img img-responsive profile-img margin-bottom-20'
   %ul#sidebar-nav-1.list-group.sidebar-nav-v1.margin-bottom-40
-    %li.list-group-item.active
+    %li.list-group-item{class: "#{nav == 'dashboard' && 'active'}"}
       = link_to root_path do
         = icon 'bar-chart-o'
         Dashboard
-    %li.list-group-item
-      = link_to '#' do
+    %li.list-group-item{class: "#{nav == 'profile' && 'active'}"}
+      = link_to edit_user_registration_path do
         = icon 'user'
         Profile
     %li.list-group-item

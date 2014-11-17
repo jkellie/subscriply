@@ -17,3 +17,4 @@
 //= require recurly
 //= require jquery.ui.datepicker
 //= require jquery.pnotify.min
+//= require_tree ./user

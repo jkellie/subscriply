@@ -1,18 +1,68 @@
-%h2
-  Edit #{resource_name.to_s.humanize}
-= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f|
-  = f.error_notification
-  .form-inputs
-    = f.input :email, :required => true, :autofocus => true
-    - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-      %p
-        Currently waiting confirmation for: #{resource.unconfirmed_email}
-    = f.input :password, :autocomplete => "off", :hint => "leave it blank if you don't want to change it", :required => false
-    = f.input :password_confirmation, :required => false
-    = f.input :current_password, :hint => "we need your current password to confirm your changes", :required => true
-  .form-actions
-    = f.button :submit, "Update"
-%h3 Cancel my account
-%p
-  Unhappy? #{link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete}
-= link_to "Back", :back
+.profile.container.content
+  .row
+    = render '/user/shared/user_sidebar', nav: 'profile'
+    
+    .col-md-9
+      .profile-body
+        = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+          = f.error_notification
+
+          .row.margin-bottom-10
+            .col-sm-6
+              .row
+                .col-sm-6
+                  #user_avatar_progress_bar
+                  = image_tag current_user.avatar.url(:medium), class: 'img img-responsive profile-img margin-bottom-20 user-avatar'
+                .col-sm-6
+                  = f.input :avatar, as: :file, label: 'Edit your profile picture', input_html: { class: 'form-control' }
+          
+          .row.margin-bottom-10
+            .col-sm-6
+              = f.input :member_number, label: 'Member #', placeholder: '123456', required: true, input_html: { class: 'form-control'}
+            
+          .row.margin-bottom-10
+            .col-sm-6
+              = f.input :first_name, required: true, input_html: { class: 'form-control' }
+            .col-sm-6
+              = f.input :last_name, required: true, input_html: { class: 'form-control' }
+          .row.margin-bottom-10
+            .col-sm-6
+              = f.input :email, required: true, input_html: { class: 'form-control' }
+          .row.margin-bottom-10
+            .col-sm-6
+              = f.input :phone_number, required: true, required: true, input_html: { class: 'form-control' }
+          .row{:style => "margin-top: 30px"}
+            .col-sm-6
+              = f.input :street_address, label: 'Shipping Address (USA Only)', required: false, input_html: { class: 'form-control' }, placeholder: 'Street Address'
+          .row{:style => "margin-top: 15px"}
+            .col-sm-6
+              = f.input :street_address_2, label: false, required: false, input_html: { class: 'form-control' }, placeholder: 'Apt/Suite'
+          .row{:style => "margin-top: 15px"}
+            .col-sm-6
+              .row
+                .col-sm-6
+                  = f.input :city, label: false, required: false, input_html: { class: 'form-control' }, placeholder: 'City'
+                .col-sm-3
+                  = f.input :state_code, label: false, required: false, input_html: { class: 'form-control' }, placeholder: 'State'
+                .col-sm-3
+                  = f.input :zip, label: false, required: false, input_html: { class: 'form-control' }, placeholder: 'Zip'
+          .row{style: 'margin-top: 20px'}
+            .col-sm-6
+              = f.input :password, label: 'Change Password', autocomplete: 'off', hint: "leave it blank if you don't want to change it", required: false, input_html: { class: 'form-control' }
+            .col-sm-6
+              = f.input :password_confirmation, label: 'Change Password Confirmation', hint: "leave it blank if you don't want to change it", required: false, input_html: { class: 'form-control' }
+          .row{style: 'margin-top: 20px'}
+            .col-sm-6
+              = f.input :current_password, hint: "we need your current password to confirm your changes", required: true, input_html: { class: 'form-control' }
+          %br
+            .col-4-sm{:style => "margin-top: 30px"}
+              %a.btn.btn-default{:href => "user.html", :style => "margin-right: 5px", :type => "button"} Cancel
+              %button.btn.btn-primary{:style => "margin-left: 5px", :type => "submit"} Save Changes
+
+:javascript
+  edit_registration_ready = function(){
+    EditRegistration.init();
+  }
+
+  $(document).ready(edit_registration_ready);
+  $(document).on('page:load', edit_registration_ready);
