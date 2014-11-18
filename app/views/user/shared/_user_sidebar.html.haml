@@ -9,7 +9,7 @@
       = link_to edit_user_registration_path do
         = icon 'user'
         Profile
-    %li.list-group-item
+    %li.list-group-item{class: "#{nav == 'history' && 'active'}"}
       = link_to '#' do
         = icon 'history'
         History
@@ -17,8 +17,8 @@
       = link_to user_invoices_path do
         = icon 'newspaper-o'
         Invoices
-    %li.list-group-item
-      = link_to '#' do
+    %li.list-group-item{class: "#{nav == 'billing' && 'active'}"}
+      = link_to edit_user_billing_info_path do
         = icon 'credit-card'
         Billing info
     .margin-bottom-50

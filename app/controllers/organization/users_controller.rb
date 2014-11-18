@@ -1,6 +1,7 @@
 class Organization::UsersController < Organization::BaseController
   before_action :authenticate_organizer!
-
+  before_action :find_user, only: [:show, :edit, :update, :edit_billing_info, :update_billing_info]
+  
   respond_to :html, :json, :csv
 
   def index
@@ -38,18 +39,15 @@ class Organization::UsersController < Organization::BaseController
   end
 
   def show
-    @user_presenter = Organization::UserPresenter.new(User.find(params[:id]))
+    @user_presenter = Organization::UserPresenter.new(@user)
     @note = Note.new(user: @user_presenter.user)
   end
 
   def edit
-    @user = current_organization.users.find(params[:id])
     @sales_reps = current_organization.users.is_sales_rep.order('first_name ASC')
   end
 
   def update
-    @user = current_organization.users.find(params[:id])
-
     if @user.update_attributes(user_params)
       flash[:notice] = 'User Info Saved!'
       redirect_to organization_user_path(@user)
@@ -72,13 +70,10 @@ class Organization::UsersController < Organization::BaseController
   end
 
   def edit_billing_info
-    @user = current_organization.users.find(params[:id])
   end
 
   def update_billing_info
-    @user = current_organization.users.find(params[:id])
-
-    if update_remote_and_cached_billing_info(@user, params[:recurly_token])
+    if UserBillingInfoUpdater.new(@user).update(params[:recurly_token])
       flash[:notice] = 'Billing Info Saved!'
       redirect_to organization_user_path(@user)
     else
@@ -89,8 +84,8 @@ class Organization::UsersController < Organization::BaseController
 
   private
 
-  def update_remote_and_cached_billing_info(user, token)
-    Billing::User.update_billing_info(user, token) && Billing::User.update_cached_billing_info(user)
+  def find_user
+    @user = current_organization.users.find(params[:id])
   end
 
   def user_invite_params

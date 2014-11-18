@@ -31,17 +31,6 @@ module Billing::User
     billing_info(user).update_attributes(token_id: token)
   end
 
-  def self.update_cached_billing_info(user)
-    billing_info = billing_info(user)
-    
-    # TODO: Move into service object UserBillingInfoUpdater
-    user.update_attributes(
-      card_type: billing_info.card_type,
-      last_four: billing_info.last_four, 
-      expiration: "#{billing_info.month} / #{billing_info.year}"
-    )
-  end
-
   def self.billing_info(user)
     account_on_billing(user).billing_info
   end

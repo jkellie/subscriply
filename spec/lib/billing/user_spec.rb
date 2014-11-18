@@ -95,27 +95,3 @@ describe Billing::User, '.update_billing_info' do
     subject
   end
 end
-
-describe Billing::User, '.update_cached_billing_info(user)' do
-  let!(:user) { FactoryGirl.create(:user, first_name: 'Test', last_name: 'User', email: 'test@user.com') }
-  let(:recurly_account) { double('Recurly::Account') }
-  let(:billing_info) { double(card_type: 'Visa', last_four: '1111', month: '1', year: '2015') }
-
-  before do
-    Billing::User.stub(:billing_info).and_return(billing_info)
-    user.should_receive(:update_attributes).with(
-      {
-        card_type: "Visa", 
-        last_four: "1111", expiration: "1 / 2015"
-      }
-    )
-  end
-
-  subject do
-    Billing::User.update_cached_billing_info(user)
-  end
-
-  it "calls recurly to find the user" do
-    subject
-  end
-end

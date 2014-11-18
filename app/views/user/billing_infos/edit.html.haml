@@ -1,0 +1,22 @@
+.profile.container.content
+  .row
+    = render '/user/shared/user_sidebar', nav: 'billing'
+    
+    .col-md-6
+      .profile-body
+        = render 'form'
+    .col-md-3
+      .well
+        %h3 Current Billing Info
+        %p
+          #{current_user.card_type} ending in #{current_user.last_four}
+          %br
+          Expires #{current_user.expiration}
+
+:javascript
+  var user_edit_billing_info_ready = function () {
+    BillingInfo.init('#{current_organization.recurly_public_key}');
+  }
+
+  $(document).on("page:load", user_edit_billing_info_ready);
+  $(document).ready(user_edit_billing_info_ready);

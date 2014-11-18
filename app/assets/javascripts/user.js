@@ -13,8 +13,9 @@
 
 //= require jquery
 //= require jquery_ujs
+//= require jquery.ui.datepicker
+//= require jquery.formance.min
+//= require jquery.pnotify.min
 //= require bootstrap
 //= require recurly
-//= require jquery.ui.datepicker
-//= require jquery.pnotify.min
 //= require_tree ./user
