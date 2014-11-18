@@ -24,5 +24,6 @@
 //= require recurly
 //= require sweetalert.min
 //= require ss
+//= require billing_info
 //= require_tree ./organization
 //= require_tree ./ckeditor

@@ -64,7 +64,7 @@
 
 :javascript
   var organization_edit_billing_info_ready = function () {
-    OrganizationBillingInfo.init('#{current_organization.recurly_public_key}');
+    BillingInfo.init('#{current_organization.recurly_public_key}');
   }
 
   $(document).on("page:load", organization_edit_billing_info_ready);

@@ -18,4 +18,5 @@
 //= require jquery.pnotify.min
 //= require bootstrap
 //= require recurly
+//= require billing_info
 //= require_tree ./user

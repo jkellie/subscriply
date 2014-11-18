@@ -56,4 +56,4 @@
       .row
         .col-md-12{:style => "margin-top: 30px"}
           = link_to 'Cancel', root_path, class: 'btn btn-default', style: 'margin-right: 5px'
-          %button.btn.btn-primary{:style => "margin-left: 5px", :type => "submit"} Save Changes
+          %button.btn.btn-primary{:style => "margin-left: 5px", :type => "submit", 'data-disable-with' => 'Saving...'} Save Changes
