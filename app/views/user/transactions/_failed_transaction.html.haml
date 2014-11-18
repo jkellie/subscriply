@@ -1,0 +1,10 @@
+%time.cbp_tmtime{:datetime => ""}
+  %span #{transaction.created_at.strftime('%m/%d/%Y')}
+  %span.error #{number_to_currency(transaction.price)} Payment Error
+%i.cbp_tmicon.rounded-x.hidden-xs
+.cbp_tmlabel
+  %h2.error #{transaction.subscription.product.name}
+  .row
+    .col-md-12
+      %p.error
+        We had trouble processing payment for your #{transaction.subscription.plan} Subscription. We will try again in a few days. If you need to update your billing information please do so now.

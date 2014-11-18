@@ -1,0 +1,8 @@
+%li.transaction
+  - if transaction.charge?
+    - if transaction.success?
+      = render 'successful_transaction', transaction: transaction
+    - else
+      = render 'failed_transaction', transaction: transaction
+  - elsif transaction.refund?
+    = render 'refund', transaction: transaction

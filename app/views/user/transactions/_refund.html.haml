@@ -1,0 +1,9 @@
+%time.cbp_tmtime{:datetime => ""}
+  %span #{transaction.created_at.strftime('%m/%d/%Y')}
+  %span #{number_to_currency(transaction.price)} Refund
+%i.cbp_tmicon.rounded-x.hidden-xs
+.cbp_tmlabel
+  %h2 #{transaction.subscription.product.name}
+  .row
+    .col-md-12
+      Refund for #{transaction.subscription.plan}

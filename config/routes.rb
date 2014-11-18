@@ -50,16 +50,17 @@ Rails.application.routes.draw do
 
     resources :users do
       resources :credits, only: [:new, :create]
-      resources :notes
+      resources :notes, only: :create
       get :edit_billing_info, on: :member
       put :update_billing_info, on: :member
     end
   end
 
   namespace :user do
-    resources :products, only: [:show, :index]
-    resources :invoices, only: [:show, :index]
     resource :billing_info, only: [:edit, :update]
+    resources :invoices, only: [:show, :index]
+    resources :products, only: [:show, :index]
+    resources :transactions, only: :index
   end
   
 end

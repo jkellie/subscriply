@@ -1,0 +1,11 @@
+.profile.container.content
+  .row
+    = render '/user/shared/user_sidebar', nav: 'history'
+    
+    .col-md-9
+      .profile-body
+        .timeline-v2
+          = render partial: 'transaction', collection: @transactions
+
+        %center
+          = paginate @transactions

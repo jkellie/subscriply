@@ -35,4 +35,8 @@ class Transaction < ActiveRecord::Base
     self.transaction_type == 'refund'
   end
 
+  def success?
+    self.state == 'success'
+  end
+
 end

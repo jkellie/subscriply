@@ -10,7 +10,7 @@
         = icon 'user'
         Profile
     %li.list-group-item{class: "#{nav == 'history' && 'active'}"}
-      = link_to '#' do
+      = link_to user_transactions_path do
         = icon 'history'
         History
     %li.list-group-item{class: "#{nav == 'invoices' && 'active'}"}
