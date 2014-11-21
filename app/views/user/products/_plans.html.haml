@@ -1,0 +1,8 @@
+.row.margin-bottom-40.pricing-medium-light
+  - if plans.any?
+    - plans.each do |plan|
+      = render 'plan', plan: User::PlanPresenter.new(plan)
+  - else
+    .row
+      .col-md-12
+        %h2 There are no plans for this product yet.

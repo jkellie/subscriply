@@ -1,0 +1,37 @@
+.col-md-4.col-sm-6
+  .pricing.hover-effect
+    .pricing-head
+      %h3
+        #{plan.to_s}
+        %span #{plan.subtitle}
+    
+    %ul.pricing-content.list-unstyled
+      %li
+      %li
+        %i.fa.fa-truck
+        Free Shipping
+        %span
+      %li
+        %i.fa.fa-microphone>
+        \&nbsp; 4 Audio CDs
+        %span
+      %li
+        %i.fa.fa-globe
+        1 Book of the Month
+      %li
+        %i.fa.fa-cloud-download
+        Mobile App Access
+    
+    .pricing-footer
+      %h4
+        %i> $
+        #{plan.amount.to_i}
+        %i>.#{plan.cents}
+        %span #{plan.charge_every}
+      
+      %p #{plan.description}
+      
+      - if plan.subscribed?(current_user)
+        = link_to 'Cancel Subscription', '#', class: 'btn-danger btn-lg btn-block btn'
+      - else
+        = link_to 'Subscribe Now', '#', class: 'btn-success btn-lg btn-block btn' 

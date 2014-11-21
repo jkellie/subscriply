@@ -1,0 +1,7 @@
+.row.margin-bottom-10
+  .col-sm-5
+    = image_tag product.image.url(:full), class: 'img img-responsive'
+  .col-sm-7
+    %h3 #{product.name}
+    %p 
+      = raw product.description

@@ -2,6 +2,10 @@ class Plan < ActiveRecord::Base
   belongs_to :organization
   belongs_to :product
 
+  def subscribed?(user)
+    user.subscriptions.active.where(plan_id: self.id).any?
+  end
+
   def permalink
     "#{product.prepend_code}_#{self.code}"
   end
