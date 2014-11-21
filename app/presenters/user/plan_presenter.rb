@@ -2,7 +2,7 @@ class User::PlanPresenter
   include ActionView::Helpers::UrlHelper
   attr_reader :plan, :user
 
-  delegate :amount, :description, :to_s, :subtitle, :subscribed?, to: :plan
+  delegate :amount, :description, :name, :subtitle, :subscribed?, to: :plan
 
   def initialize(options)
     @plan = options[:plan]
