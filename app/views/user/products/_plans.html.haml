@@ -1,7 +1,7 @@
 .row.margin-bottom-40.pricing-medium-light
   - if plans.any?
     - plans.each do |plan|
-      = render 'plan', plan: User::PlanPresenter.new(plan)
+      = render 'plan', plan: User::PlanPresenter.new(plan: plan, user: current_user)
   - else
     .row
       .col-md-12

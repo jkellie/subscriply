@@ -30,8 +30,7 @@
         %span #{plan.charge_every}
       
       %p #{plan.description}
+
+      = plan.subscribe_button
       
-      - if plan.subscribed?(current_user)
-        = link_to 'Cancel Subscription', '#', class: 'btn-danger btn-lg btn-block btn'
-      - else
-        = link_to 'Subscribe Now', '#', class: 'btn-success btn-lg btn-block btn' 
+      

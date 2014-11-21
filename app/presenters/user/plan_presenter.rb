@@ -1,10 +1,12 @@
 class User::PlanPresenter
-  attr_reader :plan
+  include ActionView::Helpers::UrlHelper
+  attr_reader :plan, :user
 
   delegate :amount, :description, :to_s, :subtitle, :subscribed?, to: :plan
 
-  def initialize(plan)
-    @plan = plan
+  def initialize(options)
+    @plan = options[:plan]
+    @user = options[:user]
   end
 
   def cents
@@ -18,4 +20,13 @@ class User::PlanPresenter
     return 'Per Year' if plan.charge_every.to_i == 12
     "Per #{plan.charge_every} Months"
   end
+
+  def subscribe_button
+    if subscribed?(user)
+      link_to 'Cancel Subscription', '#', class: 'btn-danger btn-lg btn-block btn'
+    else
+      link_to 'Subscribe Now', '#', class: 'btn-success btn-lg btn-block btn' 
+    end
+  end
+
 end

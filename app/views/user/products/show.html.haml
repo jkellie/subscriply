@@ -4,5 +4,5 @@
 
     .col-md-9
       .profile-body
-        = render 'basic_info', product: @product
-        = render 'plans', plans: @product.plans
+        = render 'basic_info', product: @product_presenter.product
+        = render 'plans', plans: @product_presenter.plans
