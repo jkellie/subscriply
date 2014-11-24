@@ -1,6 +1,6 @@
 .col-sm-6
   .easy-block-v1
-    = image_tag product_presenter.image.url(:full), class: 'img img-responsive'
+    = link_to image_tag(product_presenter.image.url(:full), class: 'img img-responsive'), user_product_path(product_presenter.product)
 
   .projects
     %h2 #{product_presenter.name}

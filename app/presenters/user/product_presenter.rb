@@ -3,11 +3,15 @@ class User::ProductPresenter
   include ActionView::Helpers::TagHelper
   include ActionView::Helpers::UrlHelper
   attr_reader :user, :product
-  delegate :name, :image, :plans, to: :product
+  delegate :name, :image, to: :product
   
   def initialize(options)
     @user = options[:user]
     @product = options[:product]
+  end
+
+  def plans
+    product.plans.order('amount')
   end
 
   def status_label
