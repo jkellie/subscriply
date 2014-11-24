@@ -8,10 +8,13 @@
     .col-md-3
       .well
         %h3 Current Billing Info
-        %p
-          #{current_user.card_type} ending in #{current_user.last_four}
-          %br
-          Expires #{current_user.expiration}
+        - if current_user.billing_info?
+          %p
+            #{current_user.card_type} ending in #{current_user.last_four}
+            %br
+            Expires #{current_user.expiration}
+        - else
+          %p None on file.
 
 :javascript
   var user_edit_billing_info_ready = function () {

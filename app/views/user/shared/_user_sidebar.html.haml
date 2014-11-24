@@ -18,8 +18,9 @@
       = link_to user_invoices_path do
         = icon 'newspaper-o'
         Invoices
-    %li.list-group-item{class: "#{nav == 'billing' && 'active'}"}
-      = link_to edit_user_billing_info_path do
-        = icon 'credit-card'
-        Billing info
+    - if current_user.billing_info?
+      %li.list-group-item{class: "#{nav == 'billing' && 'active'}"}
+        = link_to edit_user_billing_info_path do
+          = icon 'credit-card'
+          Billing info
     .margin-bottom-50

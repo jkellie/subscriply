@@ -33,6 +33,6 @@
                 %li= link_to 'Profile', edit_user_registration_path
                 %li= link_to 'Transactions', user_transactions_path
                 %li= link_to 'Invoices', user_invoices_path
-                %li= link_to 'Billing', edit_user_billing_info_path
+                %li= link_to 'Billing', edit_user_billing_info_path if current_user.billing_info?
             %li.color-aqua
               %a{:href => "faq.html"} FAQ
