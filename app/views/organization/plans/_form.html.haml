@@ -39,6 +39,17 @@
 
 .row{:style => "margin-top: 15px"}
   .col-sm-4
+    %label Bulletpoints
+    #bulletpoints
+      = f.simple_fields_for :bulletpoints do |bulletpoint|
+        = render 'bulletpoint_fields', f: bulletpoint
+      .links
+        = link_to_add_association 'add bulletpoint', f, :bulletpoints
+  .col-sm-8
+    %p Bulletpoints for the plan to be shown to the user on the product info page.
+
+.row{:style => "margin-top: 15px"}
+  .col-sm-4
     = f.input :description, input_html: { class: 'form-control' }
   .col-sm-8
     %p{:style => "margin-top: 15px"} Write a short overview of the plan details for the subscripiton sign up page.

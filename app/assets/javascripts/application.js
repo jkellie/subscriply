@@ -20,9 +20,12 @@
 //= require bootstrap
 //= require chartkick
 //= require ckeditor-jquery
+//= require cocoon
 //= require select2
 //= require recurly
 //= require sweetalert.min
+//= require iconset-fontawesome-4.2.0.min
+//= require bootstrap-iconpicker.min
 //= require ss
 //= require billing_info
 //= require_tree ./organization

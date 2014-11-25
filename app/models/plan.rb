@@ -1,6 +1,8 @@
 class Plan < ActiveRecord::Base
   belongs_to :organization
   belongs_to :product
+  has_many :bulletpoints
+  accepts_nested_attributes_for :bulletpoints, reject_if: :all_blank, allow_destroy: true
 
   def subscribed?(user)
     user.subscriptions.active.where(plan_id: self.id).any?

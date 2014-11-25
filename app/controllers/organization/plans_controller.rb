@@ -71,6 +71,7 @@ class Organization::PlansController < Organization::BaseController
 
   def plan_params
     params.require(:plan).permit(:name, :product_id, :code, :plan_type, :description, 
-      :send_renewal_reminders, :amount, :charge_every, :free_trial_length).merge(organization_id: current_organization.id)
+      :send_renewal_reminders, :amount, :charge_every, :free_trial_length, 
+      bulletpoints_attributes: [:id, :icon, :title, :_destroy]).merge(organization_id: current_organization.id)
   end
 end

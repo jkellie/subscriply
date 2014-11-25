@@ -1,7 +1,17 @@
 OrganizationPlans = 
 
   init: ->
+    @_initIconPickers()
     @_initProductSelect()
+
+  _initIconPickers: ->
+    $('.iconpicker').iconpicker {}
+
+    $(document).on 'cocoon:after-insert', (e, insertedItem) ->
+      $('.iconpicker').iconpicker {}
+
+    $(document).on 'change', '.iconpicker', (e) ->
+      $(this).parents('.iconpicker-wrap').find('.bulletpoint-icon').val(e.icon)
 
   _initProductSelect: ->
     $(document).on 'change', '#plan_product_id', (e) ->

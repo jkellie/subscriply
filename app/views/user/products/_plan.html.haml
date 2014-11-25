@@ -6,22 +6,8 @@
         %span #{plan.subtitle}
     
     %ul.pricing-content.list-unstyled
-      %li
-      %li
-        %i.fa.fa-truck
-        Free Shipping
-        %span
-      %li
-        %i.fa.fa-microphone>
-        \&nbsp; 4 Audio CDs
-        %span
-      %li
-        %i.fa.fa-globe
-        1 Book of the Month
-      %li
-        %i.fa.fa-cloud-download
-        Mobile App Access
-    
+      = render partial: 'bulletpoint', collection: plan.bulletpoints, as: :bulletpoint
+
     .pricing-footer
       %h4
         %i> $
