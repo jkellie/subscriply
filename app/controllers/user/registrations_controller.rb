@@ -3,7 +3,16 @@ class User::RegistrationsController < Devise::RegistrationsController
   layout 'user'
   before_filter :update_sanitized_params
 
+  def create
+    super
+    create_on_billing
+  end
+
   protected
+
+  def create_on_billing
+    Billing::User.create(resource.reload)
+  end
 
   def after_sign_up_path_for(resource)
     '/'
