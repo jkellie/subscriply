@@ -1,7 +1,7 @@
 class Organization::PlansController < Organization::BaseController
   before_action :find_plans, only: [:index]
   before_action :find_plan, only: [:edit, :update, :destroy]
-  before_action :find_products, only: [:edit, :new, :create]
+  before_action :find_products, only: [:edit, :new, :create, :update]
 
   respond_to :html, :json
 
@@ -38,7 +38,7 @@ class Organization::PlansController < Organization::BaseController
       flash[:info] = 'Plan updated'
       redirect_to organization_plans_path
     else
-      flash.now[:danger] = 'Error Updating Plan'
+      flash.now[:danger] = "Error Creating Plan: #{@plan.errors.full_messages.to_sentence}"
       render 'edit'
     end
   end

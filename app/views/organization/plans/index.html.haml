@@ -24,7 +24,7 @@
                 %td= link_to plan.name, edit_organization_plan_path(plan)
                 %td #{plan.permalink}
                 %td #{number_to_currency(plan.amount)}
-                %td #{plan.plan_type}
+                %td #{plan.plan_type.titleize}
                 %td #{plan.trial?}
                 %td
                   - if plan.deletable?

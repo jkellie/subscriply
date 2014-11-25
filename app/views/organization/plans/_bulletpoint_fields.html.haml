@@ -4,7 +4,7 @@
       %button.btn.btn-default.iconpicker{role: 'iconpicker', data: {iconset: 'fontawesome', icon: f.object.icon}}
       = f.input :icon, as: :hidden, value: f.object.icon, input_html: { class: 'bulletpoint-icon' }
     .col-md-6
-      = f.input :title, placeholder: 'Text', label: false, input_html: { class: 'form-control' }
+      = f.input :title, placeholder: 'Text', label: false, input_html: { class: 'form-control', style: 'width: 95px' }
     .col-md-2
       = link_to_remove_association f do
         = icon 'trash'
