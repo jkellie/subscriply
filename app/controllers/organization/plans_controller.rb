@@ -1,7 +1,7 @@
 class Organization::PlansController < Organization::BaseController
   before_action :find_plans, only: [:index]
   before_action :find_plan, only: [:edit, :update, :destroy]
-  before_action :find_products, only: [:edit, :new]
+  before_action :find_products, only: [:edit, :new, :create]
 
   respond_to :html, :json
 
@@ -28,7 +28,7 @@ class Organization::PlansController < Organization::BaseController
       flash[:info] = 'Plan created'
       redirect_to organization_plans_path
     else
-      flash.now[:danger] = 'Error Creating Plan'
+      flash.now[:danger] = "Error Creating Plan: #{@plan.errors.full_messages.to_sentence}"
       render 'new'
     end
   end
@@ -71,7 +71,7 @@ class Organization::PlansController < Organization::BaseController
 
   def plan_params
     params.require(:plan).permit(:name, :product_id, :code, :plan_type, :description, 
-      :send_renewal_reminders, :amount, :charge_every, :free_trial_length, 
+      :send_renewal_reminders, :amount, :charge_every, :free_trial_length, :subtitle,
       bulletpoints_attributes: [:id, :icon, :title, :_destroy]).merge(organization_id: current_organization.id)
   end
 end

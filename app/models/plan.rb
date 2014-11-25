@@ -4,6 +4,10 @@ class Plan < ActiveRecord::Base
   has_many :bulletpoints
   accepts_nested_attributes_for :bulletpoints, reject_if: :all_blank, allow_destroy: true
 
+  validate :can_add_new_plan
+
+  PLAN_LIMIT = 6
+
   def subscribed?(user)
     user.subscriptions.active.where(plan_id: self.id).any?
   end
@@ -42,6 +46,16 @@ class Plan < ActiveRecord::Base
 
   def update_on_recurly
     Billing::Plan.update(self)
+  end
+
+  private
+
+  def can_add_new_plan
+    errors.add(:base, 'You cannot add more than 6 plans to a product') unless can_add_new_plan?
+  end
+
+  def can_add_new_plan?
+    product.plans_count < PLAN_LIMIT
   end
 
 end

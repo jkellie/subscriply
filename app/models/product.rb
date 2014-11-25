@@ -3,7 +3,7 @@ class Product < ActiveRecord::Base
   has_many :plans
 
   mount_uploader :image, ProductImageUploader
-
+  
   def plans_count
     plans.count
   end
