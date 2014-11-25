@@ -1,0 +1,113 @@
+.profile-body
+  / Service Block v3
+  .row.margin-bottom-20
+    .col-sm-5
+      = image_tag plan.product.image.url(:full), class: 'img img-responsive'
+    .col-sm-7
+      %h3 #{plan.product.name}
+      %p #{plan.product.description}
+      %p
+        Would you like to find out more about the different plans available before you decide?
+        = link_to 'click here', user_product_path(plan.product)
+  .row.margin-bottom-20
+    %h2{:style => "margin: 30px 0 15px 15px"} Choose your subscripton plan
+    .col-sm-6
+      %div{:style => "width: 45%"}
+        %label Start Date
+        %input.form-control{:placeholder => "Today", :type => "date"}
+      %div{:style => "width: 75%; margin-top: 10px"}
+        %label Plan
+        %select.form-control{"data-smart-select" => ""}
+          %option CEP Plus! (English) - $54.95/mo
+          %option CEP Plus! (Spanish) - $54.95/mo
+          %option CEP (Digital only) - $34.95
+    .col-sm-6
+      %p{:style => "margin-top: 15px"}
+        Choose the date you would like your subscription to begin billing. It will automatically renew each month for you on this date.
+      %p{:style => "margin-top: 30px"}
+        Select the subscription plan you would like. Some plans may be subject to additional taxes depending on your location.
+  %h2{:style => "margin: 15px 0 15px 0"} Account Information
+  .row.margin-bottom-10
+    .col-sm-6
+      %label Member #
+      %input.form-control{:placeholder => "123456", :style => "width: 46%", :type => "text"}
+    .col-sm-6
+      %p{:style => "margin-top: 15px"}
+        Please enter your account information in the fields provided. A filed marked with an * is a required field.
+  .row.margin-bottom-10
+    .col-sm-6
+      %label First name*
+      %input.form-control{:placeholder => "Bob", :type => "text"}
+  .row.margin-bottom-10
+    .col-sm-6
+      %label Last name*
+      %input.form-control{:placeholder => "Smith", :type => "text"}
+  .row.margin-bottom-10
+    .col-sm-6
+      %label email address*
+      %input.form-control{:placeholder => "yourname@example.com", :type => "email"}
+  .row.margin-bottom-10
+    .col-sm-6
+      %label Phone*
+      %input.form-control{:placeholder => "(123) 456-7890", :style => "width: 46%", :type => "tel"}
+  .row{:style => "margin-top: 30px"}
+    .col-sm-6
+      %label Shipping Address*
+      %input.form-control{:placeholder => "123 Somewhere St.", :type => "text"}
+    .col-sm-6
+      %p (Casey: This should only show up if a plan with shipping was selected)
+  .row{:style => "margin-top: 15px"}
+    .col-sm-6
+      %input.form-control{:placeholder => "Apt / Suite", :type => "text"}
+  .row{:style => "margin-top: 15px"}
+    .col-sm-6
+      .row
+        .col-sm-6
+          %input.form-control{:placeholder => "City", :type => "text"}
+        .col-sm-3
+          %select.form-control{"data-smart-select" => ""}
+            %option State
+        .col-sm-3
+          %input.form-control{:placeholder => "Zip", :type => "text"}
+  %h2{:style => "margin: 30px 0 15px 0"} Billing Information
+  .row.margin-bottom-10
+    .col-sm-6
+      %div{:style => "width: 45%"}
+        %label Card Type
+        %select.form-control{"data-smart-select" => ""}
+          %option Select...
+          %option Visa
+          %option Master Card
+          %option American Express
+          %option Discover
+  .row.margin-bottom-10
+    .col-sm-6
+      %label Name on card
+      %input.form-control{:placeholder => "Hal Jordan", :type => "text"}
+    .col-sm-6
+      %p{:style => "margin-top: 15px"}
+        Enter the name exactly as it appears on the credit card.
+  .row.margin-bottom-10
+    .col-sm-6
+      %label Card Number
+      %input.form-control{:placeholder => "1234-5678-9101-1121", :type => "text"}
+  .row.margin-bottom-10
+    .col-sm-6
+      .row
+        .col-sm-4
+          %label Expiration
+          %select.form-control{"data-smart-select" => ""}
+            %option Month
+        .col-sm-4{:style => "margin-top: 25px"}
+          %select.form-control{"data-smart-select" => ""}
+            %option Year
+        .col-sm-4
+          %label CVV
+          %input.form-control{:placeholder => "123", :type => "text"}
+    .col-sm-6
+      %p{:style => "margin-top: 15px"}
+        The CVV number is the last 3 digits on the back of your card, or the 4 digits above the card number on the front of an Amex card.
+  %br
+    .col-4-sm{:style => "margin-top: 30px"}
+      %a.btn.btn-default{:href => "user.html", :style => "margin-right: 5px", :type => "button"} Cancel
+      %button.btn.btn-primary{:style => "margin-left: 5px", :type => "submit"} Subscribe

@@ -25,8 +25,14 @@ class User::PlanPresenter
     if subscribed?(user)
       link_to 'Cancel Subscription', '#', class: 'btn-danger btn-lg btn-block btn'
     else
-      link_to 'Subscribe Now', '#', class: 'btn-success btn-lg btn-block btn' 
+      link_to 'Subscribe Now', subscribe_path, class: 'btn-success btn-lg btn-block btn' 
     end
+  end
+
+  private
+
+  def subscribe_path
+    Rails.application.routes.url_helpers.new_user_subscription_path(plan_id: plan.id)
   end
 
 end
