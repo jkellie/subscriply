@@ -1,4 +1,5 @@
 module ApplicationHelper
+
   def current_step(step)
     content_for("current_step_#{step.parameterize}", 1)
   end
@@ -46,5 +47,9 @@ module ApplicationHelper
         years << Date.today.year + i
       end
     end
+  end
+
+  def plans_for_select(plan)
+    Plan.where(product_id: plan.product_id).order('amount asc').map { |p| ["#{p} - #{number_to_currency(p.amount)}", p.id]}
   end
 end

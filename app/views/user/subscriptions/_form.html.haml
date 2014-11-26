@@ -1,5 +1,4 @@
 .profile-body
-  / Service Block v3
   .row.margin-bottom-20
     .col-sm-5
       = image_tag plan.product.image.url(:full), class: 'img img-responsive'
@@ -14,13 +13,13 @@
     .col-sm-6
       %div{:style => "width: 45%"}
         %label Start Date
-        %input.form-control{:placeholder => "Today", :type => "date"}
+        .input-group
+          %span.input-group-addon
+            = icon 'calendar'
+          = f.input :start_date, label: false, required: true, input_html: { class: 'form-control datepicker'}
+        
       %div{:style => "width: 75%; margin-top: 10px"}
-        %label Plan
-        %select.form-control{"data-smart-select" => ""}
-          %option CEP Plus! (English) - $54.95/mo
-          %option CEP Plus! (Spanish) - $54.95/mo
-          %option CEP (Digital only) - $34.95
+        = f.input :plan_id, as: :select, collection: plans_for_select(@plan), label: 'Plan', required: true, input_html: { class: 'form-control'}, selected: @plan.id
     .col-sm-6
       %p{:style => "margin-top: 15px"}
         Choose the date you would like your subscription to begin billing. It will automatically renew each month for you on this date.
@@ -29,27 +28,22 @@
   %h2{:style => "margin: 15px 0 15px 0"} Account Information
   .row.margin-bottom-10
     .col-sm-6
-      %label Member #
-      %input.form-control{:placeholder => "123456", :style => "width: 46%", :type => "text"}
+      = f.input :member_number, label: 'Member #', required: true, input_html: { class: 'form-control', style: 'width: 46%' }
     .col-sm-6
       %p{:style => "margin-top: 15px"}
         Please enter your account information in the fields provided. A filed marked with an * is a required field.
   .row.margin-bottom-10
     .col-sm-6
-      %label First name*
-      %input.form-control{:placeholder => "Bob", :type => "text"}
+      = f.input :first_name, label: 'First Name', required: true, input_html: { class: 'form-control'}
   .row.margin-bottom-10
     .col-sm-6
-      %label Last name*
-      %input.form-control{:placeholder => "Smith", :type => "text"}
+      = f.input :last_name, label: 'Last Name', required: true, input_html: { class: 'form-control'}
   .row.margin-bottom-10
     .col-sm-6
-      %label email address*
-      %input.form-control{:placeholder => "yourname@example.com", :type => "email"}
+      = f.input :email, required: true, input_html: { class: 'form-control'}
   .row.margin-bottom-10
     .col-sm-6
-      %label Phone*
-      %input.form-control{:placeholder => "(123) 456-7890", :style => "width: 46%", :type => "tel"}
+      = f.input :phone_number, label: 'Phone Number', required: true, input_html: { class: 'form-control'}
   .row{:style => "margin-top: 30px"}
     .col-sm-6
       %label Shipping Address*
@@ -58,52 +52,45 @@
       %p (Casey: This should only show up if a plan with shipping was selected)
   .row{:style => "margin-top: 15px"}
     .col-sm-6
-      %input.form-control{:placeholder => "Apt / Suite", :type => "text"}
+      = f.input :street_address_2, label: false, placeholder: 'Apt / Suite', input_html: { class: 'form-control' }
   .row{:style => "margin-top: 15px"}
     .col-sm-6
       .row
         .col-sm-6
-          %input.form-control{:placeholder => "City", :type => "text"}
+          = f.input :city, input_html: { class: 'form-control' }
         .col-sm-3
-          %select.form-control{"data-smart-select" => ""}
-            %option State
+          = f.input :state_code, label: 'State', input_html: { class: 'form-control' }
         .col-sm-3
-          %input.form-control{:placeholder => "Zip", :type => "text"}
+          = f.input :zip, input_html: { class: 'form-control' }
   %h2{:style => "margin: 30px 0 15px 0"} Billing Information
   .row.margin-bottom-10
-    .col-sm-6
-      %div{:style => "width: 45%"}
-        %label Card Type
-        %select.form-control{"data-smart-select" => ""}
-          %option Select...
-          %option Visa
-          %option Master Card
-          %option American Express
-          %option Discover
-  .row.margin-bottom-10
-    .col-sm-6
-      %label Name on card
-      %input.form-control{:placeholder => "Hal Jordan", :type => "text"}
+    .col-sm-3
+      %label{for: 'first_name'} * First Name
+      = text_field_tag nil, '', required: true, id: 'first_name', class: 'form-control', data: {recurly: 'first_name'}
+    .col-sm-3
+      %label{for: 'last_name'} * Last Name
+      = text_field_tag nil, '', required: true, id: 'last_name', class: 'form-control', data: {recurly: 'last_name'}
+
     .col-sm-6
       %p{:style => "margin-top: 15px"}
         Enter the name exactly as it appears on the credit card.
+          
   .row.margin-bottom-10
     .col-sm-6
-      %label Card Number
-      %input.form-control{:placeholder => "1234-5678-9101-1121", :type => "text"}
+      %label{for: 'number'} * Card Number
+      = text_field_tag nil, '', required: true, id: 'number', class: 'form-control', placeholder: '•••• •••• •••• ••••', data: {recurly: 'number'}
   .row.margin-bottom-10
     .col-sm-6
       .row
         .col-sm-4
-          %label Expiration
-          %select.form-control{"data-smart-select" => ""}
-            %option Month
-        .col-sm-4{:style => "margin-top: 25px"}
-          %select.form-control{"data-smart-select" => ""}
-            %option Year
+          %label * Exp. Month
+          = select_tag nil, options_for_select(months_for_select.collect {|p| [p[0], p[1]] }), required: true, id: 'month', class: 'form-control', data: {recurly: 'month'}
         .col-sm-4
-          %label CVV
-          %input.form-control{:placeholder => "123", :type => "text"}
+          %label * Exp. Year
+          = select_tag nil, options_for_select(years_for_select.collect {|p| [p, p] }), required: true, id: 'year', class: 'form-control', data: {recurly: 'year'}
+        .col-sm-4
+          %label{for: 'cvv'} * CVV
+          = text_field_tag nil, '', required: true, id: 'cvv', class: 'form-control', data: {recurly: 'cvv'}
     .col-sm-6
       %p{:style => "margin-top: 15px"}
         The CVV number is the last 3 digits on the back of your card, or the 4 digits above the card number on the front of an Amex card.

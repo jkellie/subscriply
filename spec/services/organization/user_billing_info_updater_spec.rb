@@ -1,18 +1,18 @@
 require 'spec_helper'
 
-describe UserBillingInfoUpdater, '#initialize' do
+describe Organization::UserBillingInfoUpdater, '#initialize' do
   let(:user) { FactoryGirl.create(:user) }
 
-  subject { UserBillingInfoUpdater.new(user) }
+  subject { Organization::UserBillingInfoUpdater.new(user) }
 
   it "instantiates a new UserBillingInfoUpdater object" do
     expect { subject }.to_not raise_error
   end
 end
 
-describe UserBillingInfoUpdater, '#update' do
+describe Organization::UserBillingInfoUpdater, '#update' do
   let(:user) { FactoryGirl.create(:user) }
-  let(:billing_info_updater) { UserBillingInfoUpdater.new(user) }
+  let(:billing_info_updater) { Organization::UserBillingInfoUpdater.new(user) }
 
   subject { billing_info_updater.update('abcdefg') }
 

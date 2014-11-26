@@ -1,18 +1,18 @@
 require 'spec_helper'
 
-describe SubscriptionUpdater, '#initialize' do
+describe Organization::SubscriptionUpdater, '#initialize' do
   let(:subscription) { FactoryGirl.create(:subscription) }
 
-  subject { SubscriptionUpdater.new(subscription) }
+  subject { Organization::SubscriptionUpdater.new(subscription) }
 
   it "instantiates the subscription updater" do
     expect { subject }.to_not raise_error
   end
 end
 
-describe SubscriptionUpdater, '#update' do
+describe Organization::SubscriptionUpdater, '#update' do
   let(:subscription) { FactoryGirl.create(:subscription, state: :active, canceled_on: nil) }
-  let(:subscription_updater) { SubscriptionUpdater.new(subscription) }
+  let(:subscription_updater) { Organization::SubscriptionUpdater.new(subscription) }
   let(:billing_subscription) { double('billing_subscription', state: 'active', current_period_ends_at: 1.month.from_now.to_date)}
 
   context "with a successful update" do

@@ -1,18 +1,18 @@
 require 'spec_helper'
 
-describe SubscriptionTerminator, '#initialize' do
+describe Organization::SubscriptionTerminator, '#initialize' do
   let(:subscription) { FactoryGirl.create(:subscription) }
 
-  subject { SubscriptionTerminator.new(subscription) }
+  subject { Organization::SubscriptionTerminator.new(subscription) }
 
   it "instantiates the subscription terminator" do
     expect { subject }.to_not raise_error
   end
 end
 
-describe SubscriptionTerminator, '#terminate' do
+describe Organization::SubscriptionTerminator, '#terminate' do
   let(:subscription) { FactoryGirl.create(:subscription, state: :active, canceled_on: nil) }
-  let(:subscription_terminator) { SubscriptionTerminator.new(subscription) }
+  let(:subscription_terminator) { Organization::SubscriptionTerminator.new(subscription) }
 
   context "with a successful termination" do
     before do

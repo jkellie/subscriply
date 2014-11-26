@@ -1,4 +1,4 @@
-class OrganizationBootstrapper
+class Organization::OrganizationBootstrapper
   attr_reader :organization, :organizer
 
   def initialize(organization, organizer)

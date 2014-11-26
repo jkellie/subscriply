@@ -1,18 +1,18 @@
 require 'spec_helper'
 
-describe SubscriptionPostponer, '#initialize' do
+describe Organization::SubscriptionPostponer, '#initialize' do
   let!(:subscription) { FactoryGirl.create(:subscription) }
 
-  subject { SubscriptionPostponer.new(subscription) }
+  subject { Organization::SubscriptionPostponer.new(subscription) }
 
   it 'initializes the subscription postponer' do
     expect { subject }.to_not raise_error
   end
 end
 
-describe SubscriptionPostponer, '#postpone' do
+describe Organization::SubscriptionPostponer, '#postpone' do
   let!(:subscription) { FactoryGirl.create(:subscription) }
-  let(:subscription_postponer ) { SubscriptionPostponer.new(subscription) }
+  let(:subscription_postponer ) { Organization::SubscriptionPostponer.new(subscription) }
 
   context 'with a successful postpone' do
     before do

@@ -1,4 +1,4 @@
-class SubscriptionUpdater
+class Organization::SubscriptionUpdater
   include ActiveModel::Validations
   include ActiveModel::Conversion
   extend ActiveModel::Naming

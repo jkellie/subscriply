@@ -1,18 +1,18 @@
 require 'spec_helper'
 
-describe UserCreditor, '#initialize' do
+describe Organization::UserCreditor, '#initialize' do
   let!(:user) { FactoryGirl.create(:user) }
 
-  subject { UserCreditor.new(user) }
+  subject { Organization::UserCreditor.new(user) }
 
   it 'initializes the user_creditor' do
     expect { subject }.to_not raise_error
   end
 end
 
-describe UserCreditor, '#attributes=' do
-  let!(:user) { FactoryGirl.create(:user) }
-  let(:user_creditor) { UserCreditor.new(user) }
+describe Organization::UserCreditor, '#attributes=' do
+  let!(:user) { Organization::FactoryGirl.create(:user) }
+  let(:user_creditor) { Organization::UserCreditor.new(user) }
 
   subject do
     user_creditor.attributes = {
@@ -27,9 +27,9 @@ describe UserCreditor, '#attributes=' do
   end
 end
 
-describe UserCreditor, '#create' do
+describe Organization::UserCreditor, '#create' do
   let!(:user) { FactoryGirl.create(:user) }
-  let(:user_creditor) { UserCreditor.new(user) }
+  let(:user_creditor) { Organization::UserCreditor.new(user) }
 
   context 'with a successful credit' do
     before do

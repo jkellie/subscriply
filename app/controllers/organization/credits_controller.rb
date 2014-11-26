@@ -5,11 +5,11 @@ class Organization::CreditsController < Organization::BaseController
   before_action :find_user, only: [:new, :create]
 
   def new
-    @user_creditor = UserCreditor.new(@user)
+    @user_creditor = Organization::UserCreditor.new(@user)
   end
 
   def create
-    @user_creditor = UserCreditor.new(@user)
+    @user_creditor = Organization::UserCreditor.new(@user)
     @user_creditor.attributes = params[:user_creditor]
     
     if @user_creditor.create

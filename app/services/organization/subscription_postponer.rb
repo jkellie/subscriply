@@ -1,4 +1,4 @@
-class SubscriptionPostponer
+class Organization::SubscriptionPostponer
   include ActiveModel::Validations
   include ActiveModel::Conversion
   extend ActiveModel::Naming

@@ -1,12 +1,12 @@
 require 'spec_helper'
 
-describe SubscriptionCreator, '#initialize' do
+describe Organization::SubscriptionCreator, '#initialize' do
   let!(:user) { FactoryGirl.create(:user) }
   let!(:plan) { FactoryGirl.create(:plan) }
   let!(:location) { FactoryGirl.create(:location) }
 
   subject do
-    SubscriptionCreator.new(user_id: user.id, organization_id: user.organization_id, plan_id: plan.id, location_id: location.id, start_date: 1.day.from_now.strftime('%m/%d/%Y'))
+    Organization::SubscriptionCreator.new(user_id: user.id, organization_id: user.organization_id, plan_id: plan.id, location_id: location.id, start_date: 1.day.from_now.strftime('%m/%d/%Y'))
   end
 
   it "instantiates the subscription canceler" do
@@ -14,11 +14,11 @@ describe SubscriptionCreator, '#initialize' do
   end
 end
 
-describe SubscriptionCreator, '#create' do
+describe Organization::SubscriptionCreator, '#create' do
   let!(:user) { FactoryGirl.create(:user) }
   let!(:plan) { FactoryGirl.create(:plan) }
   let!(:location) { FactoryGirl.create(:location) }
-  let(:subscription_creator) { SubscriptionCreator.new(user_id: user.id, organization_id: user.organization_id, plan_id: plan.id, location_id: location.id, start_date: 1.day.from_now.strftime('%m/%d/%Y')) }
+  let(:subscription_creator) { Organization::SubscriptionCreator.new(user_id: user.id, organization_id: user.organization_id, plan_id: plan.id, location_id: location.id, start_date: 1.day.from_now.strftime('%m/%d/%Y')) }
 
   context 'with a successful cancelation' do
     before do

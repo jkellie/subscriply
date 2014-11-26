@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe OrganizationBootstrapper, "#run" do
+describe Organization::OrganizationBootstrapper, "#run" do
   let(:organization) { FactoryGirl.create(:organization) }
   let(:organizer) { FactoryGirl.create(:organizer, organization: organization) }
 
   before do
-    OrganizationBootstrapper.new(organization, organizer).run
+    Organization::OrganizationBootstrapper.new(organization, organizer).run
   end
   
   it 'sets the organizer as the account owner' do

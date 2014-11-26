@@ -1,20 +1,36 @@
-class SubscriptionCreator
+class User::SubscriptionCreator
   include ActiveModel::Validations
   include ActiveModel::Conversion
   extend ActiveModel::Naming
 
-  attr_reader :subscription, :billing_subscription, :errors
-  delegate :user, to: :subscription
+  attr_reader :errors, :organization, :user, :subscription, :billing_subscription
+  attr_accessor :recurly_token, :first_name, :last_name, :card_number, :expiration_month, :expiration_year, :cvv, 
+    :billing_street_address, :billing_street_address_2, :billing_city, :billing_state_code, :billing_zip,
+    :product_id
+
+  delegate :sales_rep_id, :sales_rep_id=, :member_number, :member_number=, :phone_number, :phone_number=,
+    :email, :email=, :first_name, :first_name=,  :last_name, :last_name=, :street_address, :street_address=,
+    :street_address_2, :street_address_2=, :state_code, :state_code=, :city, :city=, :zip, :zip=, 
+      to: :user
+
+  delegate :start_date, :start_date=, :plan_id, :plan_id=, :location_id, :location_id=, 
+    to: :subscription
 
   def initialize(options)
-    options[:start_date] = Date.strptime(options[:start_date], '%m/%d/%Y')
-    @subscription = Subscription.new(options)
+    @organization = options[:organization]
+    @user = options[:user]
+    @subscription = Subscription.new(organization_id: @organization.id, start_date: Date.today)
     @errors = ActiveModel::Errors.new(self)
+  end
+
+  def attributes=(attributes)
+    attributes.each { |k, v| self.send("#{k}=", v) }
   end
 
   def create
     begin
       ActiveRecord::Base.transaction do
+        update_user
         create_subscription
         create_subscription_on_billing
         update_subscription_locally
@@ -31,6 +47,10 @@ class SubscriptionCreator
   end
 
   private
+
+  def update_user
+    user.save!
+  end
 
   def create_subscription
     subscription.save!

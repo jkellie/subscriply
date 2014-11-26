@@ -1,18 +1,19 @@
 require 'spec_helper'
 
-describe SubscriptionWizard, '#initialize' do
+describe User::SubscriptionCreator, '#initialize' do
+  let(:user) { FactoryGirl.create(:user) }
   let(:organization) { FactoryGirl.create(:organization) }
 
-  subject { SubscriptionWizard.new(organization: organization) }
+  subject { User::SubscriptionCreator.new(organization: organization, user: user) }
 
-  it "instantiates a new SubscriptionWizard object" do
+  it "instantiates a new SubscriptionCreator object" do
     expect { subject }.to_not raise_error
   end
 end
 
-describe SubscriptionWizard, '#attributes=' do
+describe User::SubscriptionCreator, '#attributes=' do
   let!(:organization) { FactoryGirl.create(:organization) }
-  let!(:subscription_wizard) { SubscriptionWizard.new(organization: organization) }
+  let!(:subscription_wizard) { User::SubscriptionCreator.new(organization: organization) }
 
   subject do 
     subscription_wizard.attributes = {
@@ -52,10 +53,10 @@ describe SubscriptionWizard, '#attributes=' do
   end
 end
 
-describe SubscriptionWizard, "#create" do
+describe User::SubscriptionCreator, "#create" do
   context 'with valid attributes' do
     let!(:organization) { FactoryGirl.create(:organization) }
-    let!(:subscription_wizard) { SubscriptionWizard.new(organization: organization) }
+    let!(:subscription_wizard) { User::SubscriptionCreator.new(organization: organization) }
     let!(:plan) { FactoryGirl.create(:plan) }
 
     before do
@@ -113,7 +114,7 @@ describe SubscriptionWizard, "#create" do
 
   context 'with valid attributes but fails creating the subscription on recurly' do
     let!(:organization) { FactoryGirl.create(:organization) }
-    let!(:subscription_wizard) { SubscriptionWizard.new(organization: organization) }
+    let!(:subscription_wizard) { User::SubscriptionCreator.new(organization: organization) }
     let!(:plan) { FactoryGirl.create(:plan) }
 
     before do
@@ -166,7 +167,7 @@ describe SubscriptionWizard, "#create" do
   
   context 'with invalid attributes' do
     let!(:organization) { FactoryGirl.create(:organization) }
-    let!(:subscription_wizard) { SubscriptionWizard.new(organization: organization) }
+    let!(:subscription_wizard) { User::SubscriptionCreator.new(organization: organization) }
 
     before do
       subscription_wizard.attributes = {

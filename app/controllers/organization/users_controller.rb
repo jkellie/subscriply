@@ -73,7 +73,7 @@ class Organization::UsersController < Organization::BaseController
   end
 
   def update_billing_info
-    if UserBillingInfoUpdater.new(@user).update(params[:recurly_token])
+    if Organization::UserBillingInfoUpdater.new(@user).update(params[:recurly_token])
       flash[:notice] = 'Billing Info Saved!'
       redirect_to organization_user_path(@user)
     else

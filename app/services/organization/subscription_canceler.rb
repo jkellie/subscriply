@@ -1,4 +1,4 @@
-class SubscriptionTerminator
+class Organization::SubscriptionCanceler
   include ActiveModel::Validations
   include ActiveModel::Conversion
   extend ActiveModel::Naming
@@ -10,11 +10,11 @@ class SubscriptionTerminator
     @errors = ActiveModel::Errors.new(self)
   end
 
-  def terminate(refund_type)
+  def cancel
     begin
       ActiveRecord::Base.transaction do
-        terminate_subscription_on_billing(refund_type)
-        terminate_subscription_locally
+        cancel_subscription_on_billing
+        cancel_subscription_locally
       end
     rescue Exception => e
       errors.add(:base, e)
@@ -28,13 +28,13 @@ class SubscriptionTerminator
 
   private
 
-  def terminate_subscription_on_billing(refund_type)
-    Billing::Subscription.terminate(subscription, refund_type)
+  def cancel_subscription_on_billing
+    Billing::Subscription.cancel(subscription)
   end
 
-  def terminate_subscription_locally
-    subscription.cancel!
-    subscription.update!(canceled_on: Time.current.to_date, next_bill_on: nil)
+  def cancel_subscription_locally
+    subscription.canceling!
+    subscription.update!(canceled_on: Time.current.to_date)
   end
 
 end

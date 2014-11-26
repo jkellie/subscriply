@@ -1,4 +1,4 @@
-class UserBillingInfoUpdater
+class Organization::UserBillingInfoUpdater
   include ActiveModel::Validations
   include ActiveModel::Conversion
   extend ActiveModel::Naming

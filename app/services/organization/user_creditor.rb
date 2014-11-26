@@ -1,4 +1,4 @@
-class UserCreditor
+class Organization::UserCreditor
   include ActiveModel::Validations
   include ActiveModel::Conversion
   extend ActiveModel::Naming

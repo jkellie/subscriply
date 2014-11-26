@@ -37,7 +37,7 @@ class Organization::SubscriptionsController < Organization::BaseController
   end
 
   def add
-    subscription_creator = SubscriptionCreator.new(subscription_params)
+    subscription_creator = Organization::SubscriptionCreator.new(subscription_params)
 
     if subscription_creator.create
       flash[:notice] = 'Subscription Created'
@@ -62,7 +62,7 @@ class Organization::SubscriptionsController < Organization::BaseController
   end
 
   def change_plan
-    subscription_updater = SubscriptionUpdater.new(@subscription)
+    subscription_updater = Organization::SubscriptionUpdater.new(@subscription)
 
     if subscription_updater.update({plan_code: new_plan_code, timeframe: subscription_params[:apply_changes], plan_id: subscription_params[:plan_id]})
       flash[:notice] = 'Subscription Updated'
@@ -74,7 +74,7 @@ class Organization::SubscriptionsController < Organization::BaseController
   end
 
   def postpone
-    subscription_postponer = SubscriptionPostponer.new(@subscription)
+    subscription_postponer = Organization::SubscriptionPostponer.new(@subscription)
     
     if subscription_postponer.postpone(params[:renewal_date])
       flash[:notice] = "Subscription renewal date is now #{@subscription.reload.next_bill_on.strftime('%m/%-e/%y')}"
@@ -85,11 +85,11 @@ class Organization::SubscriptionsController < Organization::BaseController
   end  
 
   def canceling
-    @subscription_presenter = Organization::SubscriptionPresenter.new(@subscription)
+    @subscription_presenter = Organization::Organization::SubscriptionPresenter.new(@subscription)
   end
 
   def cancel
-    subscription_canceler = SubscriptionCanceler.new(@subscription)
+    subscription_canceler = Organization::SubscriptionCanceler.new(@subscription)
     
     if subscription_canceler.cancel
       flash[:notice] = 'Subscription set to cancel at renewal'
@@ -101,7 +101,7 @@ class Organization::SubscriptionsController < Organization::BaseController
   end
 
   def terminate
-    subscription_terminator = SubscriptionTerminator.new(@subscription)
+    subscription_terminator = Organization::SubscriptionTerminator.new(@subscription)
 
     if subscription_terminator.terminate(params[:refund_type])
       flash[:notice] = "Subscription terminated and refund set to #{params[:refund_type]}"

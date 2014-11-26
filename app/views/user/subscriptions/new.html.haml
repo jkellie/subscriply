@@ -3,5 +3,13 @@
     = render '/user/shared/user_sidebar'
 
     .col-md-9
-      = render 'form', plan: @plan
-       
+      = simple_form_for(@subscription_creator, url: user_subscriptions_path, method: :post) do |f|
+        = render 'form', f: f, plan: @plan
+
+:javascript
+  var user_subscription_wizard_ready = function () {
+    SubscriptionCreator.init('#{current_organization.recurly_public_key}');
+  }
+
+  $(document).on("page:load", user_subscription_wizard_ready);
+  $(document).ready(user_subscription_wizard_ready);
