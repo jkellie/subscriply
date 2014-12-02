@@ -8,7 +8,7 @@ class User::SubscriptionCreator
     :billing_street_address, :billing_street_address_2, :billing_city, :billing_state_code, :billing_zip,
     :product_id
 
-  delegate :sales_rep_id, :sales_rep_id=, :member_number, :member_number=, :phone_number, :phone_number=,
+  delegate :member_number, :member_number=, :phone_number, :phone_number=,
     :email, :email=, :first_name, :first_name=,  :last_name, :last_name=, :street_address, :street_address=,
     :street_address_2, :street_address_2=, :state_code, :state_code=, :city, :city=, :zip, :zip=, 
       to: :user
