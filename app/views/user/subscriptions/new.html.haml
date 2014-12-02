@@ -4,6 +4,8 @@
 
     .col-md-9
       = simple_form_for(@subscription_creator, url: user_subscriptions_path, method: :post) do |f|
+        = hidden_field_tag 'user_subscription_creator[recurly_token]', '', 'data-recurly' => 'token'
+        = hidden_field_tag 'country', 'US', 'data-recurly' => 'country'
         = render 'form', f: f, plan: @plan
 
 :javascript

@@ -62,6 +62,7 @@ Rails.application.routes.draw do
     resources :products, only: [:show, :index]
     resources :transactions, only: :index
     resources :subscriptions, only: [:new, :create]
+    resources :plans, only: :show
   end
   
 end

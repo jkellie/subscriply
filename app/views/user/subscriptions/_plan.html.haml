@@ -1,0 +1,17 @@
+.row.margin-bottom-20
+  %h2{:style => "margin: 30px 0 15px 15px"} Choose your subscripton plan
+  .col-sm-6
+    %div{:style => "width: 45%"}
+      %label Start Date
+      .input-group
+        %span.input-group-addon
+          = icon 'calendar'
+        = f.input :start_date, label: false, required: true, input_html: { class: 'form-control datepicker', value: f.object.start_date_friendly}
+      
+    %div{:style => "width: 75%; margin-top: 10px"}
+      = f.input :plan_id, as: :select, collection: plans_for_select(plan), label: 'Plan', required: true, input_html: { class: 'form-control'}, selected: plan.id
+  .col-sm-6
+    %p{:style => "margin-top: 15px"}
+      Choose the date you would like your subscription to begin billing. It will automatically renew each month for you on this date.
+    %p{:style => "margin-top: 30px"}
+      Select the subscription plan you would like. Some plans may be subject to additional taxes depending on your location.

@@ -1,0 +1,18 @@
+- required = plan.shipped?
+%div#shipping-info{class: plan.local_pick_up? && 'hidden'}
+  .row{:style => "margin-top: 30px"}
+    .col-sm-6
+      = f.input :street_address, label: 'Shipping Address', required: required, placeholder: 'Street Address', input_html: { class: 'form-control'}
+    .col-sm-6
+  .row{:style => "margin-top: 15px"}
+    .col-sm-6
+      = f.input :street_address_2, label: false, placeholder: 'Apt / Suite', input_html: { class: 'form-control' }
+  .row{:style => "margin-top: 15px"}
+    .col-sm-6
+      .row
+        .col-sm-6
+          = f.input :city, required: required, input_html: { class: 'form-control' }
+        .col-sm-3
+          = f.input :state_code, required: required, label: 'State', input_html: { class: 'form-control' }
+        .col-sm-3
+          = f.input :zip, required: required, input_html: { class: 'form-control' }

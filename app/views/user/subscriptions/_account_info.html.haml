@@ -1,0 +1,19 @@
+%h2{:style => "margin: 15px 0 15px 0"} Account Information
+.row.margin-bottom-10
+  .col-sm-6
+    = f.input :member_number, label: 'Member #', required: true, input_html: { class: 'form-control', style: 'width: 46%' }
+  .col-sm-6
+    %p{:style => "margin-top: 15px"}
+      Please enter your account information in the fields provided. A filed marked with an * is a required field.
+.row.margin-bottom-10
+  .col-sm-6
+    = f.input :first_name, label: 'First Name', required: true, input_html: { class: 'form-control'}
+.row.margin-bottom-10
+  .col-sm-6
+    = f.input :last_name, label: 'Last Name', required: true, input_html: { class: 'form-control'}
+.row.margin-bottom-10
+  .col-sm-6
+    = f.input :email, required: true, input_html: { class: 'form-control'}
+.row.margin-bottom-10
+  .col-sm-6
+    = f.input :phone_number, label: 'Phone Number', required: true, input_html: { class: 'form-control'}

@@ -3,8 +3,8 @@ SubscriptionCreator =
   init: (public_key) ->
     @_initCardValidation()
     @_initDatePicker()
+    @_initPlan()
     @_initRecurly(public_key)
-    @_initSameAsShipping()
 
   _initCardValidation: ->
     $('#user_subscription_creator_phone_number').formance('format_phone_number')
@@ -17,7 +17,7 @@ SubscriptionCreator =
   _initRecurly: (public_key) ->
     recurly.configure public_key
 
-    $(document).on 'submit', '.new_subscription_creator', (e) ->
+    $(document).on 'submit', '.new_user_subscription_creator', (e) ->
       e.preventDefault()
       form = this
       
@@ -27,15 +27,26 @@ SubscriptionCreator =
         else
           form.submit()
 
-  _initSameAsShipping: ->
-    $(document).on 'change', '#same_as_shipping', (e) ->
-      e.preventDefault()
-
-      $('#address1').val($('#subscription_wizard_street_address').val())
-      $('#address2').val($('#subscription_wizard_street_address_2').val())
-      $('#city').val($('#subscription_wizard_city').val())
-      $('#state').val($('#subscription_wizard_state_code').val())
-      $('#postal_code').val($('#subscription_wizard_zip').val())
+  _initPlan: ->
+    $(document).on 'change', '#user_subscription_creator_plan_id', (e) ->
+      id = $(@).val()
+      $.ajax
+        url: "/user/plans/#{id}"
+        format: 'JSON'
+        method: 'GET'
+        success: (response) ->
+          if response.plan_type is 'shipped'
+            $('#shipping-info').removeClass('hidden')
+            $('#location-info').addClass('hidden')
+            $('#shipping-info input').attr('required', true)
+            $('#user_subscription_creator_street_address_2').attr('required', false)
+            $('#location-info select').attr('required', false)
+          else if response.plan_type is 'local_pick_up'
+            $('#shipping-info').addClass('hidden')
+            $('#location-info').removeClass('hidden')
+            $('#shipping-info input').attr('required', false)
+            $('#location-info select').attr('required', true)
+        error: (response) ->
 
   _shippingAddress: ->
     address = "#{$('#subscription_wizard_street_address').val()}<br/>"

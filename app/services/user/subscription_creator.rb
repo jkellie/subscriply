@@ -19,7 +19,7 @@ class User::SubscriptionCreator
   def initialize(options)
     @organization = options[:organization]
     @user = options[:user]
-    @subscription = Subscription.new(organization_id: @organization.id, start_date: Date.today)
+    @subscription = Subscription.new(organization_id: @organization.id, start_date: Date.today, user: @user)
     @errors = ActiveModel::Errors.new(self)
   end
 
@@ -46,6 +46,11 @@ class User::SubscriptionCreator
     errors.full_messages.to_sentence.gsub('base ', '')
   end
 
+  def start_date_friendly
+    return nil unless start_date.present?
+    start_date.to_date.strftime('%b %e, %Y')
+  end
+
   private
 
   def update_user
@@ -57,10 +62,12 @@ class User::SubscriptionCreator
   end
 
   def create_subscription_on_billing
-    @billing_subscription = Billing::Subscription.create(subscription.reload)
+    binding.pry_remote
+    @billing_subscription = Billing::Subscription.create_with_token(subscription.reload, recurly_token)
   end
 
   def update_subscription_locally
+    binding.pry_remote
     subscription.update!({
       uuid: billing_subscription.uuid,
       state: billing_subscription.state,

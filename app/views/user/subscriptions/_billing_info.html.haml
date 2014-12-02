@@ -1,0 +1,49 @@
+%h2{:style => "margin: 30px 0 15px 0"} Billing Information
+.row.margin-bottom-10
+  .col-sm-3
+    %label{for: 'first_name'} * First Name
+    = text_field_tag nil, '', required: true, id: 'first_name', class: 'form-control', data: {recurly: 'first_name'}
+  .col-sm-3
+    %label{for: 'last_name'} * Last Name
+    = text_field_tag nil, '', required: true, id: 'last_name', class: 'form-control', data: {recurly: 'last_name'}
+
+  .col-sm-6
+    %p{:style => "margin-top: 15px"}
+      Enter the name exactly as it appears on the credit card.
+        
+.row.margin-bottom-10
+  .col-sm-6
+    %label{for: 'number'} * Card Number
+    = text_field_tag nil, '', required: true, id: 'number', class: 'form-control', placeholder: '•••• •••• •••• ••••', data: {recurly: 'number'}
+.row.margin-bottom-10
+  .col-sm-6
+    .row
+      .col-sm-4
+        %label * Exp. Month
+        = select_tag nil, options_for_select(months_for_select.collect {|p| [p[0], p[1]] }), required: true, id: 'month', class: 'form-control', data: {recurly: 'month'}
+      .col-sm-4
+        %label * Exp. Year
+        = select_tag nil, options_for_select(years_for_select.collect {|p| [p, p] }), required: true, id: 'year', class: 'form-control', data: {recurly: 'year'}
+      .col-sm-4
+        %label{for: 'cvv'} * CVV
+        = text_field_tag nil, '', required: true, id: 'cvv', class: 'form-control', data: {recurly: 'cvv'}
+  .col-sm-6
+    %p{:style => "margin-top: 15px"}
+      The CVV number is the last 3 digits on the back of your card, or the 4 digits above the card number on the front of an Amex card.
+
+.row.margin-bottom-10
+  .col-sm-6
+    .row
+      .col-sm-12
+        %label{for: 'address1'} * Billing Address
+        = text_field_tag nil, '', required: true, id: 'address1', placeholder: 'Street Address', class: 'form-control', data: {recurly: 'address1'}
+    .row{:style => "margin-top: 15px"}
+      .col-md-12
+        = text_field_tag nil, '', id: 'address2', placeholder: 'Apt / Suite No', class: 'form-control', data: {recurly: 'address2'}
+    .row{:style => "margin-top: 15px"}
+      .col-md-6
+        = text_field_tag nil, '', required: true, placeholder: 'City', id: 'city', class: 'form-control', data: {recurly: 'city'}
+      .col-md-3
+        = text_field_tag nil, '', required: true, placeholder: 'State', id: 'state', class: 'form-control', data: {recurly: 'state'}
+      .col-md-3
+        = text_field_tag nil, '', required: true, placeholder: 'Zip', id: 'postal_code', class: 'form-control', data: {recurly: 'postal_code'}

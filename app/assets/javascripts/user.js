@@ -19,4 +19,5 @@
 //= require bootstrap
 //= require recurly
 //= require billing_info
+//= require sweetalert.min
 //= require_tree ./user

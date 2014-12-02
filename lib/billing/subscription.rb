@@ -6,6 +6,7 @@ module Billing::Subscription
 
   def self.create(subscription)
     Billing.with_lock(subscription.organization) do
+      binding.pry_remote
       subscription_module.create!(
         plan_code: subscription.plan.permalink, 
         starts_at: subscription.start_date,

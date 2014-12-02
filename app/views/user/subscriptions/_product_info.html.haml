@@ -1,0 +1,9 @@
+.row.margin-bottom-20
+  .col-sm-5
+    = image_tag plan.product.image.url(:full), class: 'img img-responsive'
+  .col-sm-7
+    %h3 #{plan.product.name}
+    %p #{plan.product.description}
+    %p
+      Would you like to find out more about the different plans available before you decide?
+      = link_to 'click here', user_product_path(plan.product)

@@ -6,15 +6,16 @@ class User::SubscriptionsController < User::BaseController
   end
 
   def create
-    params[:subscription_wizard][:start_date] = Date.strptime(params[:subscription_wizard][:start_date], '%m/%d/%Y')
-    @subscription_wizard.attributes = params[:subscription_wizard]
+    params[:user_subscription_creator][:start_date] = Date.parse(params[:user_subscription_creator][:start_date])
+    @subscription_creator.attributes = params[:user_subscription_creator]
 
     if @subscription_creator.create
       flash[:notice] = 'Subscription Created'
       product = @subscription_creator.subscription.product
       redirect_to user_product_path(product)
     else
-      flash.now[:danger] = "Error Creating Subscription: #{@subscription_creator.errors_to_sentence}"
+      @plan = current_organization.plans.find(params[:user_subscription_creator][:plan_id])
+      flash.now[:danger] = "Error Creating Subscription: #{@subscription_creator.full_errors}"
       render 'new'
     end
   end
