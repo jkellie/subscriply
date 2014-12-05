@@ -62,12 +62,10 @@ class User::SubscriptionCreator
   end
 
   def create_subscription_on_billing
-    binding.pry_remote
     @billing_subscription = Billing::Subscription.create_with_token(subscription.reload, recurly_token)
   end
 
   def update_subscription_locally
-    binding.pry_remote
     subscription.update!({
       uuid: billing_subscription.uuid,
       state: billing_subscription.state,
