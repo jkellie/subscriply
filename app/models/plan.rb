@@ -36,6 +36,10 @@ class Plan < ActiveRecord::Base
     plan_type == 'shipped'
   end
 
+  def digital?
+    plan_type == 'digital'
+  end
+
   def amount_in_cents
     (amount * 100.0).round.to_i
   end
@@ -46,6 +50,14 @@ class Plan < ActiveRecord::Base
 
   def update_on_recurly
     Billing::Plan.update(self)
+  end
+
+  def hide_location_info?
+    shipped? || digital?
+  end
+
+  def hide_shipping_info?
+    digital? || local_pick_up?
   end
 
   private

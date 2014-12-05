@@ -46,6 +46,12 @@ SubscriptionCreator =
             $('#location-info').removeClass('hidden')
             $('#shipping-info input').attr('required', false)
             $('#location-info select').attr('required', true)
+          else if response.plan_type is 'digital'
+            $('#shipping-info').addClass('hidden')
+            $('#location-info').addClass('hidden')
+            $('#shipping-info input').attr('required', false)
+            $('#user_subscription_creator_street_address_2').attr('required', false)
+            $('#location-info select').attr('required', false)
         error: (response) ->
 
   _shippingAddress: ->
