@@ -1,5 +1,7 @@
 class Organization::ProductsController < Organization::BaseController
+  before_action :require_recurly
   before_action :find_product, only: [:edit, :show, :update, :destroy]
+
   respond_to :html, :json
 
   def index

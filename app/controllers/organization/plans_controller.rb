@@ -1,4 +1,5 @@
 class Organization::PlansController < Organization::BaseController
+  before_action :require_recurly
   before_action :find_plans, only: [:index]
   before_action :find_plan, only: [:edit, :update, :destroy]
   before_action :find_products, only: [:edit, :new, :create, :update]

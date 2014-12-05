@@ -10,4 +10,17 @@ class Organization::BaseController < ApplicationController
       redirect_to organization_dashboard_path
     end
   end
+
+  def require_recurly
+    unless recurly_info_present? 
+      flash[:danger] = 'You must enter your company\'s Recurly info before proceeding.'
+      redirect_to edit_application_settings_organization_settings_path
+    end
+  end
+
+  def recurly_info_present?
+    current_organization.recurly_private_key.present? && 
+    current_organization.recurly_public_key.present?  && 
+    current_organization.recurly_subdomain.present?
+  end
 end

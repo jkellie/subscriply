@@ -10,7 +10,7 @@ class OrganizationsController < Organization::BaseController
   def create
     @organization = Organization.new(organization_params)
 
-    if @organization.save && OrganizationBootstrapper.new(@organization, organizer).run
+    if @organization.save && bootstrapper.run
       flash[:success] = 'Organization Created'
       sign_in_and_redirect(organizer)
     else
@@ -37,6 +37,10 @@ class OrganizationsController < Organization::BaseController
   end
 
   private
+
+  def bootstrapper
+    Organization::OrganizationBootstrapper.new(@organization, organizer)
+  end
 
   def organizer
     @organization.organizers.first
