@@ -14,7 +14,7 @@
 .row.margin-bottom-10
   .col-sm-6
     %label{for: 'number'} * Card Number
-    = text_field_tag nil, '', required: true, id: 'number', class: 'form-control', placeholder: '•••• •••• •••• ••••', data: {recurly: 'number'}
+    = text_field_tag nil, '', required: true, id: 'number', class: 'form-control', placeholder: '•••• •••• •••• ••••', data: {recurly: 'number'}, autocomplete: 'off'
 .row.margin-bottom-10
   .col-sm-6
     .row
