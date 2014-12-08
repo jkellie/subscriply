@@ -18,31 +18,19 @@ module UserProductHelper
   end
 
   def active_subscription_in_product(product)
-    product.plans.each do |plan|
-      _subscription = user.subscriptions.active.where(plan: plan).first
-      return _subscription
-    end
+    user.subscriptions.active.where(plan: product.plan_ids).first
   end
 
   def has_active_subscription_in_product?(product)
-    product.plans.each do |plan|
-      return true if user.subscriptions.active.where(plan: plan).any?
-    end
-    false
+    user.subscriptions.active.where(plan: product.plan_ids).any?
   end
 
   def has_canceling_subscription_in_product?(product)
-    product.plans.each do |plan|
-      return true if user.subscriptions.canceling.where(plan: plan).any?
-    end
-    false
+    user.subscriptions.canceling.where(plan: product.plan_ids).any?
   end
 
   def has_canceled_subscription_in_product?(product)
-    product.plans.each do |plan|
-      return true if user.subscriptions.canceled.where(plan: plan).any?
-    end
-    false
+    user.subscriptions.canceled.where(plan: product.plan_ids).any?
   end
 
 end
