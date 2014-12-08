@@ -62,7 +62,7 @@ class Organization::SubscriptionsController < Organization::BaseController
   end
 
   def change_plan
-    subscription_updater = Organization::SubscriptionUpdater.new(@subscription)
+    subscription_updater = SubscriptionUpdater.new(@subscription)
 
     if subscription_updater.update({plan_code: new_plan_code, timeframe: subscription_params[:apply_changes], plan_id: subscription_params[:plan_id]})
       flash[:notice] = 'Subscription Updated'
@@ -85,11 +85,11 @@ class Organization::SubscriptionsController < Organization::BaseController
   end  
 
   def canceling
-    @subscription_presenter = Organization::Organization::SubscriptionPresenter.new(@subscription)
+    @subscription_presenter = Organization::SubscriptionPresenter.new(@subscription)
   end
 
   def cancel
-    subscription_canceler = Organization::SubscriptionCanceler.new(@subscription)
+    subscription_canceler = SubscriptionCanceler.new(@subscription)
     
     if subscription_canceler.cancel
       flash[:notice] = 'Subscription set to cancel at renewal'

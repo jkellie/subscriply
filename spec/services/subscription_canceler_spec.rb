@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Organization::SubscriptionCanceler, '#initialize' do
+describe SubscriptionCanceler, '#initialize' do
   let(:subscription) { FactoryGirl.create(:subscription) }
 
   subject { Organization::SubscriptionCanceler.new(subscription) }
@@ -10,7 +10,7 @@ describe Organization::SubscriptionCanceler, '#initialize' do
   end
 end
 
-describe Organization::SubscriptionCanceler, '#cancel' do
+describe SubscriptionCanceler, '#cancel' do
   let(:subscription) { FactoryGirl.create(:subscription, state: :active, canceled_on: nil) }
   let(:subscription_canceler) { Organization::SubscriptionCanceler.new(subscription) }
 
@@ -57,6 +57,4 @@ describe Organization::SubscriptionCanceler, '#cancel' do
     end
 
   end
-
-  
 end

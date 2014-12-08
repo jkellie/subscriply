@@ -1,4 +1,4 @@
-class Organization::SubscriptionCanceler
+class SubscriptionCanceler
   include ActiveModel::Validations
   include ActiveModel::Conversion
   extend ActiveModel::Naming

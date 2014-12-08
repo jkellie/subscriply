@@ -27,11 +27,11 @@ class User::SubscriptionsController < User::BaseController
   end
 
   def update
-    subscription_updater = Organization::SubscriptionUpdater.new(@subscription)
+    subscription_updater = SubscriptionUpdater.new(@subscription)
 
-    if subscription_updater.update({plan_code: new_plan_code, timeframe: subscription_params[:apply_changes], plan_id: subscription_params[:plan_id]})
-      flash[:notice] = 'Subscription Updated'
-      redirect_to user_subscription_path(@subscription)
+    if subscription_updater.update({plan_code: new_plan_code, timeframe: 'renewal', plan_id: subscription_params[:plan_id]})
+      flash[:notice] = "Subscription Updated. This will take affect at renewal on #{@subscription.next_bill_on.strftime('%m/%d/%Y')}"
+      redirect_to user_product_path(@subscription.product)
     else
       flash[:danger] = "Error Updating Subscription: #{subscription_updater.full_errors}"
       redirect_to edit_user_subscription_path(@subscription)
@@ -51,6 +51,10 @@ class User::SubscriptionsController < User::BaseController
   end
 
   private
+
+  def subscription_params
+    params.require(:subscription).permit(:plan_id)
+  end
 
   def find_plan
     @plan = current_organization.plans.find(params[:plan_id])
