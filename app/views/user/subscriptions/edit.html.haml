@@ -1,0 +1,30 @@
+.profile.container.content
+  .row
+    = render '/user/shared/user_sidebar'
+
+    .col-md-9
+      .profile-body
+        = render '/user/products/basic_info', product: @subscription.product
+
+        - if @subscription.editable?
+          = render 'edit_form', subscription: @subscription, plans: @plans
+        
+        - elsif @subscription.canceled?
+          .alert.alert-danger
+            %h3
+              = icon 'warning'
+              Your subscription ended on #{@subscription.canceled_on.strftime('%b %d, %Y')}
+        
+        - elsif @subscription.canceling?
+          .alert.alert-danger
+            %h3
+              = icon 'warning'
+              Your subscription was canceled on #{@subscription.canceled_on.strftime('%b %d, %Y')}.
+              %br
+              You'll retain access until #{@subscription.next_bill_on.strftime('%b %d, %Y')}
+        
+        - elsif @subscription.future?
+          .alert.alert-success
+            %h3 
+              = icon 'rocket'
+              Your subscription will activate on #{@subscription.start_date.strftime('%b %d, %Y')}

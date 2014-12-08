@@ -61,7 +61,10 @@ Rails.application.routes.draw do
     resources :invoices, only: [:show, :index]
     resources :products, only: [:show, :index]
     resources :transactions, only: :index
-    resources :subscriptions, only: [:new, :create]
+    resources :subscriptions, only: [:new, :create, :edit, :update] do
+      put :canceling, on: :member
+      put :cancel, on: :member
+    end
     resources :plans, only: :show
   end
   

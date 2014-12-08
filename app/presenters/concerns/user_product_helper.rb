@@ -17,6 +17,13 @@ module UserProductHelper
     'default'
   end
 
+  def active_subscription_in_product(product)
+    product.plans.each do |plan|
+      _subscription = user.subscriptions.active.where(plan: plan).first
+      return _subscription
+    end
+  end
+
   def has_active_subscription_in_product?(product)
     product.plans.each do |plan|
       return true if user.subscriptions.active.where(plan: plan).any?

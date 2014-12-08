@@ -39,6 +39,10 @@ class Subscription < ActiveRecord::Base
     state :future
   end
 
+  def editable?
+    active?
+  end
+
   private
 
   def validate_location?

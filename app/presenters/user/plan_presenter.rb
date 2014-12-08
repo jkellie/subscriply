@@ -1,8 +1,9 @@
 class User::PlanPresenter
+  include ::UserProductHelper
   include ActionView::Helpers::UrlHelper
   attr_reader :plan, :user
 
-  delegate :amount, :description, :name, :subtitle, :subscribed?, :bulletpoints, to: :plan
+  delegate :product, :amount, :description, :name, :subtitle, :subscribed?, :subscription, :bulletpoints, to: :plan
 
   def initialize(options)
     @plan = options[:plan]
@@ -22,8 +23,8 @@ class User::PlanPresenter
   end
 
   def subscribe_button
-    if subscribed?(user)
-      link_to 'Cancel Subscription', '#', class: 'btn-danger btn-lg btn-block btn'
+    if has_active_subscription_in_product?(product)
+      link_to 'Edit Subscription', edit_subscription_path, class: 'btn-danger btn-lg btn-block btn'
     else
       link_to 'Subscribe Now', subscribe_path, class: 'btn-primary btn-lg btn-block btn' 
     end
@@ -33,6 +34,10 @@ class User::PlanPresenter
 
   def subscribe_path
     Rails.application.routes.url_helpers.new_user_subscription_path(plan_id: plan.id)
+  end
+
+  def edit_subscription_path
+    Rails.application.routes.url_helpers.edit_user_subscription_path(active_subscription_in_product(product))
   end
 
 end
