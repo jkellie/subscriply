@@ -42,6 +42,9 @@ class Organization::PlansController < Organization::BaseController
       flash.now[:danger] = "Error Creating Plan: #{@plan.errors.full_messages.to_sentence}"
       render 'edit'
     end
+  rescue Recurly::Resource::NotFound
+    flash.now[:danger] = 'Error Finding Plan on Recurly. Please email support for assistance'
+    render 'edit'
   end
 
   def destroy
