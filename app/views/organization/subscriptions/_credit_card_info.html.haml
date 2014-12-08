@@ -49,7 +49,7 @@
           = text_field_tag nil, '', required: true, placeholder: 'City', id: 'city', class: 'form-control', data: {recurly: 'city'}
 
         .col-md-3
-          = text_field_tag nil, '', required: true, placeholder: 'State Code', id: 'state', class: 'form-control', data: {recurly: 'state'}
+          = select_tag nil, options_for_select(us_states), required: true, placeholder: 'State Code', id: 'state', class: 'form-control', data: {recurly: 'state'}
         .col-md-3
           = text_field_tag nil, '', required: true, placeholder: 'Zip Code', id: 'postal_code', class: 'form-control', data: {recurly: 'postal_code'}
 

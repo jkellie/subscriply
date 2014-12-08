@@ -8,8 +8,8 @@ OrganizationSubscriptionWizard =
     @_updatePreview()
 
   _initCardValidation: ->
-    $('#subscription_wizard_phone_number').formance('format_phone_number')
-    $('#subscription_wizard_member_number').formance('format_number')
+    $('#organization_subscription_wizard_phone_number').formance('format_phone_number')
+    $('#organization_subscription_wizard_member_number').formance('format_number')
     $('#number').formance('format_credit_card_number')
 
   _initRecurly: (public_key) ->

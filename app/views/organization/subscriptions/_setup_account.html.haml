@@ -34,7 +34,7 @@
         .col-md-6
           = f.input :city, placeholder: 'City', required: true, label: false, input_html: { class: 'form-control' }
         .col-md-3
-          = f.input :state_code, placeholder: 'State', required: true, label: false, input_html: { class: 'form-control' }
+          = f.input :state_code, as: :select, collection: us_states, placeholder: 'State', required: true, label: false, input_html: { class: 'form-control' }
         .col-md-3
           = f.input :zip, placeholder: 'Zip Code', required: true, label: false, input_html: { class: 'form-control' }
 
