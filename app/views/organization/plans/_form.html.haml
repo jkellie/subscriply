@@ -21,7 +21,7 @@
     %label Plan code
     .input-group
       %span#plan_prepend_code.input-group-addon #{f.object.product.try(:prepend_code)}
-      = f.input :code, input_html: { class: 'form-control' }, label: false, required: true
+      = f.input :code, input_html: { class: 'form-control' }, label: false, required: true, disabled: f.object.persisted?
   .col-sm-8
     %p{:style => "margin-top: 15px"} This is the code Subscriply™ and Recurly™ use to identify this plan. The prefix of the code is set by the product category.
 
