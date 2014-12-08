@@ -3,7 +3,7 @@ class User::ProductPresenter
   include ActionView::Helpers::TagHelper
   include ActionView::Helpers::UrlHelper
   attr_reader :user, :product
-  delegate :name, :image, to: :product
+  delegate :name, :image, :description, to: :product
   
   def initialize(options)
     @user = options[:user]
@@ -30,9 +30,9 @@ class User::ProductPresenter
 
   def subscription_link
     if active_subscription
-      link_to 'Edit', '#'
+      link_to 'Edit Subscription', '#', class: 'btn btn-default', style: 'margin: 20px 0'
     else
-      link_to 'Subscribe Now!', '#'
+      link_to 'Subscribe Now!', '#', class: 'btn btn-primary', style: 'margin: 20px 0'
     end
   end
 

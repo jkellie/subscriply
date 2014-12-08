@@ -1,19 +1,25 @@
-.col-sm-6
+.col-sm-6.product
   .easy-block-v1
     = link_to image_tag(product_presenter.image.url(:full), class: 'img img-responsive'), user_product_path(product_presenter.product)
 
   .projects
     %h2 #{product_presenter.name}
+    
     %ul.list-unstyled.list-inline.blog-info-v2
       %li
         Status:
         = product_presenter.status_label
-        
       %li
         Next Charge:
         = icon 'clock'
         = product_presenter.next_charge
+    
     %p
       %strong Plan:
       = product_presenter.plan_name
+
+    %p
+      = product_presenter.description
+    
+    %center
       = product_presenter.subscription_link
