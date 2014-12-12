@@ -12,7 +12,7 @@
             .input-group
               %span.input-group-addon
                 = icon 'calendar-o'
-              = text_field_tag 'renewal_date', subscription.next_bill_on.try(:strftime, '%b %d, %Y'), class: 'datepicker form-control', required: true
+              = text_field_tag 'renewal_date', subscription.next_bill_on.try(:strftime, '%b %d, %Y'), class: 'datepicker form-control', required: true, readonly: true, style: 'cursor: pointer'
           .col-sm-6{style: "margin-top: 20px"}
             %p
               Subscription will automatically renew on
