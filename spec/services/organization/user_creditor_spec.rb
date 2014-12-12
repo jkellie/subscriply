@@ -11,7 +11,7 @@ describe Organization::UserCreditor, '#initialize' do
 end
 
 describe Organization::UserCreditor, '#attributes=' do
-  let!(:user) { Organization::FactoryGirl.create(:user) }
+  let!(:user) { FactoryGirl.create(:user) }
   let(:user_creditor) { Organization::UserCreditor.new(user) }
 
   subject do

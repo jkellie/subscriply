@@ -30,9 +30,9 @@ class User::ProductPresenter
 
   def subscription_link
     if active_subscription
-      link_to 'Edit Subscription', '#', class: 'btn btn-default', style: 'margin: 20px 0'
+      link_to 'Edit Subscription', edit_user_subscription_path(active_subscription), class: 'btn btn-default', style: 'margin: 20px 0'
     else
-      link_to 'Subscribe Now!', '#', class: 'btn btn-primary', style: 'margin: 20px 0'
+      link_to 'Subscribe Now!', user_product_path(product), class: 'btn btn-primary', style: 'margin: 20px 0'
     end
   end
 
@@ -40,6 +40,14 @@ class User::ProductPresenter
 
   def active_subscription
     @active_subscription ||= user.active_subscription_for_product(product)
+  end
+
+  def edit_user_subscription_path(subscription)
+    Rails.application.routes.url_helpers.edit_user_subscription_path(subscription)
+  end
+
+  def user_product_path(product)
+    Rails.application.routes.url_helpers.user_product_path(product)
   end
 
 end

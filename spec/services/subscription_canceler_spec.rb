@@ -3,7 +3,7 @@ require 'spec_helper'
 describe SubscriptionCanceler, '#initialize' do
   let(:subscription) { FactoryGirl.create(:subscription) }
 
-  subject { Organization::SubscriptionCanceler.new(subscription) }
+  subject { SubscriptionCanceler.new(subscription) }
 
   it "instantiates the subscription canceler" do
     expect { subject }.to_not raise_error
@@ -12,7 +12,7 @@ end
 
 describe SubscriptionCanceler, '#cancel' do
   let(:subscription) { FactoryGirl.create(:subscription, state: :active, canceled_on: nil) }
-  let(:subscription_canceler) { Organization::SubscriptionCanceler.new(subscription) }
+  let(:subscription_canceler) { SubscriptionCanceler.new(subscription) }
 
   context "with a successful cancelation" do
 
