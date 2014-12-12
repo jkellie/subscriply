@@ -9,4 +9,3 @@
           
           - @dashboard_presenter.products.each do |product|
             = render 'product', product_presenter: User::ProductPresenter.new(product: product, user: current_user)
-

@@ -12,8 +12,9 @@
         Select the subscription plan you would like. Some plans may be subject to additional taxes depending on your location.
 
     .row
-      .col-sm-12{:style => "margin-top: 30px; padding: 0 30px"}
-        = link_to 'Nevermind...', root_path, class: 'btn btn-default', style: 'margin-right: 5px'
-        = f.submit 'Save Changes', class: 'btn btn-primary', style: 'margin-left: 5px'
+      .col-sm-6{:style => "margin-top: 30px; padding: 0 30px"}
+        .pull-left
+          = link_to 'Nevermind...', root_path, class: 'btn btn-default', style: 'margin-right: 5px'
+          = f.submit 'Save Changes', class: 'btn btn-primary', style: 'margin-left: 5px'
 
-= button_to 'Cancel Subscription', cancel_user_subscription_path(subscription), method: :put, data: {confirm: 'Are you sure?', 'disable-with' => 'Canceling...'}, class: 'btn btn-danger pull-right'
+= button_to 'Cancel Subscription', cancel_user_subscription_path(subscription), method: :put, data: {confirm: 'Are you sure?', 'disable-with' => 'Canceling...'}, class: 'btn btn-danger pull-right', style: 'margin-top: -55px; z-index: 99'
