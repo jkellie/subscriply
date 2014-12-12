@@ -6,7 +6,7 @@
     .row.status-labels
       = @subscription_presenter.status_label
 
-%div{:style => "margin-left: 15px"}
+%div{style: "margin-left: 15px"}
   = link_to organization_user_path(@subscription_presenter.user), class: 'btn btn-primary btn-xs' do
     &lt; Back to user
   
@@ -17,6 +17,3 @@
 
 = render 'edit_location', subscription: @subscription_presenter.subscription if @subscription_presenter.local_pick_up?
 = render 'edit_renewal_date', subscription: @subscription_presenter.subscription
-
-:javascript
-  $('.datepicker').datepicker({dateFormat: 'M d, yy'})

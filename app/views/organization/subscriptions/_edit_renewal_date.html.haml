@@ -1,8 +1,8 @@
-#edit-renewal.modal.fade{"aria-hidden" => "true", :role => "dialog", :style => "display: none;", :tabindex => "-2"}
+#edit-renewal.modal.fade{"aria-hidden" => "true", :role => "dialog", style: "display: none;", :tabindex => "-2"}
   .modal-dialog
     .modal-content
       .modal-header
-        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"} ×
         %h4#myModalLabel.modal-title
           Edit Renewal
       .modal-body
@@ -12,8 +12,8 @@
             .input-group
               %span.input-group-addon
                 = icon 'calendar-o'
-              = text_field_tag 'renewal_date', '', class: 'datepicker form-control', required: true
-          .col-sm-6{:style => "margin-top: 20px"}
+              = text_field_tag 'renewal_date', subscription.next_bill_on.try(:strftime, '%b %d, %Y'), class: 'datepicker form-control', required: true
+          .col-sm-6{style: "margin-top: 20px"}
             %p
               Subscription will automatically renew on
               = succeed "." do
@@ -24,5 +24,11 @@
           %br
           %br
           %center
-            %input.btn.btn-default{"data-dismiss" => "modal", :style => "margin-right: 10px", :type => "submit", :value => "Cancel"}
-            %input.btn.btn-primary{:style => "margin-left: 10px", :type => "submit", :value => "Submit"}
+            %input.btn.btn-default{"data-dismiss" => "modal", style: "margin-right: 10px", type: "submit", value: "Cancel"}
+            %input.btn.btn-primary{style: "margin-left: 10px", type: "submit", value: "Submit"}
+
+:javascript
+  $('.datepicker').datepicker({
+    dateFormat: 'M d, yy',
+    minDate: 1
+  });
