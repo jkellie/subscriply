@@ -43,6 +43,10 @@ class Subscription < ActiveRecord::Base
     active?
   end
 
+  def changing?
+    changing_to.present?
+  end
+
   private
 
   def validate_location?

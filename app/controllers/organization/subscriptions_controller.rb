@@ -62,7 +62,7 @@ class Organization::SubscriptionsController < Organization::BaseController
   end
 
   def change_plan
-    subscription_updater = SubscriptionUpdater.new(@subscription)
+    subscription_updater = ::SubscriptionUpdater.new(@subscription)
 
     if subscription_updater.update({plan_code: new_plan_code, timeframe: subscription_params[:apply_changes], plan_id: subscription_params[:plan_id]})
       flash[:notice] = 'Subscription Updated'

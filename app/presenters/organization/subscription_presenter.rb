@@ -4,7 +4,7 @@ class Organization::SubscriptionPresenter
   attr_reader :subscription
 
   delegate :organization, :user, :start_date, :next_bill_on, :plan, :next_ship_on,
-    :location, :active?, :canceling?, :canceled?, :state, :future?,
+    :location, :active?, :canceling?, :canceled?, :state, :future?, :changing_to,
       to: :subscription
 
   def initialize(subscription)
@@ -94,12 +94,23 @@ class Organization::SubscriptionPresenter
     active? || future?
   end
 
+  def changing?
+    changing_to.present?
+  end
+
+  def changing_status
+    content_tag(:p, "Subscription changing to #{changing_to_plan_name} at next renewal.", class: 'alert alert-success')
+  end
+
   private
+
+  def changing_to_plan_name
+    Plan.find(changing_to).name
+  end
 
   def location_object
     return user if plan.shipped?
     return location if plan.local_pick_up?
   end
-
 
 end
