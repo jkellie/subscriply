@@ -15,7 +15,7 @@ OrganizationSubscriptionWizard =
   _initRecurly: (public_key) ->
     recurly.configure public_key
 
-    $(document).on 'submit', '.new_subscription_wizard', (e) ->
+    $(document).on 'submit', '.new_organization_subscription_wizard', (e) ->
       e.preventDefault()
       form = this
       
@@ -29,11 +29,11 @@ OrganizationSubscriptionWizard =
     $(document).on 'change', '#same_as_shipping', (e) ->
       e.preventDefault()
 
-      $('#address1').val($('#subscription_wizard_street_address').val())
-      $('#address2').val($('#subscription_wizard_street_address_2').val())
-      $('#city').val($('#subscription_wizard_city').val())
-      $('#state').val($('#subscription_wizard_state_code').val())
-      $('#postal_code').val($('#subscription_wizard_zip').val())
+      $('#address1').val($('#organization_subscription_wizard_street_address').val())
+      $('#address2').val($('#organization_subscription_wizard_street_address_2').val())
+      $('#city').val($('#organization_subscription_wizard_city').val())
+      $('#state').val($('#organization_subscription_wizard_state_code').val())
+      $('#postal_code').val($('#organization_subscription_wizard_zip').val())
 
   _initSteps: ->
     $steps = $(".form-wizard .step")
@@ -41,7 +41,7 @@ OrganizationSubscriptionWizard =
     $tabs = $(".header .steps .step")
     active_step = 0
 
-    $('#subscription_wizard_sales_rep_id').select2()
+    $('#organization_subscription_wizard_sales_rep_id').select2()
     
     $buttons.click (e) ->
       has_back = $(e.target).hasClass('back') or $(e.target).parent().hasClass('back')
@@ -65,22 +65,25 @@ OrganizationSubscriptionWizard =
   _updatePreview: ->
     $('.finish dd').text('')
 
-    if $('#subscription_wizard_sales_rep_id').val()
-      $('.finish .sales-rep').text($('#subscription_wizard_sales_rep_id option:selected').text())
+    if $('#organization_subscription_wizard_sales_rep_id').val()
+      $('.finish .sales-rep').text($('#organization_subscription_wizard_sales_rep_id option:selected').text())
     else
       $('.finish .sales-rep').text('none')
 
-    $('.finish .member-number').text($('#subscription_wizard_member_number').val())
-    $('.finish .name').text("#{$('#subscription_wizard_first_name').val()} #{$('#subscription_wizard_last_name').val()}")
-    $('.finish .phone').text($('#subscription_wizard_phone_number').val()).formance('format_phone_number')
-    $('.finish .email').text($('#subscription_wizard_email').val())
-    $('.finish .shipping-address').html(OrganizationSubscriptionWizard._shippingAddress())
-    $('.finish .start-date').text($('#subscription_wizard_start_date').val())
-    $('.finish .product').text($('#subscription_wizard_product_id option:selected').text())
-    $('.finish .plan').text($('#subscription_wizard_plan_id option:selected').text())
+    $('.finish .member-number').text($('#organization_subscription_wizard_member_number').val())
+    $('.finish .name').text("#{$('#organization_subscription_wizard_first_name').val()} #{$('#organization_subscription_wizard_last_name').val()}")
+    $('.finish .phone').text($('#organization_subscription_wizard_phone_number').val()).formance('format_phone_number')
+    $('.finish .email').text($('#organization_subscription_wizard_email').val())
+    
+    if OrganizationSubscriptionWizard._showShippingAddress()
+      $('.finish .shipping-address').html(OrganizationSubscriptionWizard._shippingAddress())
 
-    if $('#subscription_wizard_location_id').val()
-      $('.finish .location').text($('#subscription_wizard_location_id option:selected').text())
+    $('.finish .start-date').text($('#organization_subscription_wizard_start_date').val())
+    $('.finish .product').text($('#organization_subscription_wizard_product_id option:selected').text())
+    $('.finish .plan').text($('#organization_subscription_wizard_plan_id option:selected').text())
+
+    if $('#organization_subscription_wizard_location_id').val()
+      $('.finish .location').text($('#organization_subscription_wizard_location_id option:selected').text())
     else
       $('.finish .location').text('n/a')
 
@@ -89,12 +92,20 @@ OrganizationSubscriptionWizard =
     $('.finish .card-number').text("**** #{last_four}")
     $('.finish .expiration').text("#{$('#month option:selected').text()} #{$('#year option:selected').text()}")
     $('.finish .cvv').text($('#cvv').val())
-    $('.finish .billing-address').html(OrganizationSubscriptionWizard._billingAddress())
+
+    if OrganizationSubscriptionWizard._showBillingAddress()
+      $('.finish .billing-address').html(OrganizationSubscriptionWizard._billingAddress())
+
+  _showShippingAddress: ->
+    $('dd.shipping-address') 
+
+  _showBillingAddress: ->
+    $('dd.billing-address')
 
   _shippingAddress: ->
-    address = "#{$('#subscription_wizard_street_address').val()}<br/>"
-    address += "#{$('#subscription_wizard_street_address_2').val()}<br/>" if $('#subscription_wizard_street_address_2').val()
-    address += "#{$('#subscription_wizard_city').val()}, #{$('#subscription_wizard_state_code').val()} #{$('#subscription_wizard_zip').val()}"
+    address = "#{$('#organization_subscription_wizard_street_address').val()}<br/>"
+    address += "#{$('#organization_subscription_wizard_street_address_2').val()}<br/>" if $('#organization_subscription_wizard_street_address_2').val()
+    address += "#{$('#organization_subscription_wizard_city').val()}, #{$('#organization_subscription_wizard_state_code').val()} #{$('#organization_subscription_wizard_zip').val()}"
     address
 
   _billingAddress: ->

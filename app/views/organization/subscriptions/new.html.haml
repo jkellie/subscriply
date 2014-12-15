@@ -6,7 +6,7 @@
 .col-md-12
   %section.form-wizard
     = simple_form_for(@subscription_wizard, url: organization_subscriptions_path, method: :post) do |f|
-      = hidden_field_tag 'subscription_wizard[recurly_token]', '', 'data-recurly' => 'token'
+      = hidden_field_tag 'organization_subscription_wizard[recurly_token]', '', 'data-recurly' => 'token'
       = hidden_field_tag 'country', 'US', 'data-recurly' => 'country'
       = render 'setup_account', f: f
       = render 'select_subscription', f: f, products: @subscription_wizard.products, locations: @subscription_wizard.locations

@@ -22,21 +22,23 @@
         .col-md-6
           = f.input :email, input_html: { class: 'form-control', type: 'email' }, required: true
 
-      .row{:style => "margin-top: 15px"}
-        .col-md-12
-          = f.input :street_address, label: 'Shipping Address', placeholder: 'Street Address', input_html: { class: 'form-control' }, required: true
+      - if f.object.show_shipping_info?
 
-      .row{:style => "margin-top: 15px"}
-        .col-md-12
-          = f.input :street_address_2, label: false, placeholder: 'Apt / Suite', input_html: { class: 'form-control' }
+        .row{:style => "margin-top: 15px"}
+          .col-md-12
+            = f.input :street_address, label: 'Shipping Address', placeholder: 'Street Address', input_html: { class: 'form-control' }, required: true
 
-      .row{:style => "margin-top: 15px"}
-        .col-md-6
-          = f.input :city, placeholder: 'City', required: true, label: false, input_html: { class: 'form-control' }
-        .col-md-3
-          = f.input :state_code, as: :select, collection: us_states, placeholder: 'State', required: true, label: false, input_html: { class: 'form-control' }
-        .col-md-3
-          = f.input :zip, placeholder: 'Zip Code', required: true, label: false, input_html: { class: 'form-control' }
+        .row{:style => "margin-top: 15px"}
+          .col-md-12
+            = f.input :street_address_2, label: false, placeholder: 'Apt / Suite', input_html: { class: 'form-control' }
+
+        .row{:style => "margin-top: 15px"}
+          .col-md-6
+            = f.input :city, placeholder: 'City', required: true, label: false, input_html: { class: 'form-control' }
+          .col-md-3
+            = f.input :state_code, as: :select, collection: us_states, placeholder: 'State', required: true, label: false, input_html: { class: 'form-control' }
+          .col-md-3
+            = f.input :zip, placeholder: 'Zip Code', required: true, label: false, input_html: { class: 'form-control' }
 
   .form-group.form-actions.text-right
     %button.btn.btn-primary.next{"data-step" => "2", :type => "submit"}

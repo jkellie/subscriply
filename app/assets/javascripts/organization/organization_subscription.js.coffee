@@ -6,7 +6,10 @@ OrganizationSubscription =
     @_initProduct()
 
   _initDatePicker: ->
-    $('.datepicker').datepicker()
+    $('.datepicker').datepicker({
+      dateFormat: 'M d, yy',
+      minDate: 0
+    });
 
   _initPlan: ->
     $(document).on 'change', '.subscription-plan-id', (e) ->

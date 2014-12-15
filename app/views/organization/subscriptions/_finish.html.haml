@@ -15,8 +15,11 @@
         %dd.phone
         %dt email:
         %dd.email
-        %dt Shipping Address:
-        %dd.shipping-address
+        
+        - if f.object.show_shipping_info?
+          %dt Shipping Address:
+          %dd.shipping-address
+          
     .col-sm-6
       %dl.dl-horizontal
         %dt Start Date:
@@ -38,8 +41,10 @@
         %dd.expiration
         %dt CVV:
         %dd.cvv
-        %dt Billing Address:
-        %dd.billing-address
+        
+        - if f.object.show_billing_info?
+          %dt Billing Address:
+          %dd.billing-address
   
   .form-group.form-actions.text-right
     %button.btn.btn-default.back{'data-step' => '3'}

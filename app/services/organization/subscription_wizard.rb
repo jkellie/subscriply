@@ -71,6 +71,14 @@ class Organization::SubscriptionWizard
     false
   end
 
+  def show_shipping_info?
+    ['both', 'shipping_only'].include?(organization.address_requirement)
+  end
+
+  def show_billing_info?
+    ['both', 'billing_only'].include?(organization.address_requirement)
+  end
+
   private
 
   def add_errors_and_return_false
@@ -107,13 +115,21 @@ class Organization::SubscriptionWizard
   end
   
   def update_cached_billing_info
-    Billing::User.update_cached_billing_info(user.reload)
+    user.update!({
+      card_type: billing_info.card_type,
+      last_four: billing_info.last_four,
+      expiration: "#{billing_info.month} / #{billing_info.year}"
+    })
     subscription.update!({
       uuid: billing_subscription.uuid,
       state: billing_subscription.state,
       next_bill_on: billing_subscription.current_period_ends_at,
       start_date: billing_subscription.activated_at
     })
+  end
+
+  def billing_info
+    @billing_info ||= Billing::User.billing_info(user)
   end
 
   def update_next_ship_date

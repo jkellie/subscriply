@@ -4,7 +4,7 @@
     .input-group
       %span.input-group-addon
         = icon 'calendar-o'
-      = f.input :start_date, as: :string, label: false, input_html: { class: 'form-control datepicker subscription-start-date' }, required: true
+      = f.input :start_date, as: :string, label: false, input_html: { class: 'form-control datepicker subscription-start-date', style: 'cursor: pointer; background-color: #fff',  readonly: true }, required: true 
   .col-md-6
     %p{style: 'margin-top: 30px'} Choose a start date for the subscription.
 

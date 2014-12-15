@@ -13,7 +13,7 @@
       .row{:style => "margin-top: 15px"}
         .col-md-9
           %label{for: 'number'} * Card Number
-          = text_field_tag nil, '', required: true, id: 'number', class: 'form-control', placeholder: '•••• •••• •••• ••••', data: {recurly: 'number'}
+          = text_field_tag nil, '', required: true, id: 'number', class: 'form-control', placeholder: '•••• •••• •••• ••••', data: {recurly: 'number'}, autocomplete: 'off'
       
       .row{:style => "margin-top: 15px"}
         .col-md-3
@@ -29,29 +29,33 @@
           = text_field_tag nil, '', required: true, id: 'cvv', class: 'form-control', data: {recurly: 'cvv'}
           
     .col-md-6
-      .row
-        .col-md-12
-          .checkbox{:style => "margin-top: 15px"}
-            %input{id: 'same_as_shipping', checked: false, type: "checkbox"}
-            %label{for: 'same_as_shipping'} Same as shipping
+
+      - if f.object.show_shipping_info?
+        .row
+          .col-md-12
+            .checkbox{:style => "margin-top: 15px"}
+              %input{id: 'same_as_shipping', checked: false, type: "checkbox"}
+              %label{for: 'same_as_shipping'} Same as shipping
+
+      - if f.object.show_billing_info?
             
-      .row{:style => "margin-top: 15px"}
-        .col-md-12
-          %label{for: 'address1'} * Billing Address
-          = text_field_tag nil, '', required: true, id: 'address1', placeholder: 'Street Address', class: 'form-control', data: {recurly: 'address1'}
+        .row{:style => "margin-top: 15px"}
+          .col-md-12
+            %label{for: 'address1'} * Billing Address
+            = text_field_tag nil, '', required: true, id: 'address1', placeholder: 'Street Address', class: 'form-control', data: {recurly: 'address1'}
 
-      .row{:style => "margin-top: 15px"}
-        .col-md-12
-          = text_field_tag nil, '', id: 'address2', placeholder: 'Apt / Suite No', class: 'form-control', data: {recurly: 'address2'}
+        .row{:style => "margin-top: 15px"}
+          .col-md-12
+            = text_field_tag nil, '', id: 'address2', placeholder: 'Apt / Suite No', class: 'form-control', data: {recurly: 'address2'}
 
-      .row{:style => "margin-top: 15px"}
-        .col-md-6
-          = text_field_tag nil, '', required: true, placeholder: 'City', id: 'city', class: 'form-control', data: {recurly: 'city'}
+        .row{:style => "margin-top: 15px"}
+          .col-md-6
+            = text_field_tag nil, '', required: true, placeholder: 'City', id: 'city', class: 'form-control', data: {recurly: 'city'}
 
-        .col-md-3
-          = select_tag nil, options_for_select(us_states), required: true, placeholder: 'State Code', id: 'state', class: 'form-control', data: {recurly: 'state'}
-        .col-md-3
-          = text_field_tag nil, '', required: true, placeholder: 'Zip Code', id: 'postal_code', class: 'form-control', data: {recurly: 'postal_code'}
+          .col-md-3
+            = select_tag nil, options_for_select(us_states), required: true, placeholder: 'State Code', id: 'state', class: 'form-control', data: {recurly: 'state'}
+          .col-md-3
+            = text_field_tag nil, '', required: true, placeholder: 'Zip Code', id: 'postal_code', class: 'form-control', data: {recurly: 'postal_code'}
 
   .form-group.form-actions.text-right
     %a.btn-default.btn.back{"data-step" => "2", :href => "#"}
