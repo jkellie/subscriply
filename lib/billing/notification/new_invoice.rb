@@ -12,7 +12,7 @@ module Billing
         uuid:             billing_invoice.uuid
       })
     end
-    #handle_asynchronously :perform
+    handle_asynchronously :perform
 
     private
 
