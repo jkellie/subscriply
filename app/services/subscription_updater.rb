@@ -38,7 +38,6 @@ class SubscriptionUpdater
   end
 
   def update_subscription_locally
-    options[:timeframe] == 'now'
     if update_now?
       subscription.update!(plan_id: options[:plan_id]) 
     else
