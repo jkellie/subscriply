@@ -36,10 +36,18 @@ class User::ProductPresenter
     end
   end
 
+  def changing_at_renewal
+    content_tag :span, 'Changing at renewal', class: 'label label-primary' if changing?
+  end
+
   private
 
   def active_subscription
     @active_subscription ||= user.active_subscription_for_product(product)
+  end
+
+  def changing?
+    active_subscription && active_subscription.changing?
   end
 
   def edit_user_subscription_path(subscription)
