@@ -64,6 +64,7 @@ Rails.application.routes.draw do
     resources :subscriptions, only: [:new, :create, :edit, :update] do
       put :canceling, on: :member
       put :cancel, on: :member
+      put :reactivate, on: :member
     end
     resources :plans, only: :show
   end

@@ -1,7 +1,7 @@
 class User::SubscriptionsController < User::BaseController
   before_action :find_plan, only: :new
   before_action :init_subscription_creator, only: [:new, :create]
-  before_action :find_subscription, only: [:edit, :update, :cancel]
+  before_action :find_subscription, only: [:edit, :update, :cancel, :reactivate]
   
 
   def new
@@ -46,6 +46,18 @@ class User::SubscriptionsController < User::BaseController
       redirect_to root_path
     else
       flash[:danger] = "Error canceling subscription: #{subscription_canceler.full_errors}"
+      redirect_to edit_user_subscription_path(@subscription)
+    end
+  end
+
+  def reactivate
+    subscription_reactivator = SubscriptionReactivator.new(@subscription)
+
+    if subscription_reactivator.reactivate
+      flash[:notice] = 'Subscription reactivated'
+      redirect_to root_path
+    else
+      flash[:danger] = "Error reactivating subscription: #{subscription_reactivator.full_errors}"
       redirect_to edit_user_subscription_path(@subscription)
     end
   end
