@@ -59,6 +59,13 @@ class User < ActiveRecord::Base
       where(["products.id = ?", product.id]).first
   end
 
+  def canceling_subscription_for_product(product)
+    subscriptions.canceling.
+      joins("LEFT OUTER JOIN plans on plans.id = subscriptions.plan_id").
+      joins("LEFT OUTER JOIN products on products.id = plans.product_id").
+      where(["products.id = ?", product.id]).first
+  end
+
   private
 
   def accepted?

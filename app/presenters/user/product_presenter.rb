@@ -25,12 +25,15 @@ class User::ProductPresenter
 
   def plan_name
     return active_subscription.plan.name if active_subscription
+    return canceling_subscription.plan.name if canceling_subscription
     'None'
   end
 
   def subscription_link
     if active_subscription
       link_to 'Edit Subscription', edit_user_subscription_path(active_subscription), class: 'btn btn-default', style: 'margin: 20px 0'
+    elsif canceling_subscription
+        link_to 'Edit Subscription', edit_user_subscription_path(canceling_subscription), class: 'btn btn-default', style: 'margin: 20px 0'
     else
       link_to 'Subscribe Now!', user_product_path(product), class: 'btn btn-primary', style: 'margin: 20px 0'
     end
@@ -44,6 +47,10 @@ class User::ProductPresenter
 
   def active_subscription
     @active_subscription ||= user.active_subscription_for_product(product)
+  end
+
+  def canceling_subscription
+    @canceling_subscription ||= user.canceling_subscription_for_product(product)
   end
 
   def changing?
