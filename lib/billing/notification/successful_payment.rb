@@ -23,7 +23,7 @@ module Billing
     end
 
     def update_subscription
-      subscription.update(next_ship_on: next_ship_on, next_bill_on: next_bill_on)
+      subscription.update(next_ship_on: next_ship_on, next_bill_on: next_bill_on, changing_to: nil)
     end
 
     def user

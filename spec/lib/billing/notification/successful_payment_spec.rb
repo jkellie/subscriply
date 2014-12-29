@@ -27,7 +27,7 @@ describe Billing::Notification::SuccessfulPayment, '.perform' do
     Delayed::Worker.new.work_off 
   end
 
-  it "creates a new trnasaction" do
+  it "creates a new transaction" do
     expect{subject}.to change { Transaction.count }.by(1)
   end
 
@@ -47,6 +47,11 @@ describe Billing::Notification::SuccessfulPayment, '.perform' do
   it "updates the subscription next bill on" do
     subject
     expect(subscription.reload.next_bill_on).not_to be_nil
+  end
+
+  it "updates the subscription changing to" do
+    subject
+    expect(subscription.reload.changing_to).to be_nil
   end
 
 end

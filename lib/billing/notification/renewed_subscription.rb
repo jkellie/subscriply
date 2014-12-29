@@ -5,7 +5,8 @@ module Billing
       subscription.activate!
       subscription.update_attributes({
         next_bill_on: next_bill_on,
-        next_ship_on: next_ship_on
+        next_ship_on: next_ship_on,
+        changing_to: nil
       })
     end
     handle_asynchronously :perform

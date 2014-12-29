@@ -16,11 +16,12 @@ describe Billing::Notification::RenewedSubscription, '.perform' do
     Delayed::Worker.new.work_off 
   end
 
-  it "updates the subscription to do active" do
+  it "updates the subscription to active" do
     subject
     expect(subscription.reload.state).to eq('active')
     expect(subscription.reload.next_ship_on).not_to be_nil
     expect(subscription.reload.next_bill_on).to eq(1.month.from_now.to_date)
+    expect(subscription.reload.changing_to).to be_nil
   end
 
 end
