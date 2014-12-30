@@ -1,0 +1,5 @@
+.row.margin-bottom-30{:style => "margin-left: 10px"}
+  %h4 You are currently subscribed to:
+  %p
+    %strong #{subscription.plan.name_with_subtitle}
+  = link_to 'Edit Subscription', edit_user_subscription_path(subscription), class: 'btn btn-sm btn-danger'

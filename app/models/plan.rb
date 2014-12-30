@@ -20,6 +20,10 @@ class Plan < ActiveRecord::Base
     "#{product.prepend_code.upcase} #{name}"
   end
 
+  def name_with_subtitle
+    "#{name} #{subtitle}"
+  end
+
   def deletable?
     false
   end

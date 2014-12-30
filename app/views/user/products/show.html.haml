@@ -5,4 +5,11 @@
     .col-md-9
       .profile-body
         = render 'basic_info', product: @product_presenter.product
+
+        - if @product_presenter.active_subscription
+          = render 'active_subscription_info', subscription: @product_presenter.active_subscription
+
+        - if @product_presenter.canceling_subscription
+          = render 'canceling_subscription_info', subscription: @product_presenter.canceling_subscription
+
         = render 'plans', plans: @product_presenter.plans

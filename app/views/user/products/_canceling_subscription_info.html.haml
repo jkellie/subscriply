@@ -1,0 +1,9 @@
+.row.margin-bottom-30{:style => "margin-left: 10px"}
+  %h4 You are currently subscribed to:
+  %p
+    %strong #{subscription.plan.name_with_subtitle}
+    %br
+    Your subscription is scheduled to be canceled at renewal.
+    You'll retain access until #{subscription.next_bill_on.strftime('%b %d, %Y')}
+    %br
+  = link_to 'Re-activate', reactivate_user_subscription_path(subscription), method: :put, class: 'btn btn-sm btn-danger'

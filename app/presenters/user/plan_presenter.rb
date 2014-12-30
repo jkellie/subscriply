@@ -23,14 +23,16 @@ class User::PlanPresenter
   end
 
   def subscribe_button
-    if has_active_subscription_in_product?(product)
-      link_to 'Edit Subscription', edit_subscription_path, class: 'btn-danger btn-lg btn-block btn'
-    else
+    unless hide_subscribe_button?
       link_to 'Subscribe Now', subscribe_path, class: 'btn-primary btn-lg btn-block btn' 
     end
   end
 
   private
+
+  def hide_subscribe_button?
+    has_active_subscription_in_product?(product) || has_canceling_subscription_in_product?(product)
+  end
 
   def subscribe_path
     Rails.application.routes.url_helpers.new_user_subscription_path(plan_id: plan.id)
