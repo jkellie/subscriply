@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141212185131) do
+ActiveRecord::Schema.define(version: 20150108030937) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -120,10 +120,9 @@ ActiveRecord::Schema.define(version: 20141212185131) do
     t.string   "code"
     t.string   "plan_type"
     t.text     "description"
-    t.boolean  "send_renewal_reminders", default: true
     t.decimal  "amount"
-    t.integer  "charge_every",           default: 1
-    t.integer  "free_trial_length",      default: 30
+    t.integer  "charge_every",      default: 1
+    t.integer  "free_trial_length", default: 30
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "subtitle"
