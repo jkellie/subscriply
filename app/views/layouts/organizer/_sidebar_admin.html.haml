@@ -22,6 +22,11 @@
         = icon 'briefcase fa-fw'
         %span Sales Reps
     %li
-      = link_to '#' do
+      %a{'data-toggle' => 'sidebar', href: '#'}
         = icon 'bar-chart-o fa-fw'
         %span Reports
+        = icon 'chevron-down fa-fw'
+      %ul.submenu
+        %li= link_to 'Digital Memberhip', digital_membership_organization_reports_path
+        %li= link_to 'Direct Shipping', direct_shipping_organization_reports_path
+        %li= link_to 'Local Pickup', local_pickup_organization_reports_path

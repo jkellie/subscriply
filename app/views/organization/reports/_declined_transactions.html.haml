@@ -1,0 +1,10 @@
+.chart.pull-right
+  %h3
+    Declines
+    .total.pull-right.hidden-xs
+      #{dashboard_presenter.declined_this_period_count} total
+      .change.up
+        %i.fa.fa-chevron-up
+        6.5%
+
+  = line_chart dashboard_presenter.declined_this_period_data

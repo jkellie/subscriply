@@ -1,0 +1,13 @@
+.metrics.clearfix
+  .metric
+    %span.field Total Subscriptions
+    %span.data #{number_with_delimiter(dashboard_presenter.total_subscriptions_count)}
+  .metric
+    %span.field Successful Charges
+    %span.data #{number_with_delimiter(dashboard_presenter.total_successful_charges)}
+  .metric
+    %span.field Cancelations
+    %span.data #{number_with_delimiter(dashboard_presenter.canceled_this_period_count)}
+  .metric
+    %span.field Refunds
+    %span.data #{number_to_currency(dashboard_presenter.total_refunds_amount)}

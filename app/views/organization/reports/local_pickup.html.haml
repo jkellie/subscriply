@@ -1,0 +1,15 @@
+= content_for(:menubar) do
+  Local Pickup Report
+
+= render 'location_filter', dashboard_presenter: @report_presenter
+
+#dashboard
+  = render 'report', dashboard_presenter: @report_presenter
+
+:javascript
+  organization_report_ready = function(){
+    OrganizationReport.init();
+  }
+
+  $(document).ready(organization_report_ready);
+  $(document).on('page:load', organization_report_ready);

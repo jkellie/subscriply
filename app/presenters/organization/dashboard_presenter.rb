@@ -2,6 +2,8 @@ class Organization::DashboardPresenter
   attr_reader :organization, :plan_id, :start_date, :end_date
   delegate :subscriptions, :transactions, to: :organization
 
+
+
   def initialize(options)
     @organization = options[:organization]
     @plan_id = options[:plan_id]
@@ -51,6 +53,9 @@ class Organization::DashboardPresenter
     end
   end
 
+  
+
+
   def canceled_this_period_count
     canceled_this_period.count
   end
@@ -93,18 +98,21 @@ class Organization::DashboardPresenter
   def new_this_period
     _subscriptions = subscriptions.between(start_date, end_date)
     _subscriptions = _subscriptions.where(plan_id: plan_id) if plan?
+
     _subscriptions
   end
 
   def canceled_this_period
     _subscriptions = subscriptions.canceled_between(start_date, end_date)
     _subscriptions = _subscriptions.where(plan_id: plan_id) if plan?
+
     _subscriptions
   end
 
   def total_subscriptions
     _subscriptions = subscriptions.active
     _subscriptions = _subscriptions.where(plan_id: plan_id) if plan?
+
     _subscriptions
   end
 

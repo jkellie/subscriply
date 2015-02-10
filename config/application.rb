@@ -11,7 +11,7 @@ module Subscriply
     config.autoload_paths += Dir[Rails.root.join('app', 'models', '{**}')]
     config.autoload_paths += Dir[Rails.root.join('app', 'presenters', '{**}')]
     config.autoload_paths += Dir[Rails.root.join('app', 'controllers', '{**}')]
-    config.autoload_paths += %W(#{config.root}/lib)
+    config.autoload_paths += %W(#{config.root}/lib/)
     config.time_zone = 'Eastern Time (US & Canada)'
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

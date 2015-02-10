@@ -1,0 +1,10 @@
+.chart.pull-right
+  %h3
+    Canceled subscriptions
+    .total.pull-right.hidden-xs
+      #{dashboard_presenter.canceled_this_period_count} total
+      .change.up
+        %i.fa.fa-chevron-up
+        6.5%
+
+  = line_chart dashboard_presenter.canceled_this_period_data

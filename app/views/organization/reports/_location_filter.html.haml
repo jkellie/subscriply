@@ -1,0 +1,22 @@
+.row
+  .col-sm-12
+    = simple_form_for organization_dashboard_path, method: :get, html: {id: 'filter_form'} do |f|
+      .col-sm-5
+        .form-group
+          = select_tag :plan_id, options_from_collection_for_select(dashboard_presenter.locations, 'id', 'name', dashboard_presenter.location_id), prompt: 'All Locations', class: 'form-control'
+
+      .col-sm-2
+        .input-group
+          %span.input-group-addon
+            = icon 'calendar-o'
+          = text_field_tag 'start_date', dashboard_presenter.start_date_friendly, class: 'form-control datepicker'
+      .col-sm-2
+        .input-group
+          %span.input-group-addon
+            = icon 'calendar-o'
+          = text_field_tag 'end_date', dashboard_presenter.end_date_friendly, class: 'form-control datepicker'
+      .col-sm-3
+        .input-group
+          = link_to params.merge(format: :csv), class: 'btn btn-success btn-block', id: 'download_csv' do
+            = icon 'download'
+            Download CSV

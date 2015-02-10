@@ -1,0 +1,15 @@
+= content_for(:menubar) do
+  Direct Shipping Report
+
+= render 'plan_filter', dashboard_presenter: @report_presenter
+
+#dashboard
+  = render 'report', dashboard_presenter: @report_presenter
+
+:javascript
+  organization_report_ready = function(){
+    OrganizationReport.init();
+  }
+
+  $(document).ready(organization_report_ready);
+  $(document).on('page:load', organization_report_ready);
