@@ -94,7 +94,7 @@ class Organization::UsersController < Organization::BaseController
   end
 
   def user_params
-    params.require(:user).permit([:member_number, :sales_rep_id, :first_name, :last_name, 
+    params.require(:user).permit([:member_number, :sales_rep_id, :is_sales_rep, :first_name, :last_name, 
       :email, :sales_rep, :phone_number, :contract, :w8, :w9, :street_address, :street_address_2,
       :city, :state_code, :zip])
   end
