@@ -12,15 +12,12 @@ class Transaction < ActiveRecord::Base
   scope :declined, -> { where(state: 'declined') }
   scope :void, -> { where(state: 'void') }
   scope :search, -> (q) do
-    joins("LEFT OUTER JOIN subscriptions on subscriptions.id = transactions.subscription_id").
-    joins("LEFT OUTER JOIN plans on plans.id = subscriptions.plan_id").
+    joins( :user, subscription: :plan).
     where("plans.name ILIKE ? OR users.first_name ILIKE ? OR users.last_name ILIKE ? OR users.member_number = ? OR users.id = ?",
       "%#{q}%", "%#{q}%", "%#{q}%", "#{q.to_i}", "#{q.to_i}") 
   end
   scope :by_plan, -> (plan_id) do
-    joins("LEFT OUTER JOIN subscriptions on subscriptions.id = transactions.subscription_id").
-    joins("LEFT OUTER JOIN plans on plans.id = subscriptions.plan_id").
-    where("plans.id = ?", plan_id)
+    joins(subscription: :plan).where(plans: { id: plan_id})
   end
 
   def price
