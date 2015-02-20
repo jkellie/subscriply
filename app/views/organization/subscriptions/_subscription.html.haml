@@ -2,7 +2,9 @@
   %td
     = link_to subscription.user.member_number, organization_subscription_path(subscription)
   %td #{subscription.user.name}
-  %td #{subscription.plan.name}
+  %td 
+    -if subscription.plan
+      #{subscription.plan.name}
   %td #{subscription.next_bill_on.try(:strftime, '%m/%-e/%y')}
   %td #{subscription.next_ship_on.try(:strftime, '%m/%-e/%y')}
   %td #{subscription.state}
