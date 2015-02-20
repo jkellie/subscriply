@@ -53,7 +53,7 @@ class Organization::UsersController < Organization::BaseController
       redirect_to organization_user_path(@user)
     else
       flash.now[:error] = 'Error updating user'
-      render 'show'
+      render 'edit'
     end
   end
 
