@@ -1,4 +1,5 @@
 class Organization::ReportPresenter
+
   attr_reader :organization, :plan_id, :start_date, :end_date, :plan_type, :location_id
   delegate :subscriptions, :transactions, to: :organization
 
@@ -222,6 +223,7 @@ class Organization::ReportPresenter
   def subscription_total_record(day)
     record = SubscriptionTotalRecord.where(organization: @organization, created_at: day)
     record = record.where(plan_id: @plan_id) if plan?
+    record = record.joins(:plan).where(plans: { plan_type: plan_type}) if plan_type?
     record.first.try(:total).to_i
   end
 
