@@ -5,6 +5,7 @@ ruby '2.1.0'
 gem 'rails', '4.1.6'
 
 gem 'bootstrap-sass'
+gem 'bugsnag'
 gem 'business'
 gem 'carrierwave'
 gem 'chartkick'
@@ -58,10 +59,6 @@ group :production do
   gem 'rails_12factor'
   gem 'heroku-deflater'
   gem 'unicorn'
-end
-
-group :staging do
-  gem 'bugsnag'
 end
 
 group :staging, :production do
