@@ -107,11 +107,11 @@ class Organization::ReportPresenter
 
   def to_csv
     handler = case plan_type
-    when 'digital_membership'
+    when 'digital'
       Reports::CSV::OrganizationDigitalMembershipReport
     when 'local_pick_up'
       Reports::CSV::OrganizationLocalPickupReport
-    when 'direct_shipping'
+    when 'shipped'
       Reports::CSV::OrganizationDirectShippingReport
     end
     handler.to_csv(total_subscriptions)
