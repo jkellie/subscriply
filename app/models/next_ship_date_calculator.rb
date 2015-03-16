@@ -17,17 +17,15 @@ class NextShipDateCalculator
   private
 
   def base_date
-    Date.today
+    next_bill_on
   end
 
   def next_local_pick_up_date
-    target_date = base_date.at_beginning_of_month + 15
-    
-    if target_date > base_date
-      calendar.roll_forward(target_date)
+    if base_date.day > 15
+      calendar.roll_forward(base_date.at_beginning_of_month + 1.month)
     else
-      calendar.roll_forward(base_date.at_beginning_of_month.next_month)
-    end    
+      calendar.roll_forward(base_date.at_beginning_of_month + 15.day)
+    end
   end
 
   def next_ship_date
