@@ -33,6 +33,7 @@ class Organization::SubscriptionsController < Organization::BaseController
   def edit
     @subscription_presenter = Organization::SubscriptionPresenter.new(@subscription)
     @plans = current_organization.plans.where(product_id: @subscription.plan.product_id)
+    @locations = current_organization.locations
   end
 
   def add
@@ -49,7 +50,7 @@ class Organization::SubscriptionsController < Organization::BaseController
 
   #changing locations
   def update
-    if @subscription.update(subscription_params)
+    if @subscription.update(subscription_params.select {|k,v| k == :location_id})
       flash[:notice] = 'Subscription Updated'
       redirect_to organization_subscription_path(@subscription)
     else
@@ -61,6 +62,8 @@ class Organization::SubscriptionsController < Organization::BaseController
   end
 
   def change_plan
+    @subscription.update(subscription_params.select {|k,v| k == :location_id})
+
     subscription_updater = ::SubscriptionUpdater.new(@subscription)
 
     if subscription_updater.update({plan_code: new_plan_code, timeframe: subscription_params[:apply_changes], plan_id: subscription_params[:plan_id]})

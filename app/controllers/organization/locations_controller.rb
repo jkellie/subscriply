@@ -2,6 +2,16 @@ class Organization::LocationsController < Organization::BaseController
 
   respond_to :html, :json
 
+  def index
+    locations = current_organization.locations
+
+    respond_to do |format|
+      format.json do
+        respond_with locations
+      end
+    end
+  end
+
   def show
     location = Location.find params[:id]
     

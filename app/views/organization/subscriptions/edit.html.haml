@@ -19,7 +19,12 @@
             %br
             %dt Plan:
             %dd
-              = f.input :plan_id, as: :select, collection: @plans, label: false, input_html: { class: 'form-control' }, include_blank: false
+              = f.select :plan_id, @plans.map {|p| [p.name, p.id, {'data-plan-type' => p.plan_type }]}, {}, include_blank: false, class: 'form-control'
+            %br
+            %dt.location-label Location:
+            %dd
+              = f.select :location_id, @locations.map {|l| ["#{l.name} - #{l.street_address} #{l.city} #{l.state} #{l.zip}",l.id] }, {}, include_blank: false, class: 'form-control'
+
             %br
             %dt{:style => "margin-top: 10px"} Apply Changes:
 
@@ -38,3 +43,8 @@
             %div{:style => "margin-top: 20px"}
               = link_to 'Cancel', organization_subscription_path(@subscription_presenter.subscription), class: 'btn btn-default', type: 'button', style: 'margin-right: 5px'
               %button.btn.btn-primary{:style => "margin-left: 5px", :type => "submit"} Update Subscription
+
+:javascript
+  $(document).ready(function(){
+    OrganizationSubscriptionEdit.init();
+  });
