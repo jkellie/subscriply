@@ -90,6 +90,7 @@ module ApplicationHelper
       ['OK', 'OK'],
       ['OR', 'OR'],
       ['PA', 'PA'],
+      ['PR', 'PR'],
       ['RI', 'RI'],
       ['SC', 'SC'],
       ['SD', 'SD'],
