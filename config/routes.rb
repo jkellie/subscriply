@@ -44,6 +44,7 @@ Rails.application.routes.draw do
       put :postpone, on: :member
       get :canceling, on: :member
       put :cancel, on: :member
+      put :reactivate, on: :member
       put :terminate, on: :member
     end
     resources :transactions

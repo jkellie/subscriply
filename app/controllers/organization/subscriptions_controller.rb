@@ -3,7 +3,7 @@ class Organization::SubscriptionsController < Organization::BaseController
 
   before_action :authenticate_organizer!
   before_action :find_subscriptions, only: :index
-  before_action :find_subscription, only: [:show, :edit, :update, :change_plan, :postpone, :cancel, :canceling, :terminate]
+  before_action :find_subscription, only: [:show, :edit, :update, :change_plan, :postpone, :cancel, :canceling, :terminate, :reactivate]
 
   def index
   end
@@ -111,6 +111,18 @@ class Organization::SubscriptionsController < Organization::BaseController
     else
       flash[:danger] = "Error canceling subscription: #{subscription_terminator.full_errors}"
       redirect_to canceling_organization_subscription_path(@subscription)
+    end
+  end
+
+  def reactivate
+    subscription_reactivator = SubscriptionReactivator.new(@subscription)
+
+    if subscription_reactivator.reactivate
+      flash[:notice] = "Subscription successfully reactivated."
+      redirect_to organization_subscription_path(@subscription)
+    else
+      flash[:danger] = "Error canceling subscription: #{subscription_terminator.full_errors}"
+      redirect_to organization_subscription_path(@subscription)
     end
   end
 
