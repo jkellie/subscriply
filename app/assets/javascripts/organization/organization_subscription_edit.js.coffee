@@ -2,6 +2,7 @@ OrganizationSubscriptionEdit =
 
   init: ->
     @_initPlanSelect()
+    $('#subscription_plan_id').change()
 
   _initPlanSelect: ->
     $(document).on 'change', '#subscription_plan_id', (e) -> 
