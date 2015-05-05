@@ -60,4 +60,12 @@ module Billing::Subscription
     end
   end
 
+  def self.all_subscriptions_on_billing(organization)
+    Billing.with_lock(organization) do
+      subscription_module.find_each do |subscription|
+        yield subscription if block_given?
+      end
+    end
+  end
+
 end

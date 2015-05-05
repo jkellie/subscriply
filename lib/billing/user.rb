@@ -41,4 +41,12 @@ module Billing::User
     end
   end
 
+  def self.all(organization, options={})
+    Billing.with_lock(organization) do
+      account_module.find_each(options) do |account|
+        yield account if block_given?        
+      end
+    end
+  end
+
 end
