@@ -26,12 +26,36 @@ Subscriply uses a combination of the `X-User-Token` and `X-User-Email` HTTP head
 ##Authentication
 ###sign_in
 
+`POST /api/v1/authentication/sign_in`
+
 A `POST` to `/api/v1/authentication/sign_in` with the user's login information will return some basic user info and an auth token.
 
 ```curl
 curl -H 'Content-Type: application/json'   -H 'Accept: application/json' -X POST http://fishies.subscriply.dev/api/v1/authentication/sign_in   -d '{"user": {"email": "test@account.org", "password": "abcd1234"}}'
 ```
 Results:
+
+```json
+{
+    "user": {
+        "active_subscriptions": [1],
+        "authentication_token": "emCErzeHf23SAMCSrLU9",
+        "email": "test@account.org",
+        "first_name": "Sales",
+        "last_name": "Repperton",
+        "subscriptions": [1]
+    }
+}
+```
+
+##Users
+###current
+
+Returns information on the currently authenticated user.
+
+`GET /api/v1/users/current`
+
+###User Object
 
 ```json
 {
@@ -57,14 +81,27 @@ Returns extended information for a specific subscription.
 
 `GET /api/v1/subscriptions/active`
 
+Returns all active subscriptions for the current user.
+
 
 ```curl
 curl -H 'Content-Type: application/json'   -H 'Accept: application/json' -H 'X-User-Token: emCErzeHf23SAMCSrLU9' -H 'X-User-Email: test@account.org' -X GET http://fishies.subscriply.dev/api/v1/subscriptions/active
 ```
 
-###subscription object
+###index
 
-Individual Subscriptions
+`GET /api/v1/subscriptions`
+
+Returns all subscriptions for the current user.
+
+
+```curl
+curl -H 'Content-Type: application/json'   -H 'Accept: application/json' -H 'X-User-Token: emCErzeHf23SAMCSrLU9' -H 'X-User-Email: test@account.org' -X GET http://fishies.subscriply.dev/api/v1/subscriptions
+```
+
+###Subscription Object
+
+Individual Subscription
 
 ```
 {
@@ -124,22 +161,28 @@ Individual Subscriptions
 ```
 
 ##Transactions
-Transaction calls are nested within their associated subscription.
 
 `/api/v1/subscriptions/:subscription_id/transactions`
 
+Transaction calls are nested within their associated subscription.
+
 ###index
+
+`GET /api/v1/subscriptions/:subscription_id/transactions`
 
 Shows all transactions for a subscription.
 
-`GET /api/v1/subscriptions/:subscription_id/transactions`
 ###successful
-Shows only successful transactions for a subscription.
 
 `GET /api/v1/subscriptions/:subscription_id/transactions/successful`
+
+Shows only successful transactions for a subscription.
+
 ###failed
-Shows only failed transactions for a subscription.
+
 `GET /api/v1/subscriptions/:subscription_id/transactions/failed`
+
+Shows only failed transactions for a subscription.
 
 ###Transaction Object
 ```

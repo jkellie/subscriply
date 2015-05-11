@@ -15,7 +15,7 @@ Rails.application.routes.draw do
       resources :users, only: [] do
         get :current, on: :collection
       end
-      resources :subscriptions, only: [:show] do
+      resources :subscriptions, only: [:show, :index] do
         get :active, on: :collection
 
         resources :transactions, only: [:index] do
