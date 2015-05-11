@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  include TokenAuthenticable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :invitable
 

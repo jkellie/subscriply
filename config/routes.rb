@@ -8,6 +8,24 @@ Rails.application.routes.draw do
   
   resources :organizations
 
+  namespace :api do
+    namespace :v1 do
+      devise_for :users, only: :sessions, path: 'authentication'
+
+      resources :users, only: [] do
+        get :current, on: :collection
+      end
+      resources :subscriptions, only: [:show] do
+        get :active, on: :collection
+
+        resources :transactions, only: [:index] do
+          get :successful, on: :collection
+          get :failed, on: :collection
+        end
+      end
+    end
+  end
+
   namespace :organization do
     root 'dashboard#show'
     resource :dashboard, controller: 'dashboard', only: [:show]
