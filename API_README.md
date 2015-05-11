@@ -1,6 +1,6 @@
 #Subscriply API
 
-The Subscriply API provides a number of endpoints for basic user and subscription information.
+The Subscriply API provides a number of endpoints for basic user, subscription, and transaction information.
 
 #Requests
 
@@ -51,9 +51,9 @@ Results:
 ##Users
 ###current
 
-Returns information on the currently authenticated user.
-
 `GET /api/v1/users/current`
+
+Returns information on the currently authenticated user.
 
 ###User Object
 
