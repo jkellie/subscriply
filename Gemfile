@@ -35,6 +35,7 @@ gem 'state_machine'
 gem 'truncate_html'
 gem 'turbolinks'
 gem 'uglifier', '>= 1.3.0'
+gem 'active_model_serializers'
 
 group :development do
   gem 'better_errors'
