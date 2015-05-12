@@ -6,7 +6,7 @@ class Api::V1::TransactionsController < Api::V1::BaseController
   end
 
   def successful
-    @transactions = @transactions.sucessful.charge
+    @transactions = @transactions.successful.charge
     render json: @transactions
   end
 
