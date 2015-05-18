@@ -217,7 +217,7 @@ class Organization::ReportPresenter
   end
 
   def declined_on_day(day)
-    [declines_this_period.where(created_at: day).count, 0].max
+    [declines_this_period.between(day.at_beginning_of_day, day.at_end_of_day).count, 0].max
   end
 
   def subscription_total_record(day)
