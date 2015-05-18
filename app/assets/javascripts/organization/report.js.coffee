@@ -24,7 +24,7 @@ OrganizationReport =
     $('.datepicker').datepicker({dateFormat: 'M d, yy'})
 
   _initSearchFilters: ->
-    $(document).on 'change', '#plan_id, #start_date, #end_date', (e) ->
+    $(document).on 'change', '#plan_id, #start_date, #end_date, #location_id', (e) ->
       OrganizationReport.search()
   
   _initCsvDownload: ->
