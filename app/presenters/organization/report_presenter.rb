@@ -224,6 +224,7 @@ class Organization::ReportPresenter
     record = SubscriptionTotalRecord.where(organization: @organization, created_at: day)
     record = record.where(plan_id: @plan_id) if plan?
     record = record.joins(:plan).where(plans: { plan_type: plan_type}) if plan_type?
+    record = record.joins(plan: :subscriptions).where(subscriptions: {location_id: location_id}) if location?
     record.first.try(:total).to_i
   end
 
