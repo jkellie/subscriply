@@ -3,7 +3,7 @@
     = simple_form_for organization_dashboard_path, method: :get, html: {id: 'filter_form'} do |f|
       .col-sm-5
         .form-group
-          = select_tag :plan_id, options_from_collection_for_select(dashboard_presenter.locations, 'id', 'name', dashboard_presenter.location_id), prompt: 'All Locations', class: 'form-control'
+          = select_tag :location_id, options_from_collection_for_select(dashboard_presenter.locations, 'id', 'name', dashboard_presenter.location_id), prompt: 'All Locations', class: 'form-control'
 
       .col-sm-2
         .input-group
