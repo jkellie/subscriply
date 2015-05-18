@@ -42,6 +42,8 @@ class User < ActiveRecord::Base
     end
   end
 
+  after_invitation_accepted :create_billing_user!
+
   def self.find_for_authentication(warden_conditions)
     where(
       email: warden_conditions[:email],
@@ -75,6 +77,10 @@ class User < ActiveRecord::Base
 
   def invited?
     invitation_accepted_at.nil? && invitation_token.present?
+  end
+
+  def create_billing_user!
+    Billing::User.create(self.reload)
   end
   
 end
