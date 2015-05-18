@@ -2,6 +2,7 @@ class Plan < ActiveRecord::Base
   belongs_to :organization
   belongs_to :product
   has_many :bulletpoints
+  has_many :subscriptions
   accepts_nested_attributes_for :bulletpoints, reject_if: :all_blank, allow_destroy: true
 
   validate :can_add_new_plan
