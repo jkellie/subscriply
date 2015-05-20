@@ -7,7 +7,7 @@ class Organization::SubscriptionCreator
   delegate :user, to: :subscription
 
   def initialize(options)
-    options[:start_date] = Date.strptime(options[:start_date], '%m/%d/%Y')
+    options[:start_date] = Date.parse(options[:start_date], '%m/%d/%Y')
     @subscription = Subscription.new(options)
     @errors = ActiveModel::Errors.new(self)
   end
