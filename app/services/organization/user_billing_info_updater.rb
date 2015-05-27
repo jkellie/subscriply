@@ -13,7 +13,7 @@ class Organization::UserBillingInfoUpdater
   def update(token)
     begin
       ActiveRecord::Base.transaction do
-        update_on_billing(token)
+        create_or_update_on_billing(token)
         update_locally
       end
     rescue Exception => e
@@ -28,8 +28,12 @@ class Organization::UserBillingInfoUpdater
 
   private
 
-  def update_on_billing(token)
-    Billing::User.update_billing_info(user, token)
+  def create_or_update_on_billing(token)
+    if Billing::User.billing_info(user)
+      Billing::User.update_billing_info(user, token)
+    else
+      Billing::User.create_billing_info(user, token)
+    end
   end
 
   def update_locally

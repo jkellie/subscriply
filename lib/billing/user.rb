@@ -31,6 +31,12 @@ module Billing::User
     billing_info(user).update_attributes(token_id: token)
   end
 
+  def self.create_billing_info(user, token)
+    billing_user = account_on_billing(user)
+    billing_user.billing_info = { token_id: token }
+    billing_user.save
+  end
+
   def self.billing_info(user)
     account_on_billing(user).billing_info
   end
