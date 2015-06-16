@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       end
       resources :subscriptions, only: [:show, :index] do
         get :active, on: :collection
+        get :canceled, on: :collection
 
         resources :transactions, only: [:index] do
           get :successful, on: :collection

@@ -14,6 +14,10 @@ class Api::V1::SubscriptionsController < Api::V1::BaseController
     render json: @subscriptions.active
   end
 
+  def canceled
+    render json: @subscriptions.canceled
+  end
+
   private
 
   def find_subscription
