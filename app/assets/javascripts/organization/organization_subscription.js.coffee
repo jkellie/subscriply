@@ -25,7 +25,8 @@ OrganizationSubscription =
         $.ajax
           url: "/organization/plans?product_id=#{product_id}"
           dataType: 'JSON'
-          success: (plans) ->
+          success: (data) ->
+            plans = data['plans']
             $.each plans, (i, plan) ->
               $(".subscription-plan-id").append $("<option/>",
                 value: plan.id
