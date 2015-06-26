@@ -15,7 +15,7 @@ class Reports::CSV::OrganizationDirectShippingReport < Reports::CSV::Report
 
   def row(subscription)
     [
-      subscription.user.user_sales_rep.name,
+      subscription.user.sales_rep.try(:name),
       subscription.user.member_number,
       subscription.user.first_name,
       subscription.user.last_name,
