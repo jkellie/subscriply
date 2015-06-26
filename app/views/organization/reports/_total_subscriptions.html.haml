@@ -3,8 +3,8 @@
     Total Subscriptions
     .total.pull-right.hidden-xs
       #{dashboard_presenter.total_subscriptions_count} total
-      .change.up
-        %i.fa.fa-chevron-up
-        10%
+      .change{class: "#{dashboard_presenter.change_direction}"}
+        %i.fa{ class: "fa-chevron-#{dashboard_presenter.change_direction}" }
+        = number_to_percentage(dashboard_presenter.total_change_ratio)
   
   = line_chart dashboard_presenter.total_subscriptions_data

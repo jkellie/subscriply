@@ -1,4 +1,6 @@
 class Organization::ReportPresenter
+  include ActionView::Helpers::TagHelper
+  include ActionView::Helpers::NumberHelper
 
   attr_reader :organization, :plan_id, :start_date, :end_date, :plan_type, :location_id
   delegate :subscriptions, :transactions, to: :organization
@@ -46,8 +48,14 @@ class Organization::ReportPresenter
   end
 
   def total_subscriptions_data
+    report_end_date = if end_date.to_date == Date.today
+      end_date.to_date.yesterday
+    else
+      end_date
+    end
+
     ({}).tap do |data|
-      (start_date.to_date..end_date.to_date).each do |day|
+      (start_date.to_date..report_end_date.to_date).each do |day|
         data[day.strftime('%Y/%m/%d')] = total_on_day(day)
       end
     end
@@ -114,8 +122,28 @@ class Organization::ReportPresenter
     when 'shipped'
       Reports::CSV::OrganizationDirectShippingReport
     end
-    handler.to_csv(total_subscriptions)
+    handler.to_csv(successful_charges_this_period.map(&:subscription))
   end
+
+  def change_up?
+     total_subscriptions_count > total_on_day(end_date.to_date)
+  end
+
+  def change_direction
+    change_up? ? 'up' : 'down'
+  end
+
+  def total_change_ratio
+    last_total = total_on_day(end_date.to_date)
+
+    if last_total == 0
+      0
+    else
+      (total_subscriptions_count - last_total).abs.to_d / last_total.to_d
+    end
+  end
+
+
 
   private
 
@@ -168,9 +196,17 @@ class Organization::ReportPresenter
     _subscriptions
   end
 
-  def total_subscriptions
+  def total_subscriptions_for_report
     _subscriptions = subscriptions.active
     _subscriptions = _subscriptions.between(start_date, end_date)
+    _subscriptions = _subscriptions.where(location_id: location_id) if location?    
+    _subscriptions = _subscriptions.where(plan_id: plan_id) if plan?
+    _subscriptions = _subscriptions.joins(:plan).where(plans: {plan_type: plan_type}) if plan_type?
+    _subscriptions
+  end
+
+  def total_subscriptions
+    _subscriptions = subscriptions.active
     _subscriptions = _subscriptions.where(location_id: location_id) if location?    
     _subscriptions = _subscriptions.where(plan_id: plan_id) if plan?
     _subscriptions = _subscriptions.joins(:plan).where(plans: {plan_type: plan_type}) if plan_type?
