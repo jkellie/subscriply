@@ -4,8 +4,9 @@ class User::RegistrationsController < Devise::RegistrationsController
   before_filter :update_sanitized_params
 
   def create
-    super
-    create_on_billing
+    super do |resource|
+      create_on_billing if resource.persisted?
+    end
   end
 
   protected
