@@ -20,7 +20,9 @@ class User::DashboardPresenter
   end
 
   def inactive_products
-    user.organization.products.where.not(id: active_product_ids)
+    products_with_visible_plans_ids = user.organization.plans.visible.pluck(:product_id).uniq
+
+    user.organization.products.where(id: products_with_visible_plans_ids).where.not(id: active_product_ids)
   end
 
 end
