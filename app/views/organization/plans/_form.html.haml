@@ -74,6 +74,14 @@
   .col-sm-8
     %p{style: "margin-top: 15px"} Set to 0 if you do not wish to offer a trial period. A reminder email will be sent when the trial period is ending.
 
+.row{style: "margin-top: 15px"}
+  .col-sm-4
+    .row
+      .col-sm-12
+        .checkbox
+          = f.input :member_visible, label: 'Show to Members?'
+  .col-sm-8
+    %p{style: "margin-top: 15px"} If you do not want this plan displayed to your members on the frond end of the website un-check this option. An admin may subscribe anyone to any plan regardless of this setting.
 %br
 
 %div{style: "margin-top: 30px"}

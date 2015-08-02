@@ -11,7 +11,7 @@ class User::ProductPresenter
   end
 
   def plans
-    product.plans.order('amount')
+    product.plans.visible.order('amount')
   end
 
   def status_label

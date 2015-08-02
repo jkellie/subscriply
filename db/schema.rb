@@ -11,12 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150507040430) do
+ActiveRecord::Schema.define(version: 20150802152011) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
-  enable_extension "pg_stat_statements"
   enable_extension "uuid-ossp"
 
   create_table "bulletpoints", force: true do |t|
@@ -127,6 +126,7 @@ ActiveRecord::Schema.define(version: 20150507040430) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "subtitle"
+    t.boolean  "member_visible",    default: true, null: false
   end
 
   create_table "products", force: true do |t|

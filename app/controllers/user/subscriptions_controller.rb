@@ -2,7 +2,7 @@ class User::SubscriptionsController < User::BaseController
   before_action :find_plan, only: :new
   before_action :init_subscription_creator, only: [:new, :create]
   before_action :find_subscription, only: [:edit, :update, :cancel, :reactivate]
-  
+  before_action :find_plans, only: [:edit]
 
   def new
   end
@@ -23,7 +23,7 @@ class User::SubscriptionsController < User::BaseController
   end
 
   def edit
-    @plans = current_organization.plans.where(product_id: @subscription.plan.product_id)
+
   end
 
   def update
@@ -63,6 +63,14 @@ class User::SubscriptionsController < User::BaseController
   end
 
   private
+
+  def find_plans
+    plans = current_organization.plans.visible.where(product_id: @subscription.plan.product_id)
+
+    plans << @subscription.plan unless plans.include?(@subscription.plan)
+
+    @plans = plans
+  end
 
   def subscription_params
     params.require(:subscription).permit(:plan_id)

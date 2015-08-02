@@ -76,6 +76,7 @@ class Organization::PlansController < Organization::BaseController
   def plan_params
     params.require(:plan).permit(:name, :product_id, :code, :plan_type, :description, 
       :amount, :charge_every, :free_trial_length, :subtitle,
+      :member_visible,
       bulletpoints_attributes: [:id, :icon, :title, :_destroy]).merge(organization_id: current_organization.id)
   end
 end
