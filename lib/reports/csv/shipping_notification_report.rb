@@ -25,7 +25,7 @@ class Reports::CSV::ShippingNotificationReport < Reports::CSV::Report
       subscription.user.street_address,
       subscription.user.street_address_2,
       subscription.user.city,
-      subscription.user.state,
+      subscription.user.state_code,
       subscription.user.zip,
       subscription.user.email,
       subscription.plan.name,
