@@ -9,6 +9,10 @@ class User::DashboardPresenter
     active_products + inactive_products
   end
 
+  def show_declined_alert?
+    false
+  end
+
   private
 
   def active_products
