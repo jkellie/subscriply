@@ -2,9 +2,6 @@
   .topbar
     .container
       %ul.loginbar.pull-right
-        %li
-          %a{:href => "page_faq.html"} Help
-        %li.topbar-devider
         - if current_user
           %li= link_to 'Logout', destroy_user_session_path, method: :delete
         - else
@@ -34,5 +31,5 @@
                 %li= link_to 'Transactions', user_transactions_path
                 %li= link_to 'Invoices', user_invoices_path
                 %li= link_to 'Billing', edit_user_billing_info_path if current_user.billing_info?
-            %li.color-aqua
-              %a{:href => "faq.html"} FAQ
+            / %li.color-aqua
+            /   %a{:href => "faq.html"} FAQ
