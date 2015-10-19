@@ -45,7 +45,7 @@
       .panel-body
         %dl.dl-horizontal
           %dt Invoice:
-          %dd #{link_to(@transaction.invoice.id, @transaction.invoice.href)}
+          %dd #{link_to(@transaction.invoice.id, organization_invoice_path(@transaction.invoice.id, format: 'pdf'))}
           %dt Date:
           %dd #{@transaction.invoice.created_at.strftime('%m/%d/%Y')}
           %dt Amount:
