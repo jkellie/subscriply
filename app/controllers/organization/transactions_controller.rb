@@ -1,5 +1,6 @@
 class Organization::TransactionsController < Organization::BaseController
   before_action :authenticate_organizer!
+  before_action :find_transaction, only: [:show]
 
   def index
     @transactions_presenter = Organization::TransactionsPresenter.new(
@@ -27,6 +28,12 @@ class Organization::TransactionsController < Organization::BaseController
   end
 
   def update
+  end
+
+  private
+
+  def find_transaction
+    @transaction = Transaction.find(params[:id])
   end
 
 end

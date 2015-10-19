@@ -1,0 +1,54 @@
+= content_for(:body_id) do
+  transaction
+
+= content_for(:menubar) do
+  Transaction Details
+.row
+  .col-sm-6
+    .panel.panel-default
+      .panel-heading
+        %span Transaction Info
+      .panel-body
+        %dl.dl-horizontal
+          %dt Type:
+          %dd #{@transaction.transaction_type.capitalize}
+          %dt Date:
+          %dd #{@transaction.created_at.strftime('%m/%d/%Y')}
+          %dt Amount:
+          %dd #{number_to_currency(@transaction.price)}      
+          %dt Product:
+          %dd #{@transaction.subscription.plan.product.name}  
+          %dt Plan:
+          %dd #{@transaction.subscription.plan.name}
+          %dt Status:
+          %dd #{@transaction.state.capitalize}
+          %dt Card:
+          %dd #{@transaction.user.billing_info['card_type']} ending in #{@transaction.user.billing_info['last_four']}
+  .col-sm-6
+    .panel.panel-default
+      .panel-heading
+        %span Account Info
+      .panel-body
+        %dl.dl-horizontal
+          %dt Member #:
+          %dd #{@transaction.user.member_number}
+          %dt Full Name:
+          %dd #{link_to('%s %s' % [@transaction.user.first_name,@transaction.user.last_name], organization_user_path(@transaction.user))}
+          %dt Email:
+          %dd #{@transaction.user.email}         
+
+.row
+  .col-sm-6
+    .panel.panel-default
+      .panel-heading
+        %span Account Info
+      .panel-body
+        %dl.dl-horizontal
+          %dt Invoice:
+          %dd #{link_to(@transaction.invoice.id, @transaction.invoice.href)}
+          %dt Date:
+          %dd #{@transaction.invoice.created_at.strftime('%m/%d/%Y')}
+          %dt Amount:
+          %dd #{number_to_currency(@transaction.invoice.price)}
+          %dt Status:
+          %dd #{@transaction.invoice.state.capitalize}

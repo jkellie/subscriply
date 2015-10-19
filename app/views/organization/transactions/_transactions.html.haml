@@ -14,10 +14,11 @@
         - transactions.each do |transaction|
           %tr
             %td
-              - if transaction.charge?
-                = icon 'credit-card'
-              - elsif transaction.credit?
-                = icon 'plus'
+              = link_to(organization_transaction_path(transaction)) do
+                - if transaction.charge?
+                  = icon 'credit-card'
+                - elsif transaction.credit?
+                  = icon 'plus'
             %td
               - if transaction.charge?
                 = transaction.subscription.plan
