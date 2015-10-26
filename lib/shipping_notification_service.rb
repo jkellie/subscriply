@@ -18,7 +18,7 @@ class ShippingNotificationService
 
       subscriptions = organization.transactions.between(start_date, end_date).successful.charge.select do |transaction|
         subscription = transaction.subscription
-        subscription.shipped?
+        subscription.plan.shipped?
       end.map {|transaction| transaction.subscription }
 
       yield organization, subscriptions if block_given?
