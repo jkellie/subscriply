@@ -11,6 +11,7 @@ class Reports::CSV::OrganizationDigitalMembershipReport < Reports::CSV::Report
   def row(object)
     [
       object.user.sales_rep.try(:name),
+      object.user.member_number,
       object.user.first_name,
       object.user.last_name,
       object.user.email,

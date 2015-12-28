@@ -10,7 +10,8 @@ class Reports::CSV::OrganizationDirectShippingReport < Reports::CSV::Report
     user_state
     user_zip_code
     user_email
-    plan_name)
+    plan_name
+    last_successful_charge_date)
   end
 
   def row(subscription)
@@ -25,7 +26,8 @@ class Reports::CSV::OrganizationDirectShippingReport < Reports::CSV::Report
       subscription.user.state_code,
       subscription.user.zip,
       subscription.user.email,
-      subscription.plan.name
+      subscription.plan.name,
+      subscription.transactions.charge.order('created_at desc').first.created_at
     ]
   end
 end
