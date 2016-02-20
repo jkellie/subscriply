@@ -29,7 +29,7 @@ class Plan < ActiveRecord::Base
   end
 
   def deletable?
-    false
+    self.persisted? && subscriptions.empty?
   end
 
   def trial?

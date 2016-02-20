@@ -87,6 +87,8 @@
 %div{style: "margin-top: 30px"}
   = link_to 'Cancel', organization_plans_path, class: 'btn btn-default'
   = f.submit 'Save Changes', class: 'btn btn-primary', data: {'disable-with' => 'Saving...'}
+  - if f.object.deletable?
+    = button_to 'Delete Plan', organization_plan_path(f.object), method: :delete, data: {confirm: 'Are you sure?', 'disable-with' => 'Canceling...'}, class: 'btn btn-danger pull-right', style: 'margin-top: -35px; z-index: 99'
 
 
 :javascript

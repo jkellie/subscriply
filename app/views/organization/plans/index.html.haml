@@ -28,7 +28,7 @@
                 %td #{plan.trial?}
                 %td
                   - if plan.deletable?
-                    = link_to organization_plan_path(plan), method: :delete, confirm: 'Are you sure?' do
+                    = link_to organization_plan_path(plan), method: :delete, data: {confirm: 'Are you sure?', 'disable-with' => 'Deleting...'} do
                       = icon 'trash-o'
             
         %br
