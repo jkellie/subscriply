@@ -1,15 +1,17 @@
 .panel.panel-default{:style => "margin-top: 20px"}
   .panel-heading
     %span Details:
-    = link_to canceling_organization_subscription_path(subscription_presenter.subscription), class: 'pull-right', style: 'margin-left: 10px' do
-      = icon 'trash-o'
-      - end unless subscription_presenter.subscription.canceled?
-    = link_to reactivate_organization_subscription_path(subscription_presenter.subscription), method: :put, class: 'pull-right', style: 'margin-left: 10px' do
-      = icon 'refresh'
-      - end if subscription_presenter.subscription.canceled?
+    - unless subscription_presenter.subscription.canceled?
+      = link_to canceling_organization_subscription_path(subscription_presenter.subscription), class: 'pull-right', style: 'margin-left: 10px' do
+        = icon 'trash-o'
+
+    - if subscription_presenter.subscription.can_reactivate?
+      = link_to reactivate_organization_subscription_path(subscription_presenter.subscription), method: :put, class: 'pull-right', style: 'margin-left: 10px' do
+        = icon 'refresh'
 
     = link_to edit_organization_subscription_path(subscription_presenter.subscription), class: 'pull-right' do
       = icon 'pencil'
+
   .panel-body
     .col-sm-6
       %dl.dl-horizontal

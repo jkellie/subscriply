@@ -43,7 +43,11 @@ class SubscriptionUpdater
     else
       subscription.update!(changing_to: options[:plan_id])
     end
-    subscription.update!(state: billing_subscription.state, next_bill_on: billing_subscription.current_period_ends_at)
+    subscription.update!(state: new_state, next_bill_on: billing_subscription.current_period_ends_at)
+  end
+
+  def new_state
+    billing_subscription.state.gsub('expired', 'canceled')
   end
 
   def update_now?

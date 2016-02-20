@@ -47,6 +47,10 @@ class Subscription < ActiveRecord::Base
     changing_to.present?
   end
 
+  def can_reactivate?
+    canceled? || canceling?
+  end
+
   private
 
   def validate_location?
