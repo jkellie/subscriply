@@ -160,6 +160,7 @@ ActiveRecord::Schema.define(version: 20150802152011) do
     t.datetime "updated_at"
     t.uuid     "uuid",            default: "uuid_generate_v4()"
     t.integer  "changing_to"
+    t.date     "changing_on"
   end
 
   create_table "transactions", force: true do |t|
