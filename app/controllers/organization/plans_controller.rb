@@ -25,7 +25,7 @@ class Organization::PlansController < Organization::BaseController
   def create
     @plan = Plan.new(plan_params)
 
-    if @plan.save && @plan.create_on_recurly
+    if @plan.save && @plan.create_on_billing
       flash[:info] = 'Plan created'
       redirect_to organization_plans_path
     else
@@ -35,7 +35,7 @@ class Organization::PlansController < Organization::BaseController
   end
 
   def update
-    if @plan.update(plan_params) && @plan.update_on_recurly
+    if @plan.update(plan_params) && @plan.update_on_billing
       flash[:info] = 'Plan updated'
       redirect_to organization_plans_path
     else
@@ -48,7 +48,7 @@ class Organization::PlansController < Organization::BaseController
   end
 
   def destroy
-    if @plan.destroy
+    if @plan.delete_on_billing && @plan.destroy
       flash[:info] = 'Plan Destroyed'
     else
       flash[:danger] = 'Error Destroying Plan'

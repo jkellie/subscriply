@@ -30,6 +30,12 @@ module Billing::Plan
     end
   end
 
+  def self.destroy(plan)
+    Billing.with_lock(plan.organization) do
+      plan_on_billing(plan).destroy
+    end
+  end
+
   def self.plan_on_billing(plan)
     Billing.with_lock(plan.organization) do
       plan_module.find(plan.permalink)

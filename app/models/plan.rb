@@ -52,12 +52,16 @@ class Plan < ActiveRecord::Base
     (amount * 100.0).round.to_i
   end
 
-  def create_on_recurly
+  def create_on_billing
     Billing::Plan.create(self)
   end
 
-  def update_on_recurly
+  def update_on_billing
     Billing::Plan.update(self)
+  end
+
+  def delete_on_billing
+    Billing::Plan.destroy(self)
   end
 
   def hide_location_info?

@@ -28,6 +28,26 @@ describe Billing::Plan, '.create' do
   end
 end
 
+describe Billing::Plan, '.destroy' do
+  let!(:plan) { FactoryGirl.create(:plan) }
+  let(:recurly_plan) { double('Recurly::Plan') }
+  let(:plan_on_billing) { double('plan_on_billing')}
+
+  before do
+    Billing::Plan.stub(:plan_module).and_return(recurly_plan)
+    recurly_plan.stub(:find).and_return(plan_on_billing)
+    plan_on_billing.should_receive('destroy')
+  end
+
+  subject do
+    Billing::Plan.destroy(plan)
+  end
+
+  it "calls recurly to delete the plan" do
+    subject 
+  end
+end
+
 describe Billing::Plan, '.update' do
   let!(:plan) { FactoryGirl.create(:plan) }
   let(:recurly_plan) { double('Recurly::Plan') }
