@@ -25,6 +25,8 @@ module Billing
           return Billing::Notification::ExpiredSubscription.new(expired_subscription_params)
         when 'renewed_subscription_notification'
           return Billing::Notification::RenewedSubscription.new(renewed_subscription_params)
+        when 'updated_subscription_notification'
+          return Billing::Notification::UpdatedSubscription.new(updated_subscription_params)
         else
           return Billing::Notification::NullNotification.new
         end
@@ -94,6 +96,12 @@ module Billing
       def renewed_subscription_params
         {
           subscription_uuid: @body['renewed_subscription_notification']['subscription']['uuid']
+        }
+      end
+
+      def updated_subscription_params
+        {
+          subscription_uuid: @body['updated_subscription_notification']['subscription']['uuid']
         }
       end
 
