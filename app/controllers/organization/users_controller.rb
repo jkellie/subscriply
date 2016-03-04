@@ -73,11 +73,13 @@ class Organization::UsersController < Organization::BaseController
   end
 
   def update_billing_info
-    if Organization::UserBillingInfoUpdater.new(@user).update(params[:recurly_token])
+    updater = Organization::UserBillingInfoUpdater.new(@user)
+
+    if updater.update(params[:recurly_token])
       flash[:notice] = 'Billing Info Saved!'
       redirect_to organization_user_path(@user)
     else
-      flash.now[:error] = 'Error updating billing info'
+      flash.now[:error] = updater.full_errors
       render 'edit_billing_info'
     end
   end
