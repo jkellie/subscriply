@@ -23,7 +23,7 @@ module Billing
     end
 
     def new_plan
-      @new_plan ||= Plan.where(product_id: subscription.product.id, code: plan_code).first
+      @new_plan ||= ::Plan.where(product_id: subscription.product.id, code: plan_code).first
     end
 
     def plan_code
