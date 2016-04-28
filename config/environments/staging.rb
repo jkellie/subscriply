@@ -3,6 +3,16 @@ Rails.application.configure do
 
   # Setup mailer for staging - deliveries, no errors raised
 
+  config.action_mailer.smtp_settings = {
+    authentication: :plain,
+    enable_starttls_auto: true,
+    port: "587",
+    address: ENV.fetch("SMTP_ADDRESS"),
+    domain: ENV.fetch("SMTP_DOMAIN"),
+    password: ENV.fetch("MANDRILL_API_KEY"),
+    user_name: ENV.fetch("MANDRILL_USERNAME")
+  }
+  config.action_mailer.default_url_options = { host: ENV["SMTP_DOMAIN"] }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = false
